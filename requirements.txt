@@ -1,0 +1,43 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# DueDiligence-AI  │  Phase 1 Dependencies
+# ─────────────────────────────────────────────────────────────────────────────
+#
+# Install with:
+#   pip install -r requirements.txt
+#
+# Notes:
+#   • faiss-cpu     — local vector similarity search (no GPU required)
+#   • sentence-transformers — downloads BAAI/bge-base-en-v1.5 on first use
+#   • torch is installed automatically by sentence-transformers
+#   • openai        — used as HTTP client for OpenRouter (OpenAI-compatible API)
+#   • pypdf         — pure-Python PDF text extraction
+#   • tiktoken      — accurate token counting for chunking
+#   • python-dotenv — reads .env for API keys / config
+#   • pytest        — test runner
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Vector search
+faiss-cpu>=1.7.4
+
+# Local embeddings (downloads model weights on first use, ~438 MB)
+sentence-transformers>=2.7.0
+
+# LLM API client (used for OpenRouter — OpenAI-compatible endpoint)
+# Must be v1.x — v1 introduced the OpenAI() client class used throughout this project
+# v3.x (a separate "new openai" fork) has a different API and is NOT compatible
+openai>=1.0.0,<2.0.0
+
+# PDF text extraction
+pypdf>=4.0.0
+
+# Token-accurate chunking
+tiktoken>=0.7.0
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# Numerical computing (sentence-transformers & FAISS dependency)
+numpy>=1.26.0
+
+# Testing
+pytest>=8.0.0

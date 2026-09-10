@@ -30,7 +30,7 @@ With overlap (50 tokens repeated):
 
 Trade-off: overlap increases the total number of chunks (and therefore
 the index size and embedding cost), but improves recall.  50 tokens on a
-500-token chunk = 10% overhead — acceptable for Phase 1.
+500-token chunk = 10% overhead — acceptable for Phase 1 for that.
 """
 
 from __future__ import annotations

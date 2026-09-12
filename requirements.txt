@@ -39,5 +39,9 @@ python-dotenv>=1.0.0
 # Numerical computing (sentence-transformers & FAISS dependency)
 numpy>=1.26.0
 
+# PDF layout analysis (Phase 2) — character bounding boxes + native table detection
+# Wraps pdfminer.six; gives font sizes needed for heading heuristics
+pdfplumber>=0.11.0
+
 # Testing
 pytest>=8.0.0

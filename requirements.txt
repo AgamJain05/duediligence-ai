@@ -43,5 +43,9 @@ numpy>=1.26.0
 # Wraps pdfminer.six; gives font sizes needed for heading heuristics
 pdfplumber>=0.11.0
 
+# Keyword retrieval — BM25 (Phase 3)
+# Pure Python, no server required. Implements BM25Okapi, BM25L, BM25Plus.
+rank-bm25>=0.2.2
+
 # Testing
 pytest>=8.0.0

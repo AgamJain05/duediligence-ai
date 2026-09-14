@@ -36,8 +36,8 @@ load_dotenv()
 PROJECT_ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.vector_store import load_index
-from src.retriever    import load_chunks
+from src.retrieval.hybrid import HybridRetriever
+from src.retrieval.models import HYBRID_RERANKED
 from src.rag_pipeline import run_pipeline
 
 # ── Configuration ─────────────────────────────────────────────────────────────
@@ -137,14 +137,16 @@ def display_results(result: dict) -> None:
 def main() -> None:
     _banner()
 
-    # ── Load index + chunks once at startup ────────────────────────────────────
+    # ── Initialize Phase 3 Hybrid Retriever ───────────────────────────────────
     try:
-        print(f"[startup] Loading FAISS index and chunk store from {INDEX_DIR}...")
-        index  = load_index(INDEX_DIR)
-        chunks = load_chunks(INDEX_DIR)
-        print(f"[startup] Ready - {index.ntotal} vectors, {len(chunks)} chunks.\n")
-    except FileNotFoundError as exc:
-        print(f"\n[ERROR]{exc}")
+        print(f"[startup] Initializing HybridRetriever (Phase 3) from {INDEX_DIR}...")
+        retriever = HybridRetriever(
+            mode=HYBRID_RERANKED,
+            index_dir=str(INDEX_DIR),
+        )
+        print(f"[startup] Ready - {retriever.chunk_count} chunks loaded.\n")
+    except Exception as exc:
+        print(f"\n[ERROR] {exc}")
         sys.exit(1)
 
     print("Type your question and press Enter.")
@@ -168,7 +170,7 @@ def main() -> None:
         short = (query[:60] + "…") if len(query) > 60 else query
         print(f"\n[pipeline] Running for: '{short}'\n")
 
-        result = run_pipeline(query, index, chunks, top_k=TOP_K)
+        result = run_pipeline(query, retriever, top_k=TOP_K)
         display_results(result)
 
 

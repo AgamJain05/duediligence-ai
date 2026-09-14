@@ -60,41 +60,44 @@ from __future__ import annotations
 
 from typing import List, Dict
 
-import faiss
-
-from src.retriever import retrieve
 from src.generator import answer_query
 
 
 def run_pipeline(
     query: str,
-    index: faiss.IndexFlatIP,
-    chunks: List[Dict],
+    retriever,
     top_k: int = 5,
 ) -> Dict:
     """
     Receives : query          — raw user question string
-               index          — loaded FAISS index (from vector_store.load_index)
-               chunks         — loaded chunk store (from retriever.load_chunks)
+               retriever      — Phase 3 HybridRetriever instance
                top_k          — number of chunks to retrieve
     Returns  : trace dict:
                {
                  "query":            str  — the original question
-                 "retrieved_chunks": list — chunks found by retriever
+                 "retrieved_chunks": list — chunks mapped for generator
                  "prompt_messages":  list — exact messages sent to LLM
                  "answer":           str  — LLM response
                  "model_used":       str  — which LLM was used
                }
-
-    Why return the full trace? This is Phase 1 — the purpose is to
-    understand RAG mechanics.  Every step of the pipeline is visible
-    in the returned dict.  app.py displays all of it.
-
-    No magic, no abstraction layers.  You can follow the data from
-    the raw query string all the way to the final answer.
     """
-    # ── Step 1 & 2: Embed query + vector search ────────────────────────────────
-    retrieved_chunks = retrieve(query, index, chunks, top_k=top_k)
+    # ── Step 1 & 2: Search with Phase 3 HybridRetriever ────────────────────────
+    # We dynamically override the retriever's final_top_k for this query
+    old_top_k = retriever.final_top_k
+    retriever.final_top_k = top_k
+    hybrid_result = retriever.search(query)
+    retriever.final_top_k = old_top_k
+
+    # Map the RetrievalResult objects back to the dict format expected by the generator
+    retrieved_chunks = []
+    for r in hybrid_result.results:
+        retrieved_chunks.append({
+            "source": r.source,
+            "page_num": r.page_start,
+            "text": r.text,
+            "score": r.rerank_score if r.rerank_score is not None else r.fusion_score,
+            "chunk_id": r.chunk_id
+        })
 
     # ── Edge case: no chunks retrieved ────────────────────────────────────────
     # This can happen if the index is empty or if the query is completely

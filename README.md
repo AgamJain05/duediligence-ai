@@ -21,6 +21,18 @@ The repository is designed to make retrieval decisions inspectable: you can see 
 - **Retrieval diagnostics:** Inspect intermediate results, rankings, sources, pages, and scores instead of treating retrieval as a black box.
 - **Evaluation tooling:** Runs a labeled retrieval benchmark to compare retrieval modes and inspect failure cases.
 
+## User Interface
+
+DueDiligenceAI provides a dedicated research workspace built with Streamlit for evidence-grounded analysis, retrieval mode configuration, and source provenance inspection.
+
+| Research Workspace & Query Execution | Evidence-Grounded Answer & Metrics |
+| :---: | :---: |
+| ![Research Workspace](Images/Running.png) | ![Evidence-Grounded Answer](Images/Result.png) |
+
+| Collapsible Source Attribution | Chunk Provenance & Diagnostic Scores |
+| :---: | :---: |
+| ![Source Citations](Images/Sources.png) | ![Inspect Chunk Metadata and Scores](Images/Sources_1.png) |
+
 ## Architecture
 
 ### Ingestion
@@ -85,6 +97,7 @@ The local FAISS pipeline provides a useful baseline. The PostgreSQL/pgvector lay
 | Reranking | `cross-encoder/ms-marco-MiniLM-L-6-v2` | Ranks query–chunk pairs for relevance |
 | Knowledge store | PostgreSQL + pgvector | Vector search, relational metadata, and provenance |
 | Generation | OpenRouter API | Generates answers from selected evidence |
+| Interface | Streamlit | Interactive research workspace and retrieval inspector |
 | Testing | `pytest` | Unit and integration tests |
 
 ## Retrieval modes
@@ -175,7 +188,15 @@ python scripts/ingest.py --strategy structure_aware
 
 For PostgreSQL-backed retrieval, configure the database, apply the repository's database migrations, and run its database ingestion workflow before selecting the database-backed retriever.
 
-### 5. Run the interactive application
+### 5. Run the application
+
+**Launch the Streamlit research interface:**
+
+```powershell
+streamlit run ui.py
+```
+
+**Or run the terminal CLI:**
 
 ```powershell
 python app.py
@@ -238,7 +259,8 @@ duediligence-ai/
 │   ├── inspect_retrieval.py
 │   └── evaluate_retrieval.py
 ├── tests/
-├── app.py
+├── ui.py                     # Streamlit research workspace
+├── app.py                    # Terminal CLI application
 ├── requirements.txt
 ├── .env.example
 └── README.md

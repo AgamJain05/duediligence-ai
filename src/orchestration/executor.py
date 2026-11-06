@@ -64,17 +64,20 @@ def make_pg_search_fn(db_session, retrieval_mode: str = "POSTGRES_HNSW"):
     Returns an async callable:
         search_fn(query, filters, top_k) → List[RetrievalResult]
     """
+    import threading
     from src.db.repositories.retrieval import PostgresRetriever
 
     retriever = PostgresRetriever(db_session)
+    session_lock = threading.Lock()
 
     async def _search(query: str, filters: Dict[str, Any], top_k: int):
         loop = asyncio.get_event_loop()
-        # Run the synchronous DB call in a thread pool to avoid blocking
-        result = await loop.run_in_executor(
-            None,
-            lambda: retriever.search(query, top_k=top_k, filters=filters, mode=retrieval_mode)
-        )
+        # Run synchronous DB call with lock to prevent concurrent session access
+        def _sync_call():
+            with session_lock:
+                return retriever.search(query, top_k=top_k, filters=filters, mode=retrieval_mode)
+
+        result = await loop.run_in_executor(None, _sync_call)
         return result
 
     return _search
@@ -92,11 +95,13 @@ def make_faiss_search_fn(top_k: int = 8):
 
     async def _search(query: str, filters: Dict[str, Any], top_k_: int):
         loop = asyncio.get_event_loop()
-        result = await loop.run_in_executor(
-            None,
-            lambda: retriever.search(query).results
-        )
-        return result[:top_k_]
+        def _sync_search():
+            res = retriever.search(query, filters=filters)
+            if res is None or res.results is None:
+                return []
+            return res.results
+        result = await loop.run_in_executor(None, _sync_search)
+        return (result or [])[:top_k_]
 
     return _search
 
@@ -202,8 +207,10 @@ class TaskExecutor:
             for task, result in zip(ready, batch_results):
                 remaining.remove(task)
                 if isinstance(result, Exception):
+                    import traceback
+                    tb_str = "".join(traceback.format_exception(type(result), result, result.__traceback__))
                     task.status = TaskStatus.FAILED
-                    task.error  = str(result)
+                    task.error  = f"{type(result).__name__}: {result}\n{tb_str}"
                     results[task.task_id] = []
                     failed_ids.add(task.task_id)
                 else:
@@ -233,8 +240,8 @@ class TaskExecutor:
         task.latency_ms = (time.perf_counter() - t0) * 1000
 
         # Convert to EvidenceRecord
-        evidence = [_result_to_evidence(r, task.task_id) for r in raw_results]
-        return evidence[:self.config.max_task_retrieval]
+        evidence = [_result_to_evidence(r, task.task_id) for r in (raw_results or [])]
+        return (evidence or [])[:self.config.max_task_retrieval]
 
     async def _call_search(self, task: ResearchTask):
         """Dispatch to search_fn or a no-op stub if None."""

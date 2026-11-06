@@ -1,0 +1,792 @@
+[
+  {
+    "chunk_id": "f1114a1b9474",
+    "document_id": "1fd3e080644d",
+    "source_filename": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_start": 1,
+    "page_end": 1,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "text",
+    "text": "ORIONVAULT SYSTEMS",
+    "chunk_token_count": 6,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_num": 1
+  },
+  {
+    "chunk_id": "0b3d83bcd69f",
+    "document_id": "1fd3e080644d",
+    "source_filename": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_start": 1,
+    "page_end": 1,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "text",
+    "text": "[Section: ORIONVAULT SYSTEMS]\n\nCorpus v3: Phase 5 Planning and Decomposition Supplement\nThis fictional supplement extends the v2 benchmark corpus (OV-AR-25 through OV-CS-25) so that query\ndecomposition, multi-step retrieval, temporal planning and cross-document comparison can be tested against a\ncorpus large enough for single-query retrieval to fail in measurable ways. It must be ingested alongside v2, not\ninstead of it.\nDesign intent: v2 contains almost no region-specific US material, no region-labelled risks, only two time points for\nmost topics, and one source per topic. v3 adds region-specific strategy and risk documents, a third risk-committee\ntime point, a newer quarterly update, a pilot review that partly disagrees with management commentary, and a\ndeliberate set of gaps (no France, Nordics, Japan or Q3 FY2026 data) so that empty-retrieval and partial-evidence\nhandling can be tested.\nSource ID Document Date Main Phase 5 purpose\nOV-US-26 US Enterprise Expansion Plan FY2026 22 May 2026 US strategy and US-specific risks (comparison\nsides)\nOV-EU-26 Europe Channel Partnership Strategy 28 May 2026 Europe strategy and Europe-specific risks\nFY2026\nOV-RM-25 Risk Committee Mid-Year Review 2025 12 June 2025 Third temporal point between 2024 and 2026\nOV-FIN-25 FY2025 Operating Margin Bridge 06 May 2026 Multi-hop: margin drivers and reversal factors\n(finance memo)\nOV-APAC-26 India and Singapore Market Note 30 June 2026 Third and fourth regions, low residency cost\nOV-CP-25 Competitive Landscape Memo 20 November Region-specific competitive risk\n2025\nOV-PF-26 Sentinel Copilot Pilot Review 09 September Pilot data that tests management commentary\n2026\nOV-Q2-26 Q2 FY2026 Operating Update 21 October 2026 Newest operating data; supersedes Q1 for\ncurrent-state questions\nGold-answer impact: adding OV-Q2-26 changes the correct answer to v2 Appendix A questions 2 (latest operating\nmargin) and 17 (latest source for Sentinel Copilot status). The latest margin is now 13.4% in OV-Q2-26, and the latest\nstatus source is OV-Q2-26. Update any stored gold answers before comparing results",
+    "chunk_token_count": 510,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_num": 1
+  },
+  {
+    "chunk_id": "fed6fcab0ef4",
+    "document_id": "1fd3e080644d",
+    "source_filename": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_start": 1,
+    "page_end": 1,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "text",
+    "text": "[Section: ORIONVAULT SYSTEMS]\n\n.\nIntentional gaps (do not fill): no France, Nordics, Benelux or Japan material; no Q3 FY2026 data; no regional (US or\nEurope) breakdown of gross margin; no disclosed Sentinel Copilot revenue figure.\nOrionVault Systems - Fictional RAG Benchmark Corpus v3 (Phase 5 supplement) Page 1",
+    "chunk_token_count": 84,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_num": 1
+  },
+  {
+    "chunk_id": "562ba5c421bd",
+    "document_id": "1fd3e080644d",
+    "source_filename": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_start": 1,
+    "page_end": 1,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "table",
+    "text": "Source ID | Document | Date | Main Phase 5 purpose\nOV-US-26 | US Enterprise Expansion Plan FY2026 | 22 May 2026 | US strategy and US-specific risks (comparison\nsides)\nOV-EU-26 | Europe Channel Partnership Strategy\nFY2026 | 28 May 2026 | Europe strategy and Europe-specific risks\nOV-RM-25 | Risk Committee Mid-Year Review 2025 | 12 June 2025 | Third temporal point between 2024 and 2026\nOV-FIN-25 | FY2025 Operating Margin Bridge\n(finance memo) | 06 May 2026 | Multi-hop: margin drivers and reversal factors\nOV-APAC-26 | India and Singapore Market Note | 30 June 2026 | Third and fourth regions, low residency cost\nOV-CP-25 | Competitive Landscape Memo | 20 November\n2025 | Region-specific competitive risk\nOV-PF-26 | Sentinel Copilot Pilot Review | 09 September\n2026 | Pilot data that tests management commentary\nOV-Q2-26 | Q2 FY2026 Operating Update | 21 October 2026 | Newest operating data; supersedes Q1 for\ncurrent-state questions",
+    "chunk_token_count": 254,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_num": 1
+  },
+  {
+    "chunk_id": "a9e5c0250a64",
+    "document_id": "1fd3e080644d",
+    "source_filename": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_start": 2,
+    "page_end": 2,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "list",
+    "text": "OV-US-26 | US Enterprise Expansion Plan FY2026\nDocument date: 22 May 2026 | Type: Internal strategy plan | Region: United States\n1. Objective\nThe United States is OrionVault's largest customer-location market at 34% of FY2025 revenue, approximately USD\n63 million. The plan aims to grow US enterprise revenue faster than the company average by adding direct sales\ncapacity rather than channel partners. The US motion remains direct-led because enterprise buyers expect a named\naccount team and a single contractual counterparty.\n2. Sales Capacity Plan\nRole Start of FY2026 Planned end of FY2026\nEnterprise account executives 38 83\nSolutions engineers 14 26\nCustomer success managers (US) 22 34\nNewly hired account executives are expected to need two to three quarters to reach full productivity. During the ramp,\ncompensation and onboarding cost is recognized before the related bookings, which creates a temporary drag on\noperating margin.\n3. Target Segments\nPriority segments are financial services, healthcare technology, and logistics. VaultGuard is the lead product for\nfinancial-services accounts because regulated buyers connect credential control to audit requirements. Orbit Monitor\nremains the entry product for logistics accounts, as in the Northstar Logistics case.\n4. US Execution Risks\nProcurement lumpiness. Enterprise customers can approve a technical deployment in one quarter and defer the\ncommercial start date into the next, so quarterly bookings can look weak while the pipeline is healthy.\nSales ramp cost. Adding 45 account executives in one fiscal year front-loads cost. If the ramp slips by one quarter,\nthe plan assumes an operating-margin impact of roughly 0.4 to 0.7 percentage points for the year.\nHyperscaler bundling. US enterprise buyers are the most likely to be offered bundled monitoring and security\nfunctions by large cloud vendors, which creates pricing pressure on renewals.\nSecurity review cycles. US financial-services buyers run lengthy vendor security questionnaires, which extend sales\ncycles by an estimated 30 to 45 days compared with non-regulated buyers.\nRegulatory note. The US plan does not rely on regional data-isolation commitments, so the incremental\ndata-residency cost described for Germany and the United Kingdom is not a primary US risk.\nOrionVault Systems - Fictional RAG Benchmark Corpus v3 (Phase 5 supplement) Page 2",
+    "chunk_token_count": 490,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_num": 2
+  },
+  {
+    "chunk_id": "9c8eaa5c6aab",
+    "document_id": "1fd3e080644d",
+    "source_filename": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_start": 2,
+    "page_end": 3,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "list",
+    "text": "Role | Start of FY2026 | Planned end of FY2026\nEnterprise account executives | 38 | 83\nSolutions engineers | 14 | 26\nCustomer success managers (US) | 22 | 34\n\nOV-EU-26 | Europe Channel Partnership Strategy FY2026\nDocument date: 28 May 2026 | Type: Internal strategy plan | Region: United Kingdom and Germany\n1. Objective\nEurope is a growth focus built on channel distribution. The United Kingdom represented 15% and Germany 10% of\nFY2025 revenue. The plan targets partner-sourced share of new European bookings rising from 12% at the start of\nFY2026 to 35% by year end.\n2. Partner Programme\nMarket Partners at start Partners targeted by year end Partner type\nUnited Kingdom 3 8 Managed service providers, security\nresellers\nGermany 2 9 Regional system integrators,\ncompliance consultancies\nManagement expects partner-led acquisition to reduce customer-acquisition cost per new logo by 18 to 22%\ncompared with direct sales, because partners carry pre-sales and implementation effort.\n3. Europe Execution Risks\nLoss of direct control. Partners own the day-to-day customer relationship. OrionVault receives less product\nfeedback and has less visibility into renewal risk for partner-led accounts.\nPartner discount. Partners receive a margin of up to 25% of first-year subscription value, which offsets part of the\nacquisition-cost saving.\nData-residency cost. German and UK regulated customers increasingly require regional data isolation. Under Data\nResidency Standard v2.0 the incremental infrastructure and compliance cost can reduce gross margin by 0.6 to 1.0\npercentage points for affected accounts unless pricing is adjusted.\nIn-region support. Qualifying German regulated customers expect support staff located in Germany, which partners\nmust supply or OrionVault must hire.\nSovereign-cloud competitors. Local providers market data sovereignty as a differentiator in both markets.\nScope note: this plan covers only the United Kingdom and Germany. It contains no plan for France, the Nordics or\nother European markets.\nOrionVault Systems - Fictional RAG Benchmark Corpus v3 (Phase 5 supplement) Page 3",
+    "chunk_token_count": 457,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_num": 2
+  },
+  {
+    "chunk_id": "164bfaa47313",
+    "document_id": "1fd3e080644d",
+    "source_filename": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_start": 3,
+    "page_end": 4,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "list",
+    "text": "Market | Partners at start | Partners targeted by year end | Partner type\nUnited Kingdom | 3 | 8 | Managed service providers, security\nresellers\nGermany | 2 | 9 | Regional system integrators,\ncompliance consultancies\n\nOV-RM-25 | Risk Committee Mid-Year Review 2025\nDocument date: 12 June 2025 | Type: Risk committee review | Position in series: between OV-RM-24 and OV-RM-26\n1. Ranking at Mid-Year 2025\nThe committee ranked credential-security exposure first, platform availability second, customer concentration third,\nand international compliance fourth. International compliance moved up from its 2024 position because Data\nResidency Standard v1.2 took effect on 01 January 2025 and German commitments were being negotiated.\n2. Sentinel Copilot\nSentinel Copilot was added to the watchlist but not ranked. The committee noted that inference cost and\nrecommendation accuracy would become reportable risks once customer pilots began.\n3. Cloud Dependence\nThe committee still treated cloud concentration mainly as an availability risk. It recorded for the first time that price\nand contract terms with infrastructure providers could become a margin issue, and asked management to track it as a\nwatch item.\n4. Customer Concentration\nThe ten largest accounts were trending from 20% toward 19% of revenue, and the committee described\nconcentration as improving but still material.\n5. Terminology in 2025\nThe committee continued to use regional processing burden. It introduced the phrase emerging regional isolation\nrequirement in a single paragraph, which later became regional data-isolation cost in the 2026 update.\nVersioning note: this review sits between the 2024 memo and the 2026 update. A temporal plan that retrieves only\n2024 and 2026 will miss the intermediate shift.\nOrionVault Systems - Fictional RAG Benchmark Corpus v3 (Phase 5 supplement) Page 4",
+    "chunk_token_count": 403,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_num": 3
+  },
+  {
+    "chunk_id": "ea40e43b44f1",
+    "document_id": "1fd3e080644d",
+    "source_filename": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_start": 5,
+    "page_end": 5,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "list",
+    "text": "OV-FIN-25 | FY2025 Operating Margin Bridge\nDocument date: 06 May 2026 | Type: Finance memo | Period: FY2024 to FY2025\n1. Summary\nOperating margin rose from 10.4% in FY2024 (USD 16m on USD 154m) to 14.0% in FY2025 (USD 26m on USD\n186m), an improvement of about 3.6 percentage points. Gross margin rose from 68.2% to 71.0%, and\noperating-expense leverage supplied the remainder.\n2. Bridge\nDriver Contribution (pp) Comment\nInfrastructure efficiency +1.7 Lower unit cost per monitored workload\nWorkload utilization +0.7 Better packing of container workloads\nMulti-module pricing +0.4 Higher pricing on multi-module contracts\nOperating-expense leverage +0.8 Sales and administrative cost grew slower than revenue;\nR&D; rose as a share of revenue\nTotal +3.6\nPricing therefore explains a minority of the improvement, which is consistent with the CFO's statement on the\nearnings call that the improvement was not primarily a pricing story.\n3. Factors That Could Reverse the Improvement\nCloud pricing. Finance estimates that a 5% rise in unit pricing from the main cloud providers would reduce gross\nmargin by about 0.9 points.\nAI inference. Sentinel Copilot inference is not in the FY2025 cost base. Usage-based cost per active seat could\noffset infrastructure gains during pilots.\nRegional isolation. Duplicated regional environments for regulated customers increase cost and reduce utilization\ngains.\nR&D growth. R&D rose from USD 35m to USD 43m. Continued growth faster than revenue would erode the\noperating-expense leverage.\nOrionVault Systems - Fictional RAG Benchmark Corpus v3 (Phase 5 supplement) Page 5\n\nDriver | Contribution (pp) | Comment\nInfrastructure efficiency | +1.7 | Lower unit cost per monitored workload\nWorkload utilization | +0.7 | Better packing of container workloads\nMulti-module pricing | +0.4 | Higher pricing on multi-module contracts\nOperating-expense leverage | +0.8 | Sales and administrative cost grew slower than revenue;\nR&D; rose as a share of revenue\nTotal | +3.6 | ",
+    "chunk_token_count": 484,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_num": 5
+  },
+  {
+    "chunk_id": "87049067789f",
+    "document_id": "1fd3e080644d",
+    "source_filename": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_start": 6,
+    "page_end": 7,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "list",
+    "text": "OV-APAC-26 | India and Singapore Market Note\nDocument date: 30 June 2026 | Type: Regional market note | Region: India and Singapore\n1. India\nIndia contributed 24% of FY2025 revenue and remains the largest engineering base, with Bengaluru and Pune\ncentres. Customers are price-sensitive, and Orbit Monitor is the dominant product. Domestic data-location\nrequirements are met within existing public-cloud regions and add little incremental cost.\n2. Singapore\nSingapore contributed 8% of FY2025 revenue and hosts a sales office. Financial-services customers prefer\nVaultGuard and ask for audit evidence, but contracts rarely require dedicated regional environments. Competition\ncomes mostly from standalone security vendors.\n3. Cost Burden Comparison\nNeither India nor Singapore is currently among the markets with high incremental data-residency cost. Germany and\nthe United Kingdom carry the highest burden. The United States, India and Singapore have no regional isolation\ncommitment in the 2026 standard.\nScope note: no expansion plan for Japan, Australia or other Asia-Pacific markets exists in this corpus.\nOrionVault Systems - Fictional RAG Benchmark Corpus v3 (Phase 5 supplement) Page 6\n\nOV-CP-25 | Competitive Landscape Memo\nDocument date: 20 November 2025 | Type: Internal strategy memo\n1. United States\nThe largest competitive pressure comes from cloud-platform vendors that bundle monitoring and security into\nenterprise agreements. In FY2025 enterprise win rate against bundled offers was 27%, compared with 41% in\nmid-market deals.\n2. United Kingdom and Germany\nRegional managed-service providers and sovereign-cloud vendors compete on data sovereignty. In Germany,\nprocurement teams weight in-country processing and German-language support heavily. Win rates are higher when a\nlocal partner is involved.\n3. Product Positioning\nVaultGuard faces standalone secrets-management vendors. Relay Incident faces smaller incident-response\nplatforms and is mainly sold as an attach product to existing Orbit Monitor accounts.\n4. Implication\nManagement concludes that the unified workflow, rather than any single module, is the differentiator. Competitive risk\nis therefore described as pricing pressure in the US and sovereignty positioning in Europe.\nOrionVault Systems - Fictional RAG Benchmark Corpus v3 (Phase 5 supplement) Page 7",
+    "chunk_token_count": 468,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_num": 6
+  },
+  {
+    "chunk_id": "feb71579b48a",
+    "document_id": "1fd3e080644d",
+    "source_filename": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_start": 8,
+    "page_end": 8,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "list",
+    "text": "OV-PF-26 | Sentinel Copilot Pilot Review\nDocument date: 09 September 2026 | Type: Internal pilot review | Data as of 31 August 2026 | Feature identifier: SCP-610\n1. Pilot Status\nAs of 31 August 2026, 46 customer pilots were active and 15 had converted to paid add-on contracts. This compares\nwith 38 active and 11 converted in OV-Q1-26.\n2. Effectiveness\nMedian investigation time fell by 31% for incidents where analysts followed R1 or R2 recommendations. For\ncredential incidents using recipe IR-17, the R3 recommendation error rate was 4.2%. In 6% of reviewed cases a\nplausible but incorrect recommendation lengthened the investigation.\n3. Cost\nInference cost per active seat was 35% above plan in June and 19% above plan in August after model-routing\nchanges. Month-to-month cost variance remained about 40%, so unit economics are not yet predictable.\n4. Customer Behaviour\nNine pilot customers disabled automated recommendations while keeping alert summarization. Regulated customers\nrequested evidence links and review logs before agreeing to broader rollout.\n5. Comparison With Earlier Statements\nThe review notes that the earnings-call goal of predictable economics before broad rollout has not yet been met, and\nthat the risk committee's human-review requirement for high-impact actions matches the pilot findings.\nOrionVault Systems - Fictional RAG Benchmark Corpus v3 (Phase 5 supplement) Page 8",
+    "chunk_token_count": 312,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_num": 8
+  },
+  {
+    "chunk_id": "fb10139e64b4",
+    "document_id": "1fd3e080644d",
+    "source_filename": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_start": 9,
+    "page_end": 9,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "list",
+    "text": "OV-Q2-26 | Q2 FY2026 Operating Update\nDocument date: 21 October 2026 | Period: Q2 FY2026 | Type: Quarterly operating update | Supersedes: OV-Q1-26 for\ncurrent-state questions\n1. Current Quarter Snapshot\nMetric Q2 FY2026 Context\nRevenue (USD m) 54.6 Quarterly revenue\nAnnual recurring revenue (USD m) 213 Exit-rate ARR\nOperating margin 13.4% Up from 13.1% in Q1 FY2026; below FY2025 annual\n14%\nFree cash flow (USD m) 5.9 Improved working capital\nGross revenue retention 92.1% Stable\nNet revenue retention 119% Up from 118% in Q1\n2. Sentinel Copilot\n52 customer pilots are active and 19 have converted to paid add-on contracts. Inference cost per active seat declined\n22% versus Q1 as model routing was optimized. Management still describes cost variability as an investment-phase\nissue.\n3. Regional Update\nThe United Kingdom and Germany remain the highest-cost regions for data isolation. The first Data Residency\nStandard v2.0 contracts were signed in Q2. The US enterprise sales hiring plan is on schedule, with 61 account\nexecutives in seat.\n4. Not Covered\nThis update does not provide FY2026 guidance, Q3 results, or any plan for markets outside those named in earlier\ndocuments.\nOrionVault Systems - Fictional RAG Benchmark Corpus v3 (Phase 5 supplement) Page 9\n\nMetric | Q2 FY2026 | Context\nRevenue (USD m) | 54.6 | Quarterly revenue\nAnnual recurring revenue (USD m) | 213 | Exit-rate ARR\nOperating margin | 13.4% | Up from 13.1% in Q1 FY2026; below FY2025 annual\n14%\nFree cash flow (USD m) | 5.9 | Improved working capital\nGross revenue retention | 92.1% | Stable\nNet revenue retention | 119% | Up from 118% in Q1",
+    "chunk_token_count": 444,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Phase5_Planning_Supplement_Corpus.pdf",
+    "page_num": 9
+  },
+  {
+    "chunk_id": "56b71d3ffb6e",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 1,
+    "page_end": 1,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "text",
+    "text": "ORIONVAULT SYSTEMS\n\nExpanded Company Due-Diligence Corpus\nPhase 3+ Retrieval Engineering Benchmark\nPurpose\nThis is a fictional, multi-document corpus for progressively building and testing a production-oriented RAG and agentic\ndue-diligence system. It is deliberately richer than the first corpus so that retrieval methods can produce meaningfully different\nresults.\nImportant: Some documents intentionally overlap, use different terminology, contain time-versioned information, or present\nlimited disagreements. These are design features for retrieval, filtering, reranking, multi-hop reasoning, provenance, and\nvalidation experiments.\nCorpus contents\nSource ID Document Period / Version Primary retrieval challenge\nOV-AR-25 Annual Review and Financial StatementsFY2025 tables, numbers, exact terms, cross-section context\nOV-Q1-26 Q1 FY2026 Operating Update Q1 FY2026 freshness, changed metrics, recent strategy\nOV-RM-24 Risk Committee Memo 2024 historical risks, older terminology\nOV-RM-26 Risk Committee Update 2026 versioning, changed risk emphasis\nOV-ER-25 FY2025 Earnings Call Transcript Q4 FY2025 natural language, synonyms, management commentary\nOV-PR-26 Sentinel Copilot Product Brief 2026 exact product codes, technical vocabulary\nOV-IR-21 Incident Report: VaultGuard Event 2021 incident terms, chronology, causal chains\nOV-DR-25 Data Residency Standard v1.2 / 2025 policy versioning, regional rules\nOV-DR-26 Data Residency Standard v2.0 / 2026 latest-policy retrieval, contradictions\nOV-CS-25 Customer Case Study 2025 cross-domain semantics, metrics\nRecommended progression: Use the same benchmark questions against your Phase 1, Phase 2, and Phase 3 implementations. Later phases\nshould add metadata/version awareness, SQL or structured metrics, multi-document planning, evidence verification, and temporal reasoning.\nPage 1",
+    "chunk_token_count": 402,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 1
+  },
+  {
+    "chunk_id": "5958d110dab6",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 1,
+    "page_end": 1,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "table",
+    "text": "Source ID | Document | Period / Version | Primary retrieval challenge\nOV-AR-25 | Annual Review and Financial Statemen | tsFY2025 | tables, numbers, exact terms, cross-section context\nOV-Q1-26 | Q1 FY2026 Operating Update | Q1 FY2026 | freshness, changed metrics, recent strategy\nOV-RM-24 | Risk Committee Memo | 2024 | historical risks, older terminology\nOV-RM-26 | Risk Committee Update | 2026 | versioning, changed risk emphasis\nOV-ER-25 | FY2025 Earnings Call Transcript | Q4 FY2025 | natural language, synonyms, management commentary\nOV-PR-26 | Sentinel Copilot Product Brief | 2026 | exact product codes, technical vocabulary\nOV-IR-21 | Incident Report: VaultGuard Event | 2021 | incident terms, chronology, causal chains\nOV-DR-25 | Data Residency Standard | v1.2 / 2025 | policy versioning, regional rules\nOV-DR-26 | Data Residency Standard | v2.0 / 2026 | latest-policy retrieval, contradictions\nOV-CS-25 | Customer Case Study | 2025 | cross-domain semantics, metrics",
+    "chunk_token_count": 259,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 1
+  },
+  {
+    "chunk_id": "0eecb732ed7c",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 2,
+    "page_end": 2,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "text",
+    "text": "[Section: ORIONVAULT SYSTEMS]\n\nOV-AR-25 | FY2025 Annual Review and Financial Statements\nDocument date: 15 April 2026 | Reporting period: FY2025 | Document type: Annual Review\n1. Company Profile\nOrionVault Systems is a Bengaluru-founded cloud operations and security software company. Its platform combines\ninfrastructure monitoring, credential protection, and incident-response coordination. The company primarily sells annual\nsoftware subscriptions, with implementation and architecture services treated as a smaller professional-services line.\nAt the end of FY2025, OrionVault reported 2,850 active organizations and 1,240 employees. Its five principal markets\nwere the United States, India, United Kingdom, Germany, and Singapore. The United States represented the largest\ncustomer-location market by revenue, while India remained the largest engineering base.\n2. Product Portfolio\nProduct Primary capability FY2025 share / status Typical buyer\nOrbit Monitor Application health, service availability, container performa4n6ce%, aolfe srtu rbosuctriinpgtion revenue Platform engineering\nVaultGuard API keys, service credentials, privileged-access workflows31% of subscription revenue Security / regulated firms\nRelay Incident Escalation, responder assignment, timelines, post-inciden1t 5n%ot eosf subscription revenue SRE / security operations\nProfessional Services Migration, implementation, training, architecture 8% of total revenue Enterprise IT\nSentinel Copilot Alert summarization and investigation recommendations Pilot planned; no disclosed revenue Security operations\nSentinel Copilot is an AI-assisted investigation feature. Its planned production release depends on inference cost,\nrecommendation accuracy, customer trust, and integration with existing incident workflows. Management does not treat it\nas a standalone revenue segment yet.\n3. Financial Performance\nMetric FY2023 FY2024 FY2025 Notes\nRevenue (USD m) 121 154 186 Subscription-led\nGross profit (USD m) 79 105 132\nOperating income (USD m) 9 16 26\nNet income (USD m) 5 11 18\nOperating margin 7% 10% 14%\nFree cash flow (USD m) 12 18 24\nR&D spend (USD m) 27 35 43\nCash & equivalents - - 62 No long-term debt\nRevenue increased from USD 121 million in FY2023 to USD 186 million in FY2025. Management attributes growth to\nnew",
+    "chunk_token_count": 510,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 2
+  },
+  {
+    "chunk_id": "c50d937259ca",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 2,
+    "page_end": 2,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "text",
+    "text": "[Section: ORIONVAULT SYSTEMS]\n\n enterprise accounts, expansion of VaultGuard within regulated customers, and higher pricing on multi-module\ncontracts. Operating margin improved from 7% to 14%, primarily because infrastructure costs grew more slowly than\nsubscription revenue.\n4. Revenue Mix and Customer Concentration\nCustomer-location market FY2025 revenue mix\nUnited States 34%\nIndia 24%\nUnited Kingdom 15%\nGermany 10%\nSingapore 8%\nOther markets 9%\nPage 2",
+    "chunk_token_count": 101,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 2
+  },
+  {
+    "chunk_id": "ad7c44c4496d",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 2,
+    "page_end": 3,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "mixed",
+    "text": "Product | Primary capability | FY2025 share / status | Typical buyer\nOrbit Monitor | Application health, service availability, container perform | a4n6ce%, aolfe srtu rbosuctriinpgtion revenue | Platform engineering\nVaultGuard | API keys, service credentials, privileged-access workflo | ws31% of subscription revenue | Security / regulated firms\nRelay Incident | Escalation, responder assignment, timelines, post-incide | n1t 5n%ot eosf subscription revenue | SRE / security operations\nProfessional Services | Migration, implementation, training, architecture | 8% of total revenue | Enterprise IT\nSentinel Copilot | Alert summarization and investigation recommendations | Pilot planned; no disclosed revenue | Security operations\n\nMetric | FY2023 | FY2024 | FY2025 | Notes\nRevenue (USD m) | 121 | 154 | 186 | Subscription-led\nGross profit (USD m) | 79 | 105 | 132 | \nOperating income (USD m) | 9 | 16 | 26 | \nNet income (USD m) | 5 | 11 | 18 | \nOperating margin | 7% | 10% | 14% | \nFree cash flow (USD m) | 12 | 18 | 24 | \nR&D spend (USD m) | 27 | 35 | 43 | \nCash & equivalents | - | - | 62 | No long-term debt\n\nCustomer-location market | FY2025 revenue mix\nUnited States | 34%\nIndia | 24%\nUnited Kingdom | 15%\nGermany | 10%\nSingapore | 8%\nOther markets | 9%\n\nThe ten largest customers accounted for 19% of FY2025 revenue, while the largest single customer accounted for 4.7%.\nGross revenue retention was 92%, and net revenue retention was 116%. The company views customer expansion as a\nmajor growth driver, but the risk committee continues to monitor concentration because large enterprise renewals can\nmove quarterly results.\nCross-reference: The geographic table describes customer location, not the location of employees or cloud infrastructure. India\nremains the largest engineering base even though the United States is the largest revenue market.\nPage 3",
+    "chunk_token_count": 470,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 2
+  },
+  {
+    "chunk_id": "fc1c0deb43b2",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 4,
+    "page_end": 4,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "text",
+    "text": "[Section: ORIONVAULT SYSTEMS]\n\nOV-AR-25 | FY2025 Annual Review - continued\n5. Strategy and Growth Priorities\nFor FY2026, management identified four priorities: expand VaultGuard adoption, launch Sentinel Copilot, increase\nenterprise sales capacity in the United States, and improve gross margins through infrastructure optimization.\nThe strategy for Sentinel Copilot is to reduce investigation time rather than replace security analysts. The feature is\ndesigned to summarize alerts, surface related events, and recommend investigation steps. Management expects usage\nto expand gradually because customers in regulated sectors require stronger explainability and review controls.\nEurope is another growth focus. OrionVault plans to deepen channel partnerships in the United Kingdom and Germany.\nManagement expects channel distribution to reduce customer-acquisition costs, although partner-led sales can reduce\ndirect control over customer relationships and customer feedback loops.\n6. Technology and Operations\nThe core platform uses containerized services, a managed relational database layer, public-cloud infrastructure, and\ncustomer integrations. The system processes telemetry events, security events, authentication metadata, and incident\nrecords. The core engineering release cadence is weekly; VaultGuard changes undergo stricter release controls.\nMajor dependencies include public-cloud providers, third-party identity services, external software libraries, and\ncustomer-configured integrations. An outage or pricing change at a major cloud provider could affect availability or\nmargins in the affected region.\n7. Risk Factors\nRisk What can go wrong Potential impact\nCloud concentration Outage, pricing change, regional capacity shortage Availability, gross margin\nSecurity and trust Credential breach or serious vulnerability Customer loss, incident cost, reputation\nCompetition Large cloud vendors bundle competing functions Pricing pressure, retention\nAI cost / reliability High inference usage or inaccurate recommendations Margin pressure, user trust\nRegulatory / data residency Different regional storage and audit obligations Infrastructure and compliance costs\nCustomer concentration Large enterprise loss or delayed renewal Quarterly revenue volatility\nTalent Competition for distributed systems, ML, security engineers Delivery delays, wage inflation\n8. Management Metrics and Operating Indicators\nIndicator FY2024 FY2025 Management interpretation\nActive organizations 2,430 2,850 Customer base expanding\nGross revenue retention 91% 92% Stable retention\nNet revenue retention 111% 116% Expansion within existing accounts\nLargest customer share 4.9% 4.7% Slightly less concentrated\nTop ten customer share 20% 19% Moderate improvement\nR&D spend (USD m) 35 43 Investment increasing\nManagement",
+    "chunk_token_count": 510,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 4
+  },
+  {
+    "chunk_id": "9f0b19a6c2c2",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 4,
+    "page_end": 4,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "text",
+    "text": "[Section: ORIONVAULT SYSTEMS]\n\n cautions that strong net revenue retention can coexist with uneven quarterly bookings because larger\nenterprise customers may have long procurement cycles.\nPage 4",
+    "chunk_token_count": 38,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 4
+  },
+  {
+    "chunk_id": "797a0cf70ea7",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 4,
+    "page_end": 4,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "table",
+    "text": "Risk | What can go wrong | Potential impact\nCloud concentration | Outage, pricing change, regional capacity shortage | Availability, gross margin\nSecurity and trust | Credential breach or serious vulnerability | Customer loss, incident cost, reputation\nCompetition | Large cloud vendors bundle competing functions | Pricing pressure, retention\nAI cost / reliability | High inference usage or inaccurate recommendations | Margin pressure, user trust\nRegulatory / data residency | Different regional storage and audit obligations | Infrastructure and compliance costs\nCustomer concentration | Large enterprise loss or delayed renewal | Quarterly revenue volatility\nTalent | Competition for distributed systems, ML, security engineers | Delivery delays, wage inflation\n\nIndicator | FY2024 | FY2025 | Management interpretation\nActive organizations | 2,430 | 2,850 | Customer base expanding\nGross revenue retention | 91% | 92% | Stable retention\nNet revenue retention | 111% | 116% | Expansion within existing accounts\nLargest customer share | 4.9% | 4.7% | Slightly less concentrated\nTop ten customer share | 20% | 19% | Moderate improvement\nR&D spend (USD m) | 35 | 43 | Investment increasing",
+    "chunk_token_count": 247,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 4
+  },
+  {
+    "chunk_id": "a06e59f4f11d",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 5,
+    "page_end": 5,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "list",
+    "text": "OV-Q1-26 | Q1 FY2026 Operating Update\nDocument date: 20 July 2026 | Period: Q1 FY2026 | Type: Quarterly operating update\n1. Current Quarter Snapshot\nMetric Q1 FY2026 Context\nRevenue (USD m) 51.2 Quarterly revenue; not FY2026 guidance\nAnnual recurring revenue (USD m) 204 Exit-rate ARR\nOperating margin 13.1% Down from FY2025 annual 14%\nFree cash flow (USD m) 4.8 Seasonal working-capital effects\nGross revenue retention 92.4% Stable\nNet revenue retention 118% Improved from FY2025 116%\nQ1 FY2026 results show continued subscription expansion but a temporary margin pressure from Sentinel Copilot\ninference workloads and additional regional data-processing environments. Management describes both items as\ninvestments rather than structural changes to the cost base.\n2. Product Adoption\nProduct New reference signal in Q1 FY2026\nOrbit Monitor Stable; remains the broadest entry product\nVaultGuard Strongest expansion among regulated and financial-services accounts\nRelay Incident Attach rate increased in existing Orbit Monitor accounts\nSentinel Copilot 38 customer pilots active; 11 converted to paid add-on contracts\nSentinel Copilot is now tracked through internal feature identifier SCP-610. The production recommendation engine uses\ninvestigation recipe profile IR-17 for credential-related incidents. Customers can disable automated recommendations\nwhile retaining alert summarization.\n3. Regional Expansion\nGermany and the United Kingdom remain the two regions with the highest incremental data-residency costs. A new\nregional storage guarantee was introduced for certain regulated customers in Q1. The guarantee increases infrastructure\nredundancy but may improve renewal probability.\n4. Outlook and Management View\nThe company has not changed its full-year strategic priorities. Management expects U.S. enterprise growth to remain\nabove the company average, but warns that procurement cycles can create quarter-to-quarter noise. Management also\nexpects Sentinel Copilot inference cost per active seat to decline as model routing is optimized.\nTemporal retrieval trap: this document is newer than the FY2025 annual review. A question asking for the latest operating\nmargin or current Sentinel Copilot status should prefer this document over older annual-review statements.\nPage 5",
+    "chunk_token_count": 469,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 5
+  },
+  {
+    "chunk_id": "528d731bedd6",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 5,
+    "page_end": 6,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "list",
+    "text": "Metric | Q1 FY2026 | Context\nRevenue (USD m) | 51.2 | Quarterly revenue; not FY2026 guidance\nAnnual recurring revenue (USD m) | 204 | Exit-rate ARR\nOperating margin | 13.1% | Down from FY2025 annual 14%\nFree cash flow (USD m) | 4.8 | Seasonal working-capital effects\nGross revenue retention | 92.4% | Stable\nNet revenue retention | 118% | Improved from FY2025 116%\n\nProduct | New reference signal in Q1 FY2026\nOrbit Monitor | Stable; remains the broadest entry product\nVaultGuard | Strongest expansion among regulated and financial-services accounts\nRelay Incident | Attach rate increased in existing Orbit Monitor accounts\nSentinel Copilot | 38 customer pilots active; 11 converted to paid add-on contracts\n\nOV-RM-24 | Risk Committee Memo\nDocument date: 10 November 2024 | Type: Internal risk memo\n1. Risk Priorities at the Time\nThe 2024 risk committee ranked platform availability, credential-security exposure, customer concentration, and\ninternational compliance as the principal enterprise risks.\nThe committee noted that cloud concentration was primarily an availability issue at that time, while data residency was\nmainly viewed as a compliance overhead. Sentinel Copilot was not yet a committee-level risk because it had not entered\ncustomer pilots.\n2. Customer Concentration\nThe ten largest accounts represented approximately 20% of FY2024 revenue. The committee's view was that\nconcentration was manageable because the largest individual customer was below 5% of revenue and gross revenue\nretention remained above 90%.\n3. International Data Processing\nGermany-specific storage commitments were expected to be the most demanding among the company's then-current\nmarkets. The memo recommended standardized contractual language rather than separate infrastructure environments\nfor every customer.\n4. Risk Language Used in 2024\nThe committee used the phrase regional processing burden for the cost of keeping data in separate locations. It used\ncloud concentration for dependence on external infrastructure providers.\nVersioning note: this is deliberately old. Later documents revise both the risk ranking and the technical interpretation of regional\nprocessing.\nPage 6",
+    "chunk_token_count": 457,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 5
+  },
+  {
+    "chunk_id": "8dd1db1ffa85",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 7,
+    "page_end": 8,
+    "section": "OV-ER-25 | FY2025 Earnings Call Transcript - Selected",
+    "section_path": [
+      "ORIONVAULT SYSTEMS",
+      "OV-ER-25 | FY2025 Earnings Call Transcript - Selected"
+    ],
+    "parent_section": "ORIONVAULT SYSTEMS",
+    "content_type": "list",
+    "text": "OV-RM-26 | Risk Committee Update\nDocument date: 05 August 2026 | Type: Risk committee update\n1. Revised Risk Ranking\nThe 2026 committee now ranks security and trust, data-residency cost, AI recommendation reliability, and cloud\nconcentration above customer concentration. Customer concentration remains material but is not the fastest-moving risk\nin the committee's current view.\n2. AI Reliability Risk\nSentinel Copilot introduces a new operational risk because incorrect recommendations can increase investigation time\nrather than reduce it. The committee requires production deployments to retain a human review step for high-impact\nactions.\n3. Data Residency Risk\nGermany and the United Kingdom now require stronger regional-storage commitments for a subset of regulated\ncustomers. Management estimates that the incremental infrastructure and compliance cost can reduce gross margin by\n0.6 to 1.0 percentage points for affected accounts unless pricing is adjusted.\n4. Revised Terminology\nThe committee now uses regional data-isolation cost rather than the older phrase regional processing burden. It also\ndistinguishes cloud concentration from cloud provider bargaining exposure, the latter referring to price and\ncontractual leverage rather than availability.\nVersioning trap: the 2024 memo and 2026 update discuss similar topics using different terminology and different priorities. A\nsystem without dates and document-version metadata may retrieve both without understanding which one is current.\nPage 7\n\nOV-ER-25 | FY2025 Earnings Call Transcript - Selected",
+    "chunk_token_count": 300,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 7
+  },
+  {
+    "chunk_id": "f0a186a1d9e3",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 8,
+    "page_end": 8,
+    "section": "OV-ER-25 | FY2025 Earnings Call Transcript - Selected",
+    "section_path": [
+      "ORIONVAULT SYSTEMS",
+      "OV-ER-25 | FY2025 Earnings Call Transcript - Selected"
+    ],
+    "parent_section": "ORIONVAULT SYSTEMS",
+    "content_type": "text",
+    "text": "Excerpts\nDocument date: 29 April 2026 | Period discussed: FY2025 | Type: Management transcript\nCEO Mira Sen\nWe continue to see strong expansion after the first year of a customer relationship. Many organizations start with Orbit\nMonitor because it is operationally visible, then add VaultGuard when credential-security requirements become more\nmature. That sequencing remains central to our land-and-expand model.\nCFO Arjun Mehta\nThe improvement in FY2025 operating margin was not primarily a pricing story. Infrastructure efficiency, better workload\nutilization, and the fact that subscription revenue grew faster than baseline infrastructure costs made the larger\ncontribution. We still expect research and development spending to rise as we invest in machine learning and security\ncapabilities.\nCEO Mira Sen\nOn the U.S. market, enterprise demand is healthy, but procurement can be lumpy. A customer may approve a technical\ndeployment in one quarter and defer the commercial start date into the next quarter. That is one reason we focus more on\nretention and annual contract value than on one month's bookings.\nCFO Arjun Mehta\nFor Europe, the important change is not merely compliance paperwork. Customers increasingly ask us to keep certain\nprocessing events within defined regions. That can require duplicated systems, additional observability, and more\noperational controls.\nAnalyst question: How should investors think about Sentinel Copilot economics?\nCFO Arjun Mehta: In the first phase, usage-based inference costs will be a headwind. We are testing model routing and\nsmaller models for lower-risk recommendations. The goal is to make the economics predictable before broad rollout.\nAnalyst question: Is customer concentration a concern?\nCEO Mira Sen: It is monitored, but the larger ten-account concentration has been stable to slightly lower. We are more\nfocused on protecting trust and retention in regulated customers, because the cost of losing a reference account can\nextend beyond the revenue line.\nRetrieval challenge: The transcript often expresses the same concepts as the annual report but with different wording such as\nland-and-expand, workload utilization, lumpy procurement, and processing events within defined regions.\nPage 8",
+    "chunk_token_count": 442,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 8
+  },
+  {
+    "chunk_id": "0bb0f73d9023",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 9,
+    "page_end": 9,
+    "section": "OV-ER-25 | FY2025 Earnings Call Transcript - Selected",
+    "section_path": [
+      "ORIONVAULT SYSTEMS",
+      "OV-ER-25 | FY2025 Earnings Call Transcript - Selected"
+    ],
+    "parent_section": "ORIONVAULT SYSTEMS",
+    "content_type": "list",
+    "text": "OV-PR-26 | Sentinel Copilot Product and Technical Brief\nDocument date: 12 August 2026 | Type: Product brief | Product: Sentinel Copilot\n1. Product Definition\nSentinel Copilot is an assistive security-operations feature layered on top of OrionVault's alert and incident data. Its\nprimary functions are alert summarization, related-event grouping, investigation-step recommendation, and incident\ntimeline drafting.\nInternal product identifier: SCP-610. Credential-incident investigation recipe: IR-17. Recommendation confidence bands\nare labeled R1, R2, and R3. R1 recommendations are informational; R3 recommendations require an explicit human\nconfirmation before execution.\n2. Technical Flow\nThe feature receives normalized alert events, selected identity metadata, recent incident context, and approved runbook\nexcerpts. A model router chooses a model based on task risk. High-risk recommendations may use a larger model and\nstricter verification checks.\nComponent Role Identifier / policy signal\nAlert summarizer Turns a stream of alerts into a concise incident summary SUM-02\nEvent linker Connects related telemetry and identity events LINK-08\nInvestigation recommender Suggests next investigative steps IR-17\nTimeline builder Drafts a chronological incident record TL-04\nHigh-impact action gate Requires human confirmation for R3 actions HAG-03\n3. Cost and Reliability\nThe primary economic risk is model-inference cost per active seat. The primary reliability risk is recommendation error. A\nplausible but incorrect recommendation can be more damaging than an explicit abstention because analysts may spend\ntime following the wrong path.\n4. Supported Integrations\nSentinel Copilot integrates with Relay Incident, VaultGuard, approved identity providers, and selected customer SIEM\nexports. Unsupported integrations return the internal status code SCP-UNSUPPORTED-17. Authentication failures in the\nCopilot gateway use OV-AUTH-4017. A stale incident context can trigger CTX-2204.\n5. Launch Constraints\nThe product brief requires evidence-linked recommendations, configurable retention, and a human-review workflow for\nR3 actions. It does not authorize autonomous credential rotation or production access changes.\nPage 9",
+    "chunk_token_count": 444,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 9
+  },
+  {
+    "chunk_id": "12c88ae2195c",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 9,
+    "page_end": 10,
+    "section": "OV-ER-25 | FY2025 Earnings Call Transcript - Selected",
+    "section_path": [
+      "ORIONVAULT SYSTEMS",
+      "OV-ER-25 | FY2025 Earnings Call Transcript - Selected"
+    ],
+    "parent_section": "ORIONVAULT SYSTEMS",
+    "content_type": "list",
+    "text": "Component | Role | Identifier / policy signal\nAlert summarizer | Turns a stream of alerts into a concise incident summary | SUM-02\nEvent linker | Connects related telemetry and identity events | LINK-08\nInvestigation recommender | Suggests next investigative steps | IR-17\nTimeline builder | Drafts a chronological incident record | TL-04\nHigh-impact action gate | Requires human confirmation for R3 actions | HAG-03\n\nOV-IR-21 | Incident Report - VaultGuard Event\nIncident date: 18 October 2021 | Type: Security incident retrospective\n1. Summary\nA VaultGuard configuration defect caused a subset of service-credential metadata to be written with incorrect regional\nrouting tags. The defect did not expose credential values, but it caused audit records to appear in the wrong regional\npartition for 47 enterprise tenants.\n2. Timeline\nTime Event\n09:10 UTC Configuration release 2021.10.18 deployed to a subset of VaultGuard regions.\n10:05 UTC First tenant reported an audit-log location mismatch.\n10:22 UTC Engineering reproduced the issue under a specific regional-routing configuration.\n11:10 UTC Deployment rollback initiated.\n13:40 UTC Regional routing tags corrected; validation checks expanded.\n18:20 UTC Affected audit records re-indexed into intended regional partitions.\n3. Root Cause\nThe root cause was a configuration mapping defect in a routing component that treated a region alias as globally unique.\nThe defect passed existing tests because test fixtures covered service availability but did not validate regional audit\nplacement.\n4. Corrective Actions\nOrionVault added regional-placement tests, deployment checks for routing-map changes, and a secondary audit-path\nverification. The incident led to stricter VaultGuard release controls and became a reference point in later discussions\nabout regional data isolation.\n5. Lessons Relevant to Future RAG\nThe incident should not be treated as evidence of credential theft. The report explicitly says that credential values were\nnot exposed. Retrieval systems should distinguish availability, confidentiality, and data-location incidents rather than\ncollapsing all security events into a generic breach label.\nPage 10",
+    "chunk_token_count": 432,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 9
+  },
+  {
+    "chunk_id": "133ac79c3ffc",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 10,
+    "page_end": 11,
+    "section": "OV-ER-25 | FY2025 Earnings Call Transcript - Selected",
+    "section_path": [
+      "ORIONVAULT SYSTEMS",
+      "OV-ER-25 | FY2025 Earnings Call Transcript - Selected"
+    ],
+    "parent_section": "ORIONVAULT SYSTEMS",
+    "content_type": "list",
+    "text": "Time | Event\n09:10 UTC | Configuration release 2021.10.18 deployed to a subset of VaultGuard regions.\n10:05 UTC | First tenant reported an audit-log location mismatch.\n10:22 UTC | Engineering reproduced the issue under a specific regional-routing configuration.\n11:10 UTC | Deployment rollback initiated.\n13:40 UTC | Regional routing tags corrected; validation checks expanded.\n18:20 UTC | Affected audit records re-indexed into intended regional partitions.\n\nOV-DR-25 | Data Residency Standard v1.2\nEffective date: 01 January 2025 | Type: Policy\n1. Scope\nVersion 1.2 applies to customers purchasing regional-storage commitments in Germany and the United Kingdom.\nStandard telemetry may be processed in approved multi-region environments unless the contract explicitly requires local\nprocessing.\n2. Regional Requirement\nFor customers with a Germany regional-storage commitment, authentication metadata and incident records must remain\nin the approved Germany processing environment. Cross-region replication is permitted for disaster recovery only when\nthe replicated dataset is encrypted and the customer contract allows it.\n3. U.K. Requirement\nFor designated U.K. customers, customer-configured incident records should remain in U.K. storage. Management\nmonitoring and anonymized service telemetry may continue to use multi-region infrastructure.\n4. Operational Note\nThe 2025 policy emphasizes contractual configuration and approved processing locations. It does not require all\nengineering telemetry to remain in the customer's region.\nPolicy-version trap: this is not the latest policy. A query asking for the current 2026 rule should not stop here.\nPage 11",
+    "chunk_token_count": 327,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 10
+  },
+  {
+    "chunk_id": "cdc4bda3b055",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 12,
+    "page_end": 13,
+    "section": "OV-CS-25 | Customer Case Study - Northstar Logistics",
+    "section_path": [
+      "ORIONVAULT SYSTEMS",
+      "OV-CS-25 | Customer Case Study - Northstar Logistics"
+    ],
+    "parent_section": "ORIONVAULT SYSTEMS",
+    "content_type": "list",
+    "text": "OV-DR-26 | Data Residency Standard v2.0\nEffective date: 01 July 2026 | Type: Policy\n1. Scope\nVersion 2.0 supersedes v1.2 for new and renewed contracts that include regional data-isolation commitments.\n2. Germany\nFor qualifying German regulated customers, identity metadata, security-event records, and incident records must remain\nwithin the designated Germany region. Disaster recovery copies must use an approved Germany-based recovery\nboundary unless a contractual exception has been documented.\n3. United Kingdom\nFor qualifying U.K. customers, identity metadata and incident records must remain within the U.K. region. Selected\nsecurity telemetry may use approved cross-border processing only when it is pseudonymized and the contract permits it.\n4. Engineering Telemetry\nVersion 2.0 expands the regional requirement beyond customer-visible records. Certain operational telemetry associated\nwith regulated workloads must be processed within approved regional boundaries. This increases redundancy and\nmonitoring requirements.\n5. Change from v1.2\nThe major change is the broader definition of regional data isolation. The 2026 standard covers additional security\ntelemetry and narrows disaster-recovery exceptions for qualifying regulated customers.\nImportant: A retrieval system that returns v1.2 and v2.0 without ranking or filtering by effective date can answer a current-policy\nquestion incorrectly.\nPage 12\n\nOV-CS-25 | Customer Case Study - Northstar Logistics",
+    "chunk_token_count": 294,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 12
+  },
+  {
+    "chunk_id": "fe76109e2c1b",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 13,
+    "page_end": 13,
+    "section": "OV-CS-25 | Customer Case Study - Northstar Logistics",
+    "section_path": [
+      "ORIONVAULT SYSTEMS",
+      "OV-CS-25 | Customer Case Study - Northstar Logistics"
+    ],
+    "parent_section": "ORIONVAULT SYSTEMS",
+    "content_type": "text",
+    "text": "Document date: 03 September 2025 | Type: Customer case study\nNorthstar Logistics, a fictional multinational freight company, adopted Orbit Monitor in 2023 after a series of\nservice-availability alerts across containerized workloads. The customer expanded to VaultGuard in 2024 and added\nRelay Incident in early 2025.\nNorthstar reports that alert triage time fell by approximately 28% after the addition of Relay Incident. It also reports that\nthe combined platform reduced the number of separate operational dashboards maintained by the infrastructure team.\nThe case study states that the customer selected OrionVault partly because its implementation team could deploy a\nunified workflow without replacing the customer's existing identity provider. The customer did not purchase Sentinel\nCopilot at the time of publication.\nNorthstar's deployment spans U.S. and U.K. operations. The case study notes that data-residency requirements\ninfluenced the customer's regional-storage design but does not disclose the commercial pricing of that configuration.\nRetrieval challenge: this document uses business outcomes such as reduced alert triage time and fewer dashboards rather than\nthe product names or terminology used in the annual report.\nPage 13",
+    "chunk_token_count": 241,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 13
+  },
+  {
+    "chunk_id": "21fa7219ed1a",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 14,
+    "page_end": 14,
+    "section": "OV-CS-25 | Customer Case Study - Northstar Logistics",
+    "section_path": [
+      "ORIONVAULT SYSTEMS",
+      "OV-CS-25 | Customer Case Study - Northstar Logistics"
+    ],
+    "parent_section": "ORIONVAULT SYSTEMS",
+    "content_type": "text",
+    "text": "[Section: ORIONVAULT SYSTEMS > OV-CS-25 | Customer Case Study - Northstar Logistics]\n\nAppendix A | Phase-Differentiating Retrieval Questions\nUse these questions against the same corpus under each implementation phase. Do not judge a phase by whether it can answer\none question. Judge it by failure patterns and retrieval quality.\n1. What was OrionVault's FY2024 revenue?\n2. What was its latest operating margin, and which document contains that number?\n3. Which document describes SCP-610 and what does SCP-610 stand for?\n4. What are the risks associated with Sentinel Copilot?\n5. What is the current Germany data-residency requirement?\n6. How did the Germany data-residency policy change from 2025 to 2026?\n7. What happened in the 2021 VaultGuard incident, and was credential data exposed?\n8. Why did operating margin improve in FY2025?\n9. What does management mean by a land-and-expand model?\n10. Which product had the highest FY2025 revenue contribution?\n11. Compare FY2025 revenue growth drivers with Q1 FY2026 margin pressures.\n12. Which markets have the highest revenue share versus the highest data-residency cost burden?\n13. How concentrated is OrionVault's customer base?\n14. What is the difference between cloud concentration and cloud provider bargaining exposure?\n15. What is IR-17 and when is it used?\n16. What does error code OV-AUTH-4017 indicate?\n17. Which document is the latest source for Sentinel Copilot status?\n18. What changed in the risk committee's priorities between 2024 and 2026?\n19. How could Sentinel Copilot affect gross margin?\n20. What evidence suggests that retention is strong while quarterly bookings can still be uneven?\n21. Which product is most associated with regulated customers?\n22. What regional controls apply to identity metadata under the 2026 policy?\n23. What happened after the 2021 routing defect was discovered?\n24. Which document says the largest customer represented less than 5% of revenue?\n25. What evidence links customer expansion to the company's growth strategy?\nPhase 3-specific stress questions\nA. Search for the exact identifier SCP-610.\nB. Search for the concept dependence on external infrastructure without using the words cloud concentration.\nC. Search for the phrase regional data-isolation cost.\nD. Search for FY2025 operating margin.\nE. Search for credential metadata regional routing and compare lexical vs semantic retrieval.\nWhat should differ across phases: Phase 1 should often retrieve plausible",
+    "chunk_token_count": 523,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 14
+  },
+  {
+    "chunk_id": "331f17762e3b",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 14,
+    "page_end": 14,
+    "section": "OV-CS-25 | Customer Case Study - Northstar Logistics",
+    "section_path": [
+      "ORIONVAULT SYSTEMS",
+      "OV-CS-25 | Customer Case Study - Northstar Logistics"
+    ],
+    "parent_section": "ORIONVAULT SYSTEMS",
+    "content_type": "text",
+    "text": "[Section: ORIONVAULT SYSTEMS > OV-CS-25 | Customer Case Study - Northstar Logistics]\n\n but poorly targeted chunks. Phase 2 should improve\ncontext integrity but may still rank exact terminology inconsistently. Phase 3 should show clearer differences between vector-only,\nkeyword-only, hybrid, and reranked retrieval, especially on identifiers, numbers, synonyms, and exact phrases.\nPage 14",
+    "chunk_token_count": 81,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 14
+  },
+  {
+    "chunk_id": "6a23a804f7f6",
+    "document_id": "5a6f28f3ebd6",
+    "source_filename": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_start": 15,
+    "page_end": 15,
+    "section": "Appendix B | Intended Phase Progression",
+    "section_path": [
+      "ORIONVAULT SYSTEMS",
+      "Appendix B | Intended Phase Progression"
+    ],
+    "parent_section": "ORIONVAULT SYSTEMS",
+    "content_type": "mixed",
+    "text": "Appendix B | Intended Phase Progression\n\nThe corpus is designed so that later engineering additions have a reason to exist.\nPhase New capability Corpus features that expose weaknesses\nPhase 1 Fixed chunks + vector retrieval synonyms, numbers, repeated concepts, exact terms\nPhase 2 Structure-aware chunks + metadata headings, tables, sections, page context\nPhase 3 Keyword + vector + fusion + reranking SCP-610, error codes, terminology variants, numbers\nPhase 4 Postgres + pgvector + relational metadata document IDs, dates, versions, source types, customer/company relationships\nPhase 5 Query planning / decomposition comparison questions requiring multiple documents\nPhase 6 Structured data tools financial metrics, calculated growth, margin comparisons\nPhase 7 Validation / evidence graph claims supported by multiple documents; explicit policy versions\nPhase 8 Evaluation + red teaming contradictory versions, stale policy, malicious/irrelevant context tests\nSuggested document precedence for current-state questions: later effective policy or operating update should generally outrank\nolder material, but the system should preserve the older source when the question explicitly asks about history or change over\ntime.\nThis corpus is fictional. All companies, people, metrics, policies, identifiers, and events are invented for RAG experimentation.\nPage 15\n\nPhase | New capability | Corpus features that expose weaknesses\nPhase 1 | Fixed chunks + vector retrieval | synonyms, numbers, repeated concepts, exact terms\nPhase 2 | Structure-aware chunks + metadata | headings, tables, sections, page context\nPhase 3 | Keyword + vector + fusion + reranking | SCP-610, error codes, terminology variants, numbers\nPhase 4 | Postgres + pgvector + relational metadata | document IDs, dates, versions, source types, customer/company relationships\nPhase 5 | Query planning / decomposition | comparison questions requiring multiple documents\nPhase 6 | Structured data tools | financial metrics, calculated growth, margin comparisons\nPhase 7 | Validation / evidence graph | claims supported by multiple documents; explicit policy versions\nPhase 8 | Evaluation + red teaming | contradictory versions, stale policy, malicious/irrelevant context tests",
+    "chunk_token_count": 433,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf",
+    "page_num": 15
+  },
+  {
+    "chunk_id": "b7905781454b",
+    "document_id": "f230942a246c",
+    "source_filename": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_start": 1,
+    "page_end": 1,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "text",
+    "text": "[Section: ORIONVAULT SYSTEMS]\n\nFictional Company Due-Diligence Dossier\nPhase 1 RAG Practice Corpus\nPurpose: This fictional dossier is designed for a first-pass Retrieval-Augmented Generation project. It intentionally\ncontains diverse facts, repeated concepts, dates, numbers, risks, and business terminology so retrieval quality can be\ntested without using real company data.\nCompany at a Glance\nFounded 2018\nHeadquarters Bengaluru, India\nBusiness Cloud operations and security software\nEmployees 1,240 (FY2025)\nCustomers 2,850 active organizations\nPrimary Markets India, Singapore, United Kingdom, Germany, United States\nFY2025 Revenue USD 186 million\nFY2025 Gross Margin 71%\nFY2025 Operating Margin 14%\nCEO Mira Sen\nCompany Overview\nOrionVault Systems develops cloud software for monitoring infrastructure, protecting service credentials, and\ncoordinating incident response. The company sells primarily on annual subscriptions. Its platform is used by\ntechnology companies, financial-services firms, logistics businesses, and mid-sized manufacturers. OrionVault\npositions itself as a unified operations layer: customers can monitor cloud workloads, detect suspicious activity, and\ncoordinate response actions from one console.\nThe company has grown through a mix of direct sales and channel partnerships. Enterprise customers usually begin\nwith monitoring and later add security or incident-response modules. Management has stated that expansion within\nexisting accounts is a major growth driver because customers often purchase additional modules after their first year.\n1. Products and Services\nOrbit Monitor: Infrastructure monitoring product covering application health, service availability, container\nperformance, and alert routing. Orbit Monitor generated approximately 46% of FY2025 subscription revenue.\nVaultGuard: Credential and secrets management product for API keys, service credentials, and privileged access\nworkflows. VaultGuard represented about 31% of FY2025 subscription revenue and has the fastest adoption among\nregulated customers.\nRelay Incident: Incident-response coordination module that manages escalations, responder assignments, timelines,\nand post-incident notes. Relay Incident represented roughly 15% of FY2025 subscription revenue.\nProfessional Services: Implementation, migration, training, and architecture support; 8% of FY2025 revenue.\nA planned product called Sentinel Copilot is expected to enter limited customer pilots in Q3 FY2026. Sentinel Copilot\nis intended to summarize alerts and recommend investigation steps, but management has not yet disclosed expected\nrevenue contribution.\nFictional Phase 1 RAG Corpus",
+    "chunk_token_count": 510,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_num": 1
+  },
+  {
+    "chunk_id": "defc312053d4",
+    "document_id": "f230942a246c",
+    "source_filename": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_start": 1,
+    "page_end": 1,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "text",
+    "text": "[Section: ORIONVAULT SYSTEMS]\n\n | Page 1",
+    "chunk_token_count": 14,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_num": 1
+  },
+  {
+    "chunk_id": "1655255991a4",
+    "document_id": "f230942a246c",
+    "source_filename": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_start": 1,
+    "page_end": 2,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "list",
+    "text": "Founded | 2018\nHeadquarters | Bengaluru, India\nBusiness | Cloud operations and security software\nEmployees | 1,240 (FY2025)\nCustomers | 2,850 active organizations\nPrimary Markets | India, Singapore, United Kingdom, Germany, United States\nFY2025 Revenue | USD 186 million\nFY2025 Gross Margin | 71%\nFY2025 Operating Margin | 14%\nCEO | Mira Sen\n\n2. Financial Performance\nMetric FY2023 FY2024 FY2025\nRevenue (USD m) 121 154 186\nGross Profit (USD m) 79 105 132\nOperating Income (USD m) 9 16 26\nNet Income (USD m) 5 11 18\nOperating Margin 7% 10% 14%\nFree Cash Flow (USD m) 12 18 24\nR&D; Spend (USD m) 27 35 43\nRevenue increased from USD 121 million in FY2023 to USD 186 million in FY2025. Management attributes growth to\nnew enterprise accounts, expansion of VaultGuard within regulated customers, and higher pricing on multi-module\ncontracts. Operating margin improved from 7% to 14% over the same period as infrastructure costs grew more slowly\nthan subscription revenue.\nThe company ended FY2025 with USD 62 million of cash and cash equivalents and no long-term debt. Management\nconsiders liquidity sufficient to fund the current product roadmap. Capital expenditure was USD 8 million in FY2025,\nlargely related to internal infrastructure and office expansion.\nThe main financial watch items are customer concentration, rising research and development spending, and the cost of\nsupporting international data-residency requirements.\n3. Customers and Market Position\nOrionVault serves 2,850 active organizations. The ten largest customers represented 19% of FY2025 revenue, while\nthe single largest customer represented 4.7%. Customer retention has historically been strong: gross revenue\nretention was 92% in FY2025 and net revenue retention was 116%.\nThe company competes with large cloud-platform monitoring suites, standalone security vendors, and smaller\nincident-response platforms. Management believes OrionVault differentiates through a unified workflow and faster\ndeployment for mid-market customers.\nFictional Phase 1 RAG Corpus | Page 2",
+    "chunk_token_count": 484,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_num": 1
+  },
+  {
+    "chunk_id": "cf52e995ddad",
+    "document_id": "f230942a246c",
+    "source_filename": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_start": 2,
+    "page_end": 2,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "table",
+    "text": "Metric | FY2023 | FY2024 | FY2025\nRevenue (USD m) | 121 | 154 | 186\nGross Profit (USD m) | 79 | 105 | 132\nOperating Income (USD m) | 9 | 16 | 26\nNet Income (USD m) | 5 | 11 | 18\nOperating Margin | 7% | 10% | 14%\nFree Cash Flow (USD m) | 12 | 18 | 24\nR&D; Spend (USD m) | 27 | 35 | 43",
+    "chunk_token_count": 126,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_num": 2
+  },
+  {
+    "chunk_id": "7e8a795a92f2",
+    "document_id": "f230942a246c",
+    "source_filename": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_start": 3,
+    "page_end": 3,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "list",
+    "text": "4. Geographic Footprint\nFY2025 revenue by customer location was approximately: United States 34%, India 24%, United Kingdom 15%,\nGermany 10%, Singapore 8%, and other markets 9%. The United States is the largest single market, while India\nremains the largest source of engineering talent and product-development operations.\nOrionVault operates engineering centers in Bengaluru and Pune, a customer-success hub in London, and sales offices\nin New York and Singapore. The company also uses third-party cloud infrastructure in multiple regions to meet\ncustomer latency and data-residency requirements.\nA key geographic risk is the cost of maintaining separate data-processing environments. Customers in Germany and\nthe United Kingdom have increasingly requested regional storage guarantees, which can raise infrastructure and\ncompliance costs.\n5. Strategy and Growth Priorities\nManagement has identified four priorities for FY2026: expand VaultGuard adoption, launch Sentinel Copilot, increase\nenterprise sales capacity in the United States, and improve gross margins through infrastructure optimization.\nThe company expects Sentinel Copilot to be a differentiator for customers that want faster incident triage. However, the\nproduct will initially be offered as a pilot, and management has warned that model-inference costs could pressure\nmargins until usage patterns stabilize.\nOrionVault also plans to deepen channel partnerships in Europe. The strategy is intended to reduce\ncustomer-acquisition costs, but channel partners may reduce the company's direct control over customer relationships.\n6. Technology and Operations\nThe core platform runs on containerized services and a managed relational database layer. The company processes\ntelemetry events, security events, and incident metadata. Its engineering organization follows a weekly release\ncadence for the core platform, with stricter release controls for VaultGuard.\nMajor operational dependencies include public-cloud providers, third-party identity services, customer integrations, and\nexternal software libraries. A disruption at a major cloud provider could affect service availability for customers in the\naffected region.\nFictional Phase 1 RAG Corpus | Page 3",
+    "chunk_token_count": 410,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_num": 3
+  },
+  {
+    "chunk_id": "873e1acfbec6",
+    "document_id": "f230942a246c",
+    "source_filename": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_start": 4,
+    "page_end": 4,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "list",
+    "text": "7. Key Risks\nCloud infrastructure concentration: The platform depends on third-party cloud infrastructure. A prolonged outage,\npricing change, or regional capacity shortage could affect availability or margins.\nSecurity and trust risk: Because VaultGuard stores customer credentials and security-related configuration, a serious\nvulnerability or breach could damage customer trust, increase incident-response costs, and lead to contract losses.\nCompetition: Larger cloud vendors can bundle monitoring and security capabilities into broader infrastructure\ncontracts. This may make price-sensitive customers harder to win or retain.\nAI cost and reliability risk: Sentinel Copilot may require significant model-inference capacity. Unexpected usage\ncould increase cost per customer, while inaccurate recommendations could reduce user trust.\nRegulatory and data-residency risk: Different regional requirements may require additional controls, audits, and\ninfrastructure. The burden is particularly relevant in Germany and the United Kingdom.\nCustomer concentration: The top ten customers account for 19% of revenue. Loss of a major enterprise account\ncould have a noticeable effect on quarterly results.\nHiring and retention: The company competes for security engineering, distributed-systems, and machine-learning\ntalent. Wage inflation or attrition in these areas could slow product delivery.\n8. Management Commentary\nCEO Mira Sen said the company will prioritize durable subscription growth over short-term expansion into low-margin\nservices. Chief Financial Officer Arjun Mehta noted that infrastructure optimization is expected to contribute more to\ngross-margin improvement than price increases during FY2026.\nManagement also expects the United States enterprise segment to grow faster than the company average, but has\ncautioned that longer procurement cycles may make quarterly bookings uneven.\nFictional Phase 1 RAG Corpus | Page 4",
+    "chunk_token_count": 344,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_num": 4
+  },
+  {
+    "chunk_id": "ab87a8bb2ff1",
+    "document_id": "f230942a246c",
+    "source_filename": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_start": 5,
+    "page_end": 5,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "list",
+    "text": "9. Timeline and Notable Events\nYear Event\n2018 OrionVault founded in Bengaluru with an initial focus on infrastructure monitoring.\n2020 Orbit Monitor expanded to support containerized workloads.\n2021 Series B funding used to expand sales and security engineering.\n2022 VaultGuard launched and first regulated-industry customers signed.\n2023 London customer-success hub opened; annual revenue reached USD 121 million.\n2024 Net revenue retention exceeded 110%; Relay Incident launched.\n2025 Revenue reached USD 186 million; operating margin reached 14%.\n2026 Sentinel Copilot planned for limited customer pilots in Q3 FY2026.\n10. Quick Facts for RAG Testing\nUse these facts to construct retrieval questions. They intentionally span different sections of the document.\n(cid:127) CEO: Mira Sen\n(cid:127) CFO: Arjun Mehta\n(cid:127) FY2025 revenue: USD 186m\n(cid:127) FY2025 operating margin: 14%\n(cid:127) FY2025 free cash flow: USD 24m\n(cid:127) FY2025 cash: USD 62m\n(cid:127) Employees: 1,240\n(cid:127) Active customers: 2,850\n(cid:127) Largest customer: 4.7% of FY2025 revenue\n(cid:127) Top ten customers: 19% of FY2025 revenue\n(cid:127) Net revenue retention: 116%\n(cid:127) Largest market by revenue: United States (34%)\n(cid:127) Largest engineering base: India\n(cid:127) Sentinel Copilot pilot: Q3 FY2026\n(cid:127) Core strategic risks: cloud dependency, security, competition, AI cost/reliability, regulation, customer concentration,\ntalent\nSuggested Phase 1 questions: \"What are OrionVault's main products?\", \"What was revenue in FY2024?\", \"Why did\noperating margin improve?\", \"Which country generates the most revenue?\", \"What are the risks associated with\nSentinel Copilot?\", \"Who is the CEO?\", \"How concentrated is the customer base?\", \"What happened in 2024?\", \"What\nis the company's free cash flow in FY2025?\", \"What information do we have about long-term debt?\"\nFictional Phase 1 RAG Corpus | Page 5",
+    "chunk_token_count": 485,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_num": 5
+  },
+  {
+    "chunk_id": "f1c0165c2e6e",
+    "document_id": "f230942a246c",
+    "source_filename": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_start": 5,
+    "page_end": 5,
+    "section": "ORIONVAULT SYSTEMS",
+    "section_path": [
+      "ORIONVAULT SYSTEMS"
+    ],
+    "parent_section": "",
+    "content_type": "table",
+    "text": "Year | Event\n2018 | OrionVault founded in Bengaluru with an initial focus on infrastructure monitoring.\n2020 | Orbit Monitor expanded to support containerized workloads.\n2021 | Series B funding used to expand sales and security engineering.\n2022 | VaultGuard launched and first regulated-industry customers signed.\n2023 | London customer-success hub opened; annual revenue reached USD 121 million.\n2024 | Net revenue retention exceeded 110%; Relay Incident launched.\n2025 | Revenue reached USD 186 million; operating margin reached 14%.\n2026 | Sentinel Copilot planned for limited customer pilots in Q3 FY2026.",
+    "chunk_token_count": 128,
+    "document_title": "ORIONVAULT SYSTEMS",
+    "company": "",
+    "document_type": "",
+    "source": "OrionVault_Systems_Due_Diligence_Dossier.pdf",
+    "page_num": 5
+  }
+]

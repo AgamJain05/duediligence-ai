@@ -123,9 +123,36 @@ def _plan_comparison(analysis: QueryAnalysis, config: PlanningConfig) -> Researc
             seen_c.add(c.lower())
             unique_candidates.append(c)
 
-    side_a = unique_candidates[0] if len(unique_candidates) >= 1 else "first subject"
-    side_b = unique_candidates[1] if len(unique_candidates) >= 2 else "second subject"
     topic  = topics[0] if topics else "approach"
+
+    if len(unique_candidates) < 2:
+        # We don't have two named entities to compare (e.g. "which two countries have highest-cost...")
+        # Decompose into topic exploration and direct query instead of dummy placeholders.
+        clean_q = analysis.original_query
+        return ResearchPlan(
+            objective=f"Identify and compare: {q}",
+            tasks=[
+                ResearchTask(
+                    task_id="task_1",
+                    description=f"Retrieve evidence for {topic}",
+                    query=f"OrionVault {topic} regional breakdown data isolation costs".strip(),
+                    purpose=f"Locate regional cost and operational breakdown data for {topic}",
+                    depends_on=[],
+                    top_k=config.max_task_retrieval,
+                ),
+                ResearchTask(
+                    task_id="task_2",
+                    description=f"Direct retrieval for {q[:50]}",
+                    query=clean_q,
+                    purpose="Direct search for specific countries and highest-cost regions",
+                    depends_on=[],
+                    top_k=config.max_task_retrieval,
+                ),
+            ],
+        )
+
+    side_a = unique_candidates[0]
+    side_b = unique_candidates[1]
 
     tasks = [
         ResearchTask(
@@ -429,20 +456,41 @@ def _llm_plan(analysis: QueryAnalysis, config: PlanningConfig) -> Optional[Resea
         raw = re.sub(r"\s*```$", "", raw)
 
         data  = json.loads(raw)
+        if isinstance(data, list):
+            task_list = data
+            objective = f"Research: {analysis.original_query}"
+        elif isinstance(data, dict):
+            task_list = data.get("tasks") or []
+            objective = data.get("objective") or f"Research: {analysis.original_query}"
+        else:
+            return None
+
         tasks = []
-        for td in data.get("tasks", []):
+        for i, td in enumerate(task_list, start=1):
+            if not isinstance(td, dict):
+                continue
+            tid = td.get("task_id") or f"task_{i}"
+            deps = td.get("depends_on") or []
+            if not isinstance(deps, list):
+                deps = []
+            flts = td.get("filters") or {}
+            if not isinstance(flts, dict):
+                flts = {}
+            topk = td.get("top_k") or 8
+            if not isinstance(topk, int):
+                topk = 8
             tasks.append(ResearchTask(
-                task_id     = td["task_id"],
-                description = td.get("description", ""),
-                query       = td.get("query", analysis.original_query),
-                purpose     = td.get("purpose", ""),
-                depends_on  = td.get("depends_on", []),
-                filters     = td.get("filters", {}),
-                top_k       = min(td.get("top_k", 8), config.max_task_retrieval),
+                task_id     = str(tid),
+                description = td.get("description", "") or f"Task {tid}",
+                query       = td.get("query", "") or analysis.original_query,
+                purpose     = td.get("purpose", "") or "",
+                depends_on  = deps,
+                filters     = flts,
+                top_k       = min(topk, config.max_task_retrieval),
             ))
 
         return ResearchPlan(
-            objective=data.get("objective", f"Research: {analysis.original_query}"),
+            objective=objective,
             tasks=tasks[:config.max_tasks],
         )
 
@@ -489,8 +537,11 @@ class ResearchPlanner:
             plan.notes = "Simple path — single retrieval task, no decomposition."
             return plan
 
-        # For LLM-preferred types, try LLM first
-        if qt in self._LLM_PREFERRED and self.config.allow_llm_planner:
+        # For LLM-preferred types or when template lacks entities, try LLM first
+        needs_llm = (qt in self._LLM_PREFERRED) or (
+            qt == QueryType.COMPARISON and len(analysis.entities) < 2
+        )
+        if needs_llm and self.config.allow_llm_planner:
             llm_plan = _llm_plan(analysis, self.config)
             if llm_plan and llm_plan.tasks:
                 llm_plan.notes = "LLM-generated plan"

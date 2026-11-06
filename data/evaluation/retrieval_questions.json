@@ -1,0 +1,352 @@
+[
+  {
+    "_comment": "==== SEMANTIC QUESTIONS (10) — conceptual, paraphrase-heavy ====",
+    "_note": "These require understanding meaning, not just matching keywords.",
+    "_note2": "Ground-truth chunk_ids reference actual chunks from chunks_structure_aware.json",
+    "_chunk_map": {
+      "b0abd9d78273": "Page 1 heading only (6 tokens) — unlikely to be useful",
+      "b7905781454b": "Page 1 overview: products, company description, Sentinel Copilot",
+      "defc312053d4": "Page 1 footer artifact only — not useful",
+      "1655255991a4": "Pages 1-2 list: company at a glance table, financial metrics, customers, market position",
+      "cf52e995ddad": "Page 2 table: financial metrics FY2023-FY2025 (revenue, margins, FCF, R&D)",
+      "7e8a795a92f2": "Page 3 list: geography, strategy, technology/operations",
+      "873e1acfbec6": "Page 4 list: key risks + management commentary",
+      "ab87a8bb2ff1": "Page 5 list: timeline, quick facts for RAG testing",
+      "f1c0165c2e6e": "Page 5 table: Year | Event timeline table"
+    }
+  },
+  {
+    "id": "S01",
+    "question": "How dependent is the company on external cloud infrastructure providers?",
+    "category": "semantic",
+    "relevant_chunk_ids": ["873e1acfbec6", "7e8a795a92f2"],
+    "notes": "Tests semantic understanding: 'dependent on external' vs 'cloud infrastructure concentration'. Answer: platform depends on third-party cloud infrastructure."
+  },
+  {
+    "id": "S02",
+    "question": "What is driving OrionVault's revenue growth in recent years?",
+    "category": "semantic",
+    "relevant_chunk_ids": ["1655255991a4", "cf52e995ddad"],
+    "notes": "Paraphrase of 'management attributes growth to new enterprise accounts'. Key info in list and table chunks."
+  },
+  {
+    "id": "S03",
+    "question": "What are the main risks associated with the company's AI product?",
+    "category": "semantic",
+    "relevant_chunk_ids": ["873e1acfbec6", "b7905781454b"],
+    "notes": "Sentinel Copilot risks: inference costs, reliability. Tests semantic link between 'AI product' and 'Sentinel Copilot'."
+  },
+  {
+    "id": "S04",
+    "question": "How is OrionVault positioned relative to its competitors?",
+    "category": "semantic",
+    "relevant_chunk_ids": ["1655255991a4", "873e1acfbec6"],
+    "notes": "Competition section: larger cloud vendors, differentiation through unified workflow."
+  },
+  {
+    "id": "S05",
+    "question": "What factors are improving the company's profitability?",
+    "category": "semantic",
+    "relevant_chunk_ids": ["1655255991a4", "cf52e995ddad"],
+    "notes": "Margin improvement: infrastructure costs grew slowly, multi-module contracts higher pricing."
+  },
+  {
+    "id": "S06",
+    "question": "Which countries are most important to OrionVault's operations?",
+    "category": "semantic",
+    "relevant_chunk_ids": ["7e8a795a92f2", "1655255991a4"],
+    "notes": "US = largest revenue (34%), India = engineering talent, UK/Germany = compliance burden."
+  },
+  {
+    "id": "S07",
+    "question": "What is the company's strategy for expanding its customer base?",
+    "category": "semantic",
+    "relevant_chunk_ids": ["7e8a795a92f2", "b7905781454b"],
+    "notes": "Channel partnerships, enterprise sales, direct sales, expansion within existing accounts."
+  },
+  {
+    "id": "S08",
+    "question": "How does the company manage regulatory compliance in different regions?",
+    "category": "semantic",
+    "relevant_chunk_ids": ["873e1acfbec6", "7e8a795a92f2"],
+    "notes": "Data-residency requirements, Germany and UK compliance costs. Tests 'regulatory' vs 'data-residency risk'."
+  },
+  {
+    "id": "S09",
+    "question": "What is the leadership team's financial guidance for FY2026?",
+    "category": "semantic",
+    "relevant_chunk_ids": ["873e1acfbec6"],
+    "notes": "CEO prioritizes subscription growth, CFO expects infrastructure optimization to improve margins."
+  },
+  {
+    "id": "S10",
+    "question": "How loyal are OrionVault's existing customers?",
+    "category": "semantic",
+    "relevant_chunk_ids": ["1655255991a4"],
+    "notes": "Net revenue retention 116%, gross revenue retention 92%. Tests 'loyalty' vs 'retention'."
+  },
+
+  {
+    "_comment": "==== LEXICAL / EXACT-TERM QUESTIONS (10) — product names, exact phrases ====",
+    "_note": "BM25 should excel here. Semantic may miss exact product names or numbers."
+  },
+  {
+    "id": "L01",
+    "question": "What is Sentinel Copilot and when will it launch?",
+    "category": "lexical",
+    "relevant_chunk_ids": ["b7905781454b", "7e8a795a92f2", "873e1acfbec6", "ab87a8bb2ff1"],
+    "notes": "Exact product name 'Sentinel Copilot'. BM25 should find it easily. Launch: Q3 FY2026."
+  },
+  {
+    "id": "L02",
+    "question": "What percentage of revenue does VaultGuard represent?",
+    "category": "lexical",
+    "relevant_chunk_ids": ["b7905781454b"],
+    "notes": "Exact term 'VaultGuard'. Answer: 31% of FY2025 subscription revenue."
+  },
+  {
+    "id": "L03",
+    "question": "What does Orbit Monitor do?",
+    "category": "lexical",
+    "relevant_chunk_ids": ["b7905781454b"],
+    "notes": "Exact product name 'Orbit Monitor'. Application health, service availability, container performance."
+  },
+  {
+    "id": "L04",
+    "question": "Who is OrionVault's CEO?",
+    "category": "lexical",
+    "relevant_chunk_ids": ["1655255991a4", "873e1acfbec6", "ab87a8bb2ff1"],
+    "notes": "Exact name 'Mira Sen'. Should be easy for BM25."
+  },
+  {
+    "id": "L05",
+    "question": "What is Relay Incident used for?",
+    "category": "lexical",
+    "relevant_chunk_ids": ["b7905781454b"],
+    "notes": "Exact product name 'Relay Incident'. Incident-response coordination module."
+  },
+  {
+    "id": "L06",
+    "question": "What was OrionVault's net revenue retention in FY2025?",
+    "category": "lexical",
+    "relevant_chunk_ids": ["1655255991a4", "ab87a8bb2ff1"],
+    "notes": "Exact term 'net revenue retention'. Answer: 116%."
+  },
+  {
+    "id": "L07",
+    "question": "Where is OrionVault headquartered?",
+    "category": "lexical",
+    "relevant_chunk_ids": ["1655255991a4", "ab87a8bb2ff1"],
+    "notes": "Exact city 'Bengaluru'. Should be trivial for BM25."
+  },
+  {
+    "id": "L08",
+    "question": "Who is the CFO of OrionVault?",
+    "category": "lexical",
+    "relevant_chunk_ids": ["873e1acfbec6", "ab87a8bb2ff1"],
+    "notes": "Exact name 'Arjun Mehta'."
+  },
+  {
+    "id": "L09",
+    "question": "What is OrionVault's gross revenue retention rate?",
+    "category": "lexical",
+    "relevant_chunk_ids": ["1655255991a4"],
+    "notes": "Exact phrase 'gross revenue retention'. Answer: 92% in FY2025."
+  },
+  {
+    "id": "L10",
+    "question": "When was VaultGuard launched?",
+    "category": "lexical",
+    "relevant_chunk_ids": ["ab87a8bb2ff1", "f1c0165c2e6e"],
+    "notes": "Exact term 'VaultGuard launched'. Timeline: 2022. Both list and table chunks contain this."
+  },
+
+  {
+    "_comment": "==== NUMERICAL QUESTIONS (5) — specific figures ====",
+    "_note": "Tests retrieval of numeric facts. Semantic may return context; BM25 finds exact numbers."
+  },
+  {
+    "id": "N01",
+    "question": "What was OrionVault's revenue in FY2024?",
+    "category": "numerical",
+    "relevant_chunk_ids": ["cf52e995ddad", "1655255991a4"],
+    "notes": "Answer: USD 154 million. Table chunk has the exact figure in pipe format."
+  },
+  {
+    "id": "N02",
+    "question": "What was OrionVault's FY2025 operating margin?",
+    "category": "numerical",
+    "relevant_chunk_ids": ["cf52e995ddad", "1655255991a4", "ab87a8bb2ff1"],
+    "notes": "Answer: 14%. Appears in table, list, and quick-facts chunk."
+  },
+  {
+    "id": "N03",
+    "question": "How many employees does OrionVault have?",
+    "category": "numerical",
+    "relevant_chunk_ids": ["1655255991a4", "ab87a8bb2ff1"],
+    "notes": "Answer: 1,240 (FY2025). Appears in at-a-glance table and quick facts."
+  },
+  {
+    "id": "N04",
+    "question": "What percentage of FY2025 revenue came from the United States?",
+    "category": "numerical",
+    "relevant_chunk_ids": ["7e8a795a92f2"],
+    "notes": "Answer: 34%. Geography chunk only."
+  },
+  {
+    "id": "N05",
+    "question": "What is OrionVault's FY2025 free cash flow?",
+    "category": "numerical",
+    "relevant_chunk_ids": ["cf52e995ddad", "1655255991a4", "ab87a8bb2ff1"],
+    "notes": "Answer: USD 24 million. Appears in table, financial list, and quick facts."
+  },
+
+  {
+    "_comment": "==== SECTION / TOPIC QUESTIONS (5) ====",
+    "_note": "Tests retrieval of section-specific content."
+  },
+  {
+    "id": "T01",
+    "question": "What are OrionVault's key business risks?",
+    "category": "section_topic",
+    "relevant_chunk_ids": ["873e1acfbec6"],
+    "notes": "Directly maps to 'Key Risks' section. Cloud concentration, security, competition, AI cost, regulatory, talent."
+  },
+  {
+    "id": "T02",
+    "question": "What notable events happened in OrionVault's history?",
+    "category": "section_topic",
+    "relevant_chunk_ids": ["ab87a8bb2ff1", "f1c0165c2e6e"],
+    "notes": "Timeline section. Both list and table chunks contain the event history."
+  },
+  {
+    "id": "T03",
+    "question": "What are the main products sold by OrionVault?",
+    "category": "section_topic",
+    "relevant_chunk_ids": ["b7905781454b"],
+    "notes": "Products section: Orbit Monitor, VaultGuard, Relay Incident, Professional Services."
+  },
+  {
+    "id": "T04",
+    "question": "What are the company's plans for the next fiscal year?",
+    "category": "section_topic",
+    "relevant_chunk_ids": ["7e8a795a92f2", "873e1acfbec6"],
+    "notes": "FY2026 strategy: VaultGuard adoption, Sentinel Copilot launch, US enterprise sales, margin improvement."
+  },
+  {
+    "id": "T05",
+    "question": "What does the financial performance data show about OrionVault's trajectory?",
+    "category": "section_topic",
+    "relevant_chunk_ids": ["cf52e995ddad", "1655255991a4"],
+    "notes": "Financial performance table + narrative. Revenue 121->154->186, margin 7%->14%."
+  },
+
+  {
+    "_comment": "==== INTENTIONALLY DIFFICULT QUERIES ====",
+    "_note": "These test edge cases: queries with no answer, synonyms, multi-concept."
+  },
+  {
+    "id": "X01",
+    "question": "What happened during OrionVault's 2021 product recall?",
+    "category": "difficult_no_answer",
+    "relevant_chunk_ids": [],
+    "notes": "TRICK QUESTION: no product recall happened. The only 2021 event was Series B funding. Expected: retriever returns unrelated chunks; no chunk is correct."
+  },
+  {
+    "id": "X02",
+    "question": "How is OrionVault expanding into the healthcare sector?",
+    "category": "difficult_no_answer",
+    "relevant_chunk_ids": [],
+    "notes": "TRICK QUESTION: healthcare is not mentioned. No relevant chunk exists. Tests whether retriever returns noise."
+  },
+  {
+    "id": "X03",
+    "question": "What are the subscription pricing tiers for VaultGuard?",
+    "category": "difficult_no_answer",
+    "relevant_chunk_ids": [],
+    "notes": "Not in the document. Tests retriever behavior when the answer doesn't exist."
+  },
+
+  {
+    "_comment": "==== PHASE 4 — VERSIONING QUESTIONS (4) ====",
+    "_note": "These test relational version management: is_current + effective_date filtering.",
+    "_note2": "Expected to work correctly only with Phase 4 PostgreSQL retrieval using metadata filters.",
+    "_note3": "Phase 1/3 FAISS retrievers have no version awareness — they may retrieve any version."
+  },
+  {
+    "id": "P401",
+    "question": "What is the current data residency requirement for Germany?",
+    "category": "versioning",
+    "relevant_chunk_ids": [],
+    "pg4_filters": {"is_current": true},
+    "notes": "Should retrieve from current version (v2, 2026). Tests is_current filter. Phase 1/3 may return v1 or v2 unpredictably."
+  },
+  {
+    "id": "P402",
+    "question": "What data residency requirement applied in 2024?",
+    "category": "versioning",
+    "relevant_chunk_ids": [],
+    "pg4_filters": {"effective_date_lte": "2024-12-31"},
+    "notes": "Should retrieve from v1 (effective 2024). Tests effective_date_lte filter. Verifies historical version retrieval."
+  },
+  {
+    "id": "P403",
+    "question": "What risks were identified in the 2024 annual review?",
+    "category": "versioning",
+    "relevant_chunk_ids": [],
+    "pg4_filters": {"effective_date_lte": "2024-12-31", "document_type": "annual_review"},
+    "notes": "Combines version filter with document type filter. Should return risk chunks from v1 only."
+  },
+  {
+    "id": "P404",
+    "question": "What were the major updates or changes in the 2026 annual review?",
+    "category": "versioning",
+    "relevant_chunk_ids": [],
+    "pg4_filters": {"is_current": true, "document_type": "annual_review"},
+    "notes": "Should retrieve from v2 (current). Tests that current version is correctly isolated from older content."
+  },
+
+  {
+    "_comment": "==== PHASE 4 — METADATA FILTER QUESTIONS (3) ====",
+    "_note": "These test document_type and content_type filtering in PostgreSQL."
+  },
+  {
+    "id": "P405",
+    "question": "What is the FY2025 revenue from the annual review document?",
+    "category": "metadata",
+    "relevant_chunk_ids": [],
+    "pg4_filters": {"document_type": "annual_review", "is_current": true},
+    "notes": "Tests document_type filter. Revenue should come from annual_review v2, not risk_memo or policy."
+  },
+  {
+    "id": "P406",
+    "question": "Find all technical information about Sentinel Copilot from the current document.",
+    "category": "metadata",
+    "relevant_chunk_ids": [],
+    "pg4_filters": {"is_current": true},
+    "notes": "Tests current-version filter combined with product-specific query. Should not return outdated Sentinel Copilot mentions from v1."
+  },
+  {
+    "id": "P407",
+    "question": "What financial table data is available in the current annual review?",
+    "category": "metadata",
+    "relevant_chunk_ids": [],
+    "pg4_filters": {"document_type": "annual_review", "content_type": "table", "is_current": true},
+    "notes": "Tests content_type=table filter. Only table chunks from the current annual_review version should be retrieved."
+  },
+
+  {
+    "_comment": "==== PHASE 4 — STRUCTURED FINANCIAL QUERY (1) ====",
+    "_note": "This tests the structured financial_metrics table, NOT vector retrieval.",
+    "_note2": "Expected answer: SQL query to financial_metrics table, not semantic search."
+  },
+  {
+    "id": "P408",
+    "question": "What was OrionVault's revenue in FY2025 according to the structured financial data?",
+    "category": "financial_structured",
+    "relevant_chunk_ids": [],
+    "expected_sql_answer": {"metric": "revenue", "period": "FY2025", "value": 186.0, "unit": "million", "currency": "USD"},
+    "notes": "Tests relational financial query. Answer must come from financial_metrics table (value=186.0 USD million), not vector retrieval."
+  }
+]
+

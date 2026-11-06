@@ -1,0 +1,2427 @@
+{
+  "timestamp": "20260913_223750",
+  "config": {
+    "top_k": 5,
+    "sem_k": 9,
+    "kw_k": 9,
+    "modes": [
+      "VECTOR_ONLY",
+      "KEYWORD_ONLY",
+      "HYBRID"
+    ]
+  },
+  "metrics": {
+    "VECTOR_ONLY": {
+      "MRR": 0.7028,
+      "Recall@1": 0.2972,
+      "Precision@1": 0.5667,
+      "Recall@3": 0.6,
+      "Precision@3": 0.3778,
+      "Recall@5": 0.725,
+      "Precision@5": 0.2733,
+      "Recall@10": 0.725,
+      "Precision@10": 0.1367,
+      "avg_latency_ms": 2642.1
+    },
+    "KEYWORD_ONLY": {
+      "MRR": 0.5967,
+      "Recall@1": 0.1583,
+      "Precision@1": 0.3667,
+      "Recall@3": 0.7083,
+      "Precision@3": 0.4333,
+      "Recall@5": 0.8944,
+      "Precision@5": 0.3267,
+      "Recall@10": 0.8944,
+      "Precision@10": 0.1633,
+      "avg_latency_ms": 0.2
+    },
+    "HYBRID": {
+      "MRR": 0.7022,
+      "Recall@1": 0.2917,
+      "Precision@1": 0.5667,
+      "Recall@3": 0.6639,
+      "Precision@3": 0.4111,
+      "Recall@5": 0.8111,
+      "Precision@5": 0.3,
+      "Recall@10": 0.8111,
+      "Precision@10": 0.15,
+      "avg_latency_ms": 90.3
+    }
+  },
+  "mode_results": {
+    "VECTOR_ONLY": {
+      "question_results": [
+        {
+          "id": "S01",
+          "question": "How dependent is the company on external cloud infrastructure providers?",
+          "category": "semantic",
+          "relevant_ids": [
+            "873e1acfbec6",
+            "7e8a795a92f2"
+          ],
+          "retrieved_ids": [
+            "873e1acfbec6",
+            "7e8a795a92f2",
+            "1655255991a4",
+            "b7905781454b",
+            "ab87a8bb2ff1"
+          ],
+          "latency_ms": 76399.64560000226,
+          "latency": {
+            "embedding_ms": 76399.46,
+            "semantic_ms": 0.11,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 76399.65
+          }
+        },
+        {
+          "id": "S02",
+          "question": "What is driving OrionVault's revenue growth in recent years?",
+          "category": "semantic",
+          "relevant_ids": [
+            "1655255991a4",
+            "cf52e995ddad"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "7e8a795a92f2",
+            "b0abd9d78273"
+          ],
+          "latency_ms": 95.66260001156479,
+          "latency": {
+            "embedding_ms": 95.52,
+            "semantic_ms": 0.05,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 95.66
+          }
+        },
+        {
+          "id": "S03",
+          "question": "What are the main risks associated with the company's AI product?",
+          "category": "semantic",
+          "relevant_ids": [
+            "873e1acfbec6",
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "873e1acfbec6",
+            "b7905781454b",
+            "7e8a795a92f2",
+            "ab87a8bb2ff1",
+            "1655255991a4"
+          ],
+          "latency_ms": 112.01039998559281,
+          "latency": {
+            "embedding_ms": 111.72,
+            "semantic_ms": 0.06,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 112.01
+          }
+        },
+        {
+          "id": "S04",
+          "question": "How is OrionVault positioned relative to its competitors?",
+          "category": "semantic",
+          "relevant_ids": [
+            "1655255991a4",
+            "873e1acfbec6"
+          ],
+          "retrieved_ids": [
+            "b0abd9d78273",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "b7905781454b",
+            "defc312053d4"
+          ],
+          "latency_ms": 75.41290001245216,
+          "latency": {
+            "embedding_ms": 75.31,
+            "semantic_ms": 0.05,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 75.41
+          }
+        },
+        {
+          "id": "S05",
+          "question": "What factors are improving the company's profitability?",
+          "category": "semantic",
+          "relevant_ids": [
+            "1655255991a4",
+            "cf52e995ddad"
+          ],
+          "retrieved_ids": [
+            "cf52e995ddad",
+            "873e1acfbec6",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "ab87a8bb2ff1"
+          ],
+          "latency_ms": 103.02330000558868,
+          "latency": {
+            "embedding_ms": 102.9,
+            "semantic_ms": 0.05,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 103.02
+          }
+        },
+        {
+          "id": "S06",
+          "question": "Which countries are most important to OrionVault's operations?",
+          "category": "semantic",
+          "relevant_ids": [
+            "7e8a795a92f2",
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "7e8a795a92f2",
+            "b0abd9d78273",
+            "defc312053d4",
+            "1655255991a4",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 94.3093000096269,
+          "latency": {
+            "embedding_ms": 94.21,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 94.31
+          }
+        },
+        {
+          "id": "S07",
+          "question": "What is the company's strategy for expanding its customer base?",
+          "category": "semantic",
+          "relevant_ids": [
+            "7e8a795a92f2",
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "7e8a795a92f2",
+            "1655255991a4",
+            "873e1acfbec6",
+            "ab87a8bb2ff1",
+            "b7905781454b"
+          ],
+          "latency_ms": 94.376299995929,
+          "latency": {
+            "embedding_ms": 94.28,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 94.38
+          }
+        },
+        {
+          "id": "S08",
+          "question": "How does the company manage regulatory compliance in different regions?",
+          "category": "semantic",
+          "relevant_ids": [
+            "873e1acfbec6",
+            "7e8a795a92f2"
+          ],
+          "retrieved_ids": [
+            "7e8a795a92f2",
+            "873e1acfbec6",
+            "b7905781454b",
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "latency_ms": 108.00820001168177,
+          "latency": {
+            "embedding_ms": 107.92,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 108.01
+          }
+        },
+        {
+          "id": "S09",
+          "question": "What is the leadership team's financial guidance for FY2026?",
+          "category": "semantic",
+          "relevant_ids": [
+            "873e1acfbec6"
+          ],
+          "retrieved_ids": [
+            "cf52e995ddad",
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "1655255991a4",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 94.33479997096583,
+          "latency": {
+            "embedding_ms": 94.24,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 94.33
+          }
+        },
+        {
+          "id": "S10",
+          "question": "How loyal are OrionVault's existing customers?",
+          "category": "semantic",
+          "relevant_ids": [
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "b0abd9d78273",
+            "1655255991a4",
+            "defc312053d4",
+            "7e8a795a92f2",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 93.82960002403706,
+          "latency": {
+            "embedding_ms": 93.73,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 93.83
+          }
+        },
+        {
+          "id": "L01",
+          "question": "What is Sentinel Copilot and when will it launch?",
+          "category": "lexical",
+          "relevant_ids": [
+            "b7905781454b",
+            "7e8a795a92f2",
+            "873e1acfbec6",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "b7905781454b",
+            "7e8a795a92f2",
+            "1655255991a4"
+          ],
+          "latency_ms": 87.23940001800656,
+          "latency": {
+            "embedding_ms": 87.1,
+            "semantic_ms": 0.07,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 87.24
+          }
+        },
+        {
+          "id": "L02",
+          "question": "What percentage of revenue does VaultGuard represent?",
+          "category": "lexical",
+          "relevant_ids": [
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "873e1acfbec6",
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "7e8a795a92f2"
+          ],
+          "latency_ms": 83.32099998369813,
+          "latency": {
+            "embedding_ms": 83.24,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 83.32
+          }
+        },
+        {
+          "id": "L03",
+          "question": "What does Orbit Monitor do?",
+          "category": "lexical",
+          "relevant_ids": [
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "f1c0165c2e6e",
+            "b7905781454b",
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "b0abd9d78273"
+          ],
+          "latency_ms": 94.24459998263046,
+          "latency": {
+            "embedding_ms": 94.12,
+            "semantic_ms": 0.06,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 94.24
+          }
+        },
+        {
+          "id": "L04",
+          "question": "Who is OrionVault's CEO?",
+          "category": "lexical",
+          "relevant_ids": [
+            "1655255991a4",
+            "873e1acfbec6",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "b0abd9d78273",
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "defc312053d4",
+            "b7905781454b"
+          ],
+          "latency_ms": 91.24599996721372,
+          "latency": {
+            "embedding_ms": 91.17,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 91.25
+          }
+        },
+        {
+          "id": "L05",
+          "question": "What is Relay Incident used for?",
+          "category": "lexical",
+          "relevant_ids": [
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "b7905781454b",
+            "873e1acfbec6",
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "7e8a795a92f2"
+          ],
+          "latency_ms": 84.5907999901101,
+          "latency": {
+            "embedding_ms": 84.45,
+            "semantic_ms": 0.05,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 84.59
+          }
+        },
+        {
+          "id": "L06",
+          "question": "What was OrionVault's net revenue retention in FY2025?",
+          "category": "lexical",
+          "relevant_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "7e8a795a92f2",
+            "b0abd9d78273"
+          ],
+          "latency_ms": 118.99250000715256,
+          "latency": {
+            "embedding_ms": 118.83,
+            "semantic_ms": 0.09,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 118.99
+          }
+        },
+        {
+          "id": "L07",
+          "question": "Where is OrionVault headquartered?",
+          "category": "lexical",
+          "relevant_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "b0abd9d78273",
+            "1655255991a4",
+            "defc312053d4",
+            "7e8a795a92f2",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 87.1041999780573,
+          "latency": {
+            "embedding_ms": 86.97,
+            "semantic_ms": 0.05,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 87.1
+          }
+        },
+        {
+          "id": "L08",
+          "question": "Who is the CFO of OrionVault?",
+          "category": "lexical",
+          "relevant_ids": [
+            "873e1acfbec6",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "b0abd9d78273",
+            "1655255991a4",
+            "defc312053d4",
+            "ab87a8bb2ff1",
+            "b7905781454b"
+          ],
+          "latency_ms": 99.07940000994131,
+          "latency": {
+            "embedding_ms": 98.98,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 99.08
+          }
+        },
+        {
+          "id": "L09",
+          "question": "What is OrionVault's gross revenue retention rate?",
+          "category": "lexical",
+          "relevant_ids": [
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "f1c0165c2e6e",
+            "b0abd9d78273"
+          ],
+          "latency_ms": 93.94210000755265,
+          "latency": {
+            "embedding_ms": 93.83,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 93.94
+          }
+        },
+        {
+          "id": "L10",
+          "question": "When was VaultGuard launched?",
+          "category": "lexical",
+          "relevant_ids": [
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e"
+          ],
+          "retrieved_ids": [
+            "f1c0165c2e6e",
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "1655255991a4",
+            "873e1acfbec6"
+          ],
+          "latency_ms": 74.9859000206925,
+          "latency": {
+            "embedding_ms": 74.9,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 74.99
+          }
+        },
+        {
+          "id": "N01",
+          "question": "What was OrionVault's revenue in FY2024?",
+          "category": "numerical",
+          "relevant_ids": [
+            "cf52e995ddad",
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "7e8a795a92f2",
+            "b0abd9d78273"
+          ],
+          "latency_ms": 82.78300001984462,
+          "latency": {
+            "embedding_ms": 82.68,
+            "semantic_ms": 0.05,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 82.78
+          }
+        },
+        {
+          "id": "N02",
+          "question": "What was OrionVault's FY2025 operating margin?",
+          "category": "numerical",
+          "relevant_ids": [
+            "cf52e995ddad",
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "7e8a795a92f2",
+            "ab87a8bb2ff1",
+            "b0abd9d78273",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 102.4502000072971,
+          "latency": {
+            "embedding_ms": 102.36,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 102.45
+          }
+        },
+        {
+          "id": "N03",
+          "question": "How many employees does OrionVault have?",
+          "category": "numerical",
+          "relevant_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "b0abd9d78273",
+            "defc312053d4",
+            "b7905781454b",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 123.7330999574624,
+          "latency": {
+            "embedding_ms": 123.63,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 123.73
+          }
+        },
+        {
+          "id": "N04",
+          "question": "What percentage of FY2025 revenue came from the United States?",
+          "category": "numerical",
+          "relevant_ids": [
+            "7e8a795a92f2"
+          ],
+          "retrieved_ids": [
+            "cf52e995ddad",
+            "7e8a795a92f2",
+            "1655255991a4",
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 89.18139996239915,
+          "latency": {
+            "embedding_ms": 89.05,
+            "semantic_ms": 0.06,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 89.18
+          }
+        },
+        {
+          "id": "N05",
+          "question": "What is OrionVault's FY2025 free cash flow?",
+          "category": "numerical",
+          "relevant_ids": [
+            "cf52e995ddad",
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "b0abd9d78273",
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "b7905781454b"
+          ],
+          "latency_ms": 85.08140000049025,
+          "latency": {
+            "embedding_ms": 84.95,
+            "semantic_ms": 0.07,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 85.08
+          }
+        },
+        {
+          "id": "T01",
+          "question": "What are OrionVault's key business risks?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "873e1acfbec6"
+          ],
+          "retrieved_ids": [
+            "b0abd9d78273",
+            "b7905781454b",
+            "defc312053d4",
+            "1655255991a4",
+            "7e8a795a92f2"
+          ],
+          "latency_ms": 93.82410004036501,
+          "latency": {
+            "embedding_ms": 93.69,
+            "semantic_ms": 0.07,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 93.82
+          }
+        },
+        {
+          "id": "T02",
+          "question": "What notable events happened in OrionVault's history?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e"
+          ],
+          "retrieved_ids": [
+            "defc312053d4",
+            "b0abd9d78273",
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "b7905781454b"
+          ],
+          "latency_ms": 97.5598000222817,
+          "latency": {
+            "embedding_ms": 97.44,
+            "semantic_ms": 0.05,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 97.56
+          }
+        },
+        {
+          "id": "T03",
+          "question": "What are the main products sold by OrionVault?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "b0abd9d78273",
+            "defc312053d4",
+            "1655255991a4",
+            "f1c0165c2e6e",
+            "ab87a8bb2ff1"
+          ],
+          "latency_ms": 98.93450001254678,
+          "latency": {
+            "embedding_ms": 98.79,
+            "semantic_ms": 0.06,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 98.93
+          }
+        },
+        {
+          "id": "T04",
+          "question": "What are the company's plans for the next fiscal year?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "7e8a795a92f2",
+            "873e1acfbec6"
+          ],
+          "retrieved_ids": [
+            "b7905781454b",
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "7e8a795a92f2",
+            "1655255991a4"
+          ],
+          "latency_ms": 219.966700009536,
+          "latency": {
+            "embedding_ms": 219.85,
+            "semantic_ms": 0.05,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 219.97
+          }
+        },
+        {
+          "id": "T05",
+          "question": "What does the financial performance data show about OrionVault's trajectory?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "cf52e995ddad",
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "b7905781454b",
+            "b0abd9d78273"
+          ],
+          "latency_ms": 85.36470000399277,
+          "latency": {
+            "embedding_ms": 85.28,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.0,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 85.36
+          }
+        }
+      ],
+      "metrics": {
+        "MRR": 0.7028,
+        "Recall@1": 0.2972,
+        "Precision@1": 0.5667,
+        "Recall@3": 0.6,
+        "Precision@3": 0.3778,
+        "Recall@5": 0.725,
+        "Precision@5": 0.2733,
+        "Recall@10": 0.725,
+        "Precision@10": 0.1367,
+        "avg_latency_ms": 2642.1
+      }
+    },
+    "KEYWORD_ONLY": {
+      "question_results": [
+        {
+          "id": "S01",
+          "question": "How dependent is the company on external cloud infrastructure providers?",
+          "category": "semantic",
+          "relevant_ids": [
+            "873e1acfbec6",
+            "7e8a795a92f2"
+          ],
+          "retrieved_ids": [
+            "7e8a795a92f2",
+            "ab87a8bb2ff1",
+            "873e1acfbec6",
+            "b7905781454b",
+            "1655255991a4"
+          ],
+          "latency_ms": 0.4893000004813075,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.29,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.49
+          }
+        },
+        {
+          "id": "S02",
+          "question": "What is driving OrionVault's revenue growth in recent years?",
+          "category": "semantic",
+          "relevant_ids": [
+            "1655255991a4",
+            "cf52e995ddad"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "b7905781454b",
+            "1655255991a4",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 0.2780999639071524,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.21,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.28
+          }
+        },
+        {
+          "id": "S03",
+          "question": "What are the main risks associated with the company's AI product?",
+          "category": "semantic",
+          "relevant_ids": [
+            "873e1acfbec6",
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "873e1acfbec6",
+            "7e8a795a92f2",
+            "b7905781454b"
+          ],
+          "latency_ms": 0.18550001550465822,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.15,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.19
+          }
+        },
+        {
+          "id": "S04",
+          "question": "How is OrionVault positioned relative to its competitors?",
+          "category": "semantic",
+          "relevant_ids": [
+            "1655255991a4",
+            "873e1acfbec6"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "b7905781454b",
+            "f1c0165c2e6e",
+            "1655255991a4"
+          ],
+          "latency_ms": 0.19920000340789557,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.15,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.2
+          }
+        },
+        {
+          "id": "S05",
+          "question": "What factors are improving the company's profitability?",
+          "category": "semantic",
+          "relevant_ids": [
+            "1655255991a4",
+            "cf52e995ddad"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "1655255991a4",
+            "873e1acfbec6",
+            "b7905781454b"
+          ],
+          "latency_ms": 0.1650999765843153,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.13,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.17
+          }
+        },
+        {
+          "id": "S06",
+          "question": "Which countries are most important to OrionVault's operations?",
+          "category": "semantic",
+          "relevant_ids": [
+            "7e8a795a92f2",
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "1655255991a4",
+            "b7905781454b",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 0.20789995323866606,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.14,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.21
+          }
+        },
+        {
+          "id": "S07",
+          "question": "What is the company's strategy for expanding its customer base?",
+          "category": "semantic",
+          "relevant_ids": [
+            "7e8a795a92f2",
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "b7905781454b",
+            "873e1acfbec6",
+            "1655255991a4"
+          ],
+          "latency_ms": 0.2533000078983605,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.21,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.25
+          }
+        },
+        {
+          "id": "S08",
+          "question": "How does the company manage regulatory compliance in different regions?",
+          "category": "semantic",
+          "relevant_ids": [
+            "873e1acfbec6",
+            "7e8a795a92f2"
+          ],
+          "retrieved_ids": [
+            "7e8a795a92f2",
+            "873e1acfbec6",
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "b7905781454b"
+          ],
+          "latency_ms": 0.2185999765060842,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.18,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.22
+          }
+        },
+        {
+          "id": "S09",
+          "question": "What is the leadership team's financial guidance for FY2026?",
+          "category": "semantic",
+          "relevant_ids": [
+            "873e1acfbec6"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "873e1acfbec6",
+            "b7905781454b",
+            "1655255991a4"
+          ],
+          "latency_ms": 0.22060004994273186,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.18,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.22
+          }
+        },
+        {
+          "id": "S10",
+          "question": "How loyal are OrionVault's existing customers?",
+          "category": "semantic",
+          "relevant_ids": [
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 0.1659000408835709,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.12,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.17
+          }
+        },
+        {
+          "id": "L01",
+          "question": "What is Sentinel Copilot and when will it launch?",
+          "category": "lexical",
+          "relevant_ids": [
+            "b7905781454b",
+            "7e8a795a92f2",
+            "873e1acfbec6",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "b7905781454b",
+            "873e1acfbec6",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 0.2177999704144895,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.18,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.22
+          }
+        },
+        {
+          "id": "L02",
+          "question": "What percentage of revenue does VaultGuard represent?",
+          "category": "lexical",
+          "relevant_ids": [
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "1655255991a4",
+            "f1c0165c2e6e",
+            "7e8a795a92f2"
+          ],
+          "latency_ms": 0.19209994934499264,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.15,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.19
+          }
+        },
+        {
+          "id": "L03",
+          "question": "What does Orbit Monitor do?",
+          "category": "lexical",
+          "relevant_ids": [
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "b7905781454b"
+          ],
+          "latency_ms": 0.13970001600682735,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.11,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.14
+          }
+        },
+        {
+          "id": "L04",
+          "question": "Who is OrionVault's CEO?",
+          "category": "lexical",
+          "relevant_ids": [
+            "1655255991a4",
+            "873e1acfbec6",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "b7905781454b",
+            "b0abd9d78273",
+            "defc312053d4"
+          ],
+          "latency_ms": 0.12939999578520656,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.09,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.13
+          }
+        },
+        {
+          "id": "L05",
+          "question": "What is Relay Incident used for?",
+          "category": "lexical",
+          "relevant_ids": [
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "b7905781454b",
+            "7e8a795a92f2",
+            "873e1acfbec6"
+          ],
+          "latency_ms": 0.14059996465221047,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.11,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.14
+          }
+        },
+        {
+          "id": "L06",
+          "question": "What was OrionVault's net revenue retention in FY2025?",
+          "category": "lexical",
+          "relevant_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "f1c0165c2e6e",
+            "b7905781454b"
+          ],
+          "latency_ms": 0.2465000143274665,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.2,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.25
+          }
+        },
+        {
+          "id": "L07",
+          "question": "Where is OrionVault headquartered?",
+          "category": "lexical",
+          "relevant_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "b7905781454b",
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "b0abd9d78273",
+            "defc312053d4"
+          ],
+          "latency_ms": 0.11900003300979733,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.08,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.12
+          }
+        },
+        {
+          "id": "L08",
+          "question": "Who is the CFO of OrionVault?",
+          "category": "lexical",
+          "relevant_ids": [
+            "873e1acfbec6",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "7e8a795a92f2",
+            "1655255991a4",
+            "873e1acfbec6"
+          ],
+          "latency_ms": 0.14889996964484453,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.11,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.15
+          }
+        },
+        {
+          "id": "L09",
+          "question": "What is OrionVault's gross revenue retention rate?",
+          "category": "lexical",
+          "relevant_ids": [
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "1655255991a4",
+            "b7905781454b",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 0.19450002582743764,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.15,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.19
+          }
+        },
+        {
+          "id": "L10",
+          "question": "When was VaultGuard launched?",
+          "category": "lexical",
+          "relevant_ids": [
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e"
+          ],
+          "retrieved_ids": [
+            "f1c0165c2e6e",
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "b7905781454b"
+          ],
+          "latency_ms": 0.11820002691820264,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.08,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.12
+          }
+        },
+        {
+          "id": "N01",
+          "question": "What was OrionVault's revenue in FY2024?",
+          "category": "numerical",
+          "relevant_ids": [
+            "cf52e995ddad",
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "f1c0165c2e6e",
+            "cf52e995ddad"
+          ],
+          "latency_ms": 0.17389998538419604,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.13,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.17
+          }
+        },
+        {
+          "id": "N02",
+          "question": "What was OrionVault's FY2025 operating margin?",
+          "category": "numerical",
+          "relevant_ids": [
+            "cf52e995ddad",
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "b7905781454b",
+            "cf52e995ddad"
+          ],
+          "latency_ms": 0.16910000704228878,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.13,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.17
+          }
+        },
+        {
+          "id": "N03",
+          "question": "How many employees does OrionVault have?",
+          "category": "numerical",
+          "relevant_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "b0abd9d78273"
+          ],
+          "latency_ms": 0.16620004316791892,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.12,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.17
+          }
+        },
+        {
+          "id": "N04",
+          "question": "What percentage of FY2025 revenue came from the United States?",
+          "category": "numerical",
+          "relevant_ids": [
+            "7e8a795a92f2"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "b7905781454b",
+            "7e8a795a92f2",
+            "873e1acfbec6"
+          ],
+          "latency_ms": 0.21789997117593884,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.18,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.22
+          }
+        },
+        {
+          "id": "N05",
+          "question": "What is OrionVault's FY2025 free cash flow?",
+          "category": "numerical",
+          "relevant_ids": [
+            "cf52e995ddad",
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "cf52e995ddad",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "b7905781454b"
+          ],
+          "latency_ms": 0.18360000103712082,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.14,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.18
+          }
+        },
+        {
+          "id": "T01",
+          "question": "What are OrionVault's key business risks?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "873e1acfbec6"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "873e1acfbec6"
+          ],
+          "latency_ms": 0.16469997353851795,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.12,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.16
+          }
+        },
+        {
+          "id": "T02",
+          "question": "What notable events happened in OrionVault's history?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "f1c0165c2e6e",
+            "1655255991a4",
+            "b7905781454b"
+          ],
+          "latency_ms": 0.18279999494552612,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.14,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.18
+          }
+        },
+        {
+          "id": "T03",
+          "question": "What are the main products sold by OrionVault?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "b7905781454b",
+            "7e8a795a92f2",
+            "873e1acfbec6"
+          ],
+          "latency_ms": 0.17720001051202416,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.14,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.18
+          }
+        },
+        {
+          "id": "T04",
+          "question": "What are the company's plans for the next fiscal year?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "7e8a795a92f2",
+            "873e1acfbec6"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "1655255991a4",
+            "b7905781454b",
+            "873e1acfbec6"
+          ],
+          "latency_ms": 0.22639997769147158,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.19,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.23
+          }
+        },
+        {
+          "id": "T05",
+          "question": "What does the financial performance data show about OrionVault's trajectory?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "cf52e995ddad",
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "873e1acfbec6"
+          ],
+          "latency_ms": 0.20980002591386437,
+          "latency": {
+            "embedding_ms": 0.0,
+            "semantic_ms": 0.0,
+            "keyword_ms": 0.17,
+            "fusion_ms": 0.0,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 0.21
+          }
+        }
+      ],
+      "metrics": {
+        "MRR": 0.5967,
+        "Recall@1": 0.1583,
+        "Precision@1": 0.3667,
+        "Recall@3": 0.7083,
+        "Precision@3": 0.4333,
+        "Recall@5": 0.8944,
+        "Precision@5": 0.3267,
+        "Recall@10": 0.8944,
+        "Precision@10": 0.1633,
+        "avg_latency_ms": 0.2
+      }
+    },
+    "HYBRID": {
+      "question_results": [
+        {
+          "id": "S01",
+          "question": "How dependent is the company on external cloud infrastructure providers?",
+          "category": "semantic",
+          "relevant_ids": [
+            "873e1acfbec6",
+            "7e8a795a92f2"
+          ],
+          "retrieved_ids": [
+            "7e8a795a92f2",
+            "873e1acfbec6",
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "b7905781454b"
+          ],
+          "latency_ms": 91.18960000341758,
+          "latency": {
+            "embedding_ms": 90.72,
+            "semantic_ms": 0.06,
+            "keyword_ms": 0.19,
+            "fusion_ms": 0.11,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 91.19
+          }
+        },
+        {
+          "id": "S02",
+          "question": "What is driving OrionVault's revenue growth in recent years?",
+          "category": "semantic",
+          "relevant_ids": [
+            "1655255991a4",
+            "cf52e995ddad"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "f1c0165c2e6e",
+            "b7905781454b"
+          ],
+          "latency_ms": 94.93770002154633,
+          "latency": {
+            "embedding_ms": 94.36,
+            "semantic_ms": 0.07,
+            "keyword_ms": 0.26,
+            "fusion_ms": 0.09,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 94.94
+          }
+        },
+        {
+          "id": "S03",
+          "question": "What are the main risks associated with the company's AI product?",
+          "category": "semantic",
+          "relevant_ids": [
+            "873e1acfbec6",
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "873e1acfbec6",
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "1655255991a4",
+            "7e8a795a92f2"
+          ],
+          "latency_ms": 87.85190002527088,
+          "latency": {
+            "embedding_ms": 87.12,
+            "semantic_ms": 0.06,
+            "keyword_ms": 0.38,
+            "fusion_ms": 0.11,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 87.85
+          }
+        },
+        {
+          "id": "S04",
+          "question": "How is OrionVault positioned relative to its competitors?",
+          "category": "semantic",
+          "relevant_ids": [
+            "1655255991a4",
+            "873e1acfbec6"
+          ],
+          "retrieved_ids": [
+            "7e8a795a92f2",
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "b7905781454b",
+            "b0abd9d78273"
+          ],
+          "latency_ms": 99.42250000312924,
+          "latency": {
+            "embedding_ms": 99.05,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.16,
+            "fusion_ms": 0.07,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 99.42
+          }
+        },
+        {
+          "id": "S05",
+          "question": "What factors are improving the company's profitability?",
+          "category": "semantic",
+          "relevant_ids": [
+            "1655255991a4",
+            "cf52e995ddad"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "873e1acfbec6",
+            "7e8a795a92f2",
+            "1655255991a4",
+            "b7905781454b"
+          ],
+          "latency_ms": 92.33730001142249,
+          "latency": {
+            "embedding_ms": 91.81,
+            "semantic_ms": 0.07,
+            "keyword_ms": 0.22,
+            "fusion_ms": 0.08,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 92.34
+          }
+        },
+        {
+          "id": "S06",
+          "question": "Which countries are most important to OrionVault's operations?",
+          "category": "semantic",
+          "relevant_ids": [
+            "7e8a795a92f2",
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "7e8a795a92f2",
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "b0abd9d78273",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 234.91249996004626,
+          "latency": {
+            "embedding_ms": 234.32,
+            "semantic_ms": 0.05,
+            "keyword_ms": 0.25,
+            "fusion_ms": 0.09,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 234.91
+          }
+        },
+        {
+          "id": "S07",
+          "question": "What is the company's strategy for expanding its customer base?",
+          "category": "semantic",
+          "relevant_ids": [
+            "7e8a795a92f2",
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "7e8a795a92f2",
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "873e1acfbec6",
+            "b7905781454b"
+          ],
+          "latency_ms": 93.94890000112355,
+          "latency": {
+            "embedding_ms": 93.4,
+            "semantic_ms": 0.05,
+            "keyword_ms": 0.26,
+            "fusion_ms": 0.1,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 93.95
+          }
+        },
+        {
+          "id": "S08",
+          "question": "How does the company manage regulatory compliance in different regions?",
+          "category": "semantic",
+          "relevant_ids": [
+            "873e1acfbec6",
+            "7e8a795a92f2"
+          ],
+          "retrieved_ids": [
+            "7e8a795a92f2",
+            "873e1acfbec6",
+            "b7905781454b",
+            "ab87a8bb2ff1",
+            "1655255991a4"
+          ],
+          "latency_ms": 86.71200001845136,
+          "latency": {
+            "embedding_ms": 86.32,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.19,
+            "fusion_ms": 0.06,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 86.71
+          }
+        },
+        {
+          "id": "S09",
+          "question": "What is the leadership team's financial guidance for FY2026?",
+          "category": "semantic",
+          "relevant_ids": [
+            "873e1acfbec6"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "7e8a795a92f2",
+            "1655255991a4",
+            "873e1acfbec6"
+          ],
+          "latency_ms": 78.793799970299,
+          "latency": {
+            "embedding_ms": 78.41,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.18,
+            "fusion_ms": 0.06,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 78.79
+          }
+        },
+        {
+          "id": "S10",
+          "question": "How loyal are OrionVault's existing customers?",
+          "category": "semantic",
+          "relevant_ids": [
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "b0abd9d78273",
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "b7905781454b"
+          ],
+          "latency_ms": 69.65790002141148,
+          "latency": {
+            "embedding_ms": 69.15,
+            "semantic_ms": 0.05,
+            "keyword_ms": 0.22,
+            "fusion_ms": 0.08,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 69.66
+          }
+        },
+        {
+          "id": "L01",
+          "question": "What is Sentinel Copilot and when will it launch?",
+          "category": "lexical",
+          "relevant_ids": [
+            "b7905781454b",
+            "7e8a795a92f2",
+            "873e1acfbec6",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "b7905781454b",
+            "f1c0165c2e6e",
+            "873e1acfbec6"
+          ],
+          "latency_ms": 80.24919999297708,
+          "latency": {
+            "embedding_ms": 79.88,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.18,
+            "fusion_ms": 0.06,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 80.25
+          }
+        },
+        {
+          "id": "L02",
+          "question": "What percentage of revenue does VaultGuard represent?",
+          "category": "lexical",
+          "relevant_ids": [
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "873e1acfbec6",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 72.46970001142472,
+          "latency": {
+            "embedding_ms": 72.09,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.15,
+            "fusion_ms": 0.06,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 72.47
+          }
+        },
+        {
+          "id": "L03",
+          "question": "What does Orbit Monitor do?",
+          "category": "lexical",
+          "relevant_ids": [
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "f1c0165c2e6e",
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "7e8a795a92f2",
+            "b0abd9d78273"
+          ],
+          "latency_ms": 71.1814999813214,
+          "latency": {
+            "embedding_ms": 70.9,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.09,
+            "fusion_ms": 0.07,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 71.18
+          }
+        },
+        {
+          "id": "L04",
+          "question": "Who is OrionVault's CEO?",
+          "category": "lexical",
+          "relevant_ids": [
+            "1655255991a4",
+            "873e1acfbec6",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "b0abd9d78273",
+            "b7905781454b",
+            "7e8a795a92f2",
+            "1655255991a4"
+          ],
+          "latency_ms": 88.59910001046956,
+          "latency": {
+            "embedding_ms": 87.9,
+            "semantic_ms": 0.06,
+            "keyword_ms": 0.27,
+            "fusion_ms": 0.18,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 88.6
+          }
+        },
+        {
+          "id": "L05",
+          "question": "What is Relay Incident used for?",
+          "category": "lexical",
+          "relevant_ids": [
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "b7905781454b",
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "873e1acfbec6",
+            "7e8a795a92f2"
+          ],
+          "latency_ms": 89.7473000222817,
+          "latency": {
+            "embedding_ms": 89.44,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.11,
+            "fusion_ms": 0.06,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 89.75
+          }
+        },
+        {
+          "id": "L06",
+          "question": "What was OrionVault's net revenue retention in FY2025?",
+          "category": "lexical",
+          "relevant_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "7e8a795a92f2",
+            "b7905781454b"
+          ],
+          "latency_ms": 84.25290003651753,
+          "latency": {
+            "embedding_ms": 83.84,
+            "semantic_ms": 0.05,
+            "keyword_ms": 0.17,
+            "fusion_ms": 0.06,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 84.25
+          }
+        },
+        {
+          "id": "L07",
+          "question": "Where is OrionVault headquartered?",
+          "category": "lexical",
+          "relevant_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "b0abd9d78273",
+            "7e8a795a92f2",
+            "b7905781454b",
+            "ab87a8bb2ff1",
+            "defc312053d4"
+          ],
+          "latency_ms": 80.4088999866508,
+          "latency": {
+            "embedding_ms": 80.09,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.11,
+            "fusion_ms": 0.07,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 80.41
+          }
+        },
+        {
+          "id": "L08",
+          "question": "Who is the CFO of OrionVault?",
+          "category": "lexical",
+          "relevant_ids": [
+            "873e1acfbec6",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "b0abd9d78273",
+            "b7905781454b",
+            "defc312053d4"
+          ],
+          "latency_ms": 79.70539998495951,
+          "latency": {
+            "embedding_ms": 79.2,
+            "semantic_ms": 0.06,
+            "keyword_ms": 0.18,
+            "fusion_ms": 0.1,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 79.71
+          }
+        },
+        {
+          "id": "L09",
+          "question": "What is OrionVault's gross revenue retention rate?",
+          "category": "lexical",
+          "relevant_ids": [
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "f1c0165c2e6e",
+            "b7905781454b"
+          ],
+          "latency_ms": 86.02619997691363,
+          "latency": {
+            "embedding_ms": 85.44,
+            "semantic_ms": 0.06,
+            "keyword_ms": 0.27,
+            "fusion_ms": 0.1,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 86.03
+          }
+        },
+        {
+          "id": "L10",
+          "question": "When was VaultGuard launched?",
+          "category": "lexical",
+          "relevant_ids": [
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e"
+          ],
+          "retrieved_ids": [
+            "f1c0165c2e6e",
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "b7905781454b",
+            "7e8a795a92f2"
+          ],
+          "latency_ms": 76.57480001216754,
+          "latency": {
+            "embedding_ms": 76.19,
+            "semantic_ms": 0.09,
+            "keyword_ms": 0.11,
+            "fusion_ms": 0.07,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 76.57
+          }
+        },
+        {
+          "id": "N01",
+          "question": "What was OrionVault's revenue in FY2024?",
+          "category": "numerical",
+          "relevant_ids": [
+            "cf52e995ddad",
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "7e8a795a92f2",
+            "b7905781454b"
+          ],
+          "latency_ms": 82.41080003790557,
+          "latency": {
+            "embedding_ms": 81.96,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.16,
+            "fusion_ms": 0.08,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 82.41
+          }
+        },
+        {
+          "id": "N02",
+          "question": "What was OrionVault's FY2025 operating margin?",
+          "category": "numerical",
+          "relevant_ids": [
+            "cf52e995ddad",
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1",
+            "7e8a795a92f2",
+            "b0abd9d78273",
+            "b7905781454b"
+          ],
+          "latency_ms": 83.45900004496798,
+          "latency": {
+            "embedding_ms": 83.13,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.14,
+            "fusion_ms": 0.06,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 83.46
+          }
+        },
+        {
+          "id": "N03",
+          "question": "How many employees does OrionVault have?",
+          "category": "numerical",
+          "relevant_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "b7905781454b",
+            "ab87a8bb2ff1",
+            "b0abd9d78273",
+            "defc312053d4"
+          ],
+          "latency_ms": 81.4879999961704,
+          "latency": {
+            "embedding_ms": 81.1,
+            "semantic_ms": 0.08,
+            "keyword_ms": 0.14,
+            "fusion_ms": 0.06,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 81.49
+          }
+        },
+        {
+          "id": "N04",
+          "question": "What percentage of FY2025 revenue came from the United States?",
+          "category": "numerical",
+          "relevant_ids": [
+            "7e8a795a92f2"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "7e8a795a92f2",
+            "cf52e995ddad",
+            "b7905781454b"
+          ],
+          "latency_ms": 93.05789996869862,
+          "latency": {
+            "embedding_ms": 92.67,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.17,
+            "fusion_ms": 0.06,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 93.06
+          }
+        },
+        {
+          "id": "N05",
+          "question": "What is OrionVault's FY2025 free cash flow?",
+          "category": "numerical",
+          "relevant_ids": [
+            "cf52e995ddad",
+            "1655255991a4",
+            "ab87a8bb2ff1"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1",
+            "b0abd9d78273",
+            "cf52e995ddad",
+            "b7905781454b"
+          ],
+          "latency_ms": 85.37719998275861,
+          "latency": {
+            "embedding_ms": 84.94,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.18,
+            "fusion_ms": 0.08,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 85.38
+          }
+        },
+        {
+          "id": "T01",
+          "question": "What are OrionVault's key business risks?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "873e1acfbec6"
+          ],
+          "retrieved_ids": [
+            "b7905781454b",
+            "b0abd9d78273",
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "7e8a795a92f2"
+          ],
+          "latency_ms": 86.12429996719584,
+          "latency": {
+            "embedding_ms": 85.75,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.13,
+            "fusion_ms": 0.06,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 86.12
+          }
+        },
+        {
+          "id": "T02",
+          "question": "What notable events happened in OrionVault's history?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "f1c0165c2e6e",
+            "defc312053d4",
+            "b0abd9d78273",
+            "7e8a795a92f2"
+          ],
+          "latency_ms": 95.79829999711365,
+          "latency": {
+            "embedding_ms": 95.45,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.15,
+            "fusion_ms": 0.06,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 95.8
+          }
+        },
+        {
+          "id": "T03",
+          "question": "What are the main products sold by OrionVault?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "b7905781454b"
+          ],
+          "retrieved_ids": [
+            "1655255991a4",
+            "ab87a8bb2ff1",
+            "b0abd9d78273",
+            "defc312053d4",
+            "b7905781454b"
+          ],
+          "latency_ms": 84.66309995856136,
+          "latency": {
+            "embedding_ms": 84.2,
+            "semantic_ms": 0.04,
+            "keyword_ms": 0.19,
+            "fusion_ms": 0.08,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 84.66
+          }
+        },
+        {
+          "id": "T04",
+          "question": "What are the company's plans for the next fiscal year?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "7e8a795a92f2",
+            "873e1acfbec6"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "b7905781454b",
+            "7e8a795a92f2",
+            "1655255991a4",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 84.79529997566715,
+          "latency": {
+            "embedding_ms": 84.2,
+            "semantic_ms": 0.05,
+            "keyword_ms": 0.27,
+            "fusion_ms": 0.11,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 84.8
+          }
+        },
+        {
+          "id": "T05",
+          "question": "What does the financial performance data show about OrionVault's trajectory?",
+          "category": "section_topic",
+          "relevant_ids": [
+            "cf52e995ddad",
+            "1655255991a4"
+          ],
+          "retrieved_ids": [
+            "ab87a8bb2ff1",
+            "1655255991a4",
+            "b7905781454b",
+            "7e8a795a92f2",
+            "f1c0165c2e6e"
+          ],
+          "latency_ms": 93.15680002328008,
+          "latency": {
+            "embedding_ms": 92.37,
+            "semantic_ms": 0.09,
+            "keyword_ms": 0.37,
+            "fusion_ms": 0.12,
+            "filter_ms": 0.0,
+            "rerank_ms": 0.0,
+            "total_ms": 93.16
+          }
+        }
+      ],
+      "metrics": {
+        "MRR": 0.7022,
+        "Recall@1": 0.2917,
+        "Precision@1": 0.5667,
+        "Recall@3": 0.6639,
+        "Precision@3": 0.4111,
+        "Recall@5": 0.8111,
+        "Precision@5": 0.3,
+        "Recall@10": 0.8111,
+        "Precision@10": 0.15,
+        "avg_latency_ms": 90.3
+      }
+    }
+  }
+}

@@ -1,0 +1,472 @@
+[
+  {
+    "_comment": "==== SIMPLE QUERIES (10) ==== One retrieval sufficient.",
+    "_note": "Expected behavior: Phase 5 planner returns requires_decomposition=false, uses simple path."
+  },
+  {
+    "id": "S01",
+    "question": "What is OrionVault's FY2025 total revenue?",
+    "expected_type": "SIMPLE",
+    "expected_topics": ["financial performance"],
+    "minimum_expected_tasks": 1,
+    "maximum_expected_tasks": 1,
+    "notes": "Single factual financial figure. SIMPLE path. Should NOT decompose."
+  },
+  {
+    "id": "S02",
+    "question": "What is OrionVault's gross margin for FY2025?",
+    "expected_type": "SIMPLE",
+    "expected_topics": ["financial performance"],
+    "minimum_expected_tasks": 1,
+    "maximum_expected_tasks": 1,
+    "notes": "Single KPI lookup."
+  },
+  {
+    "id": "S03",
+    "question": "Who is OrionVault's CEO?",
+    "expected_type": "SIMPLE",
+    "expected_topics": ["leadership"],
+    "minimum_expected_tasks": 1,
+    "maximum_expected_tasks": 1,
+    "notes": "Single entity lookup."
+  },
+  {
+    "id": "S04",
+    "question": "What is OrionVault's customer count as of the latest report?",
+    "expected_type": "SIMPLE",
+    "expected_topics": ["customer relationships"],
+    "minimum_expected_tasks": 1,
+    "maximum_expected_tasks": 1,
+    "notes": "Single statistic. SIMPLE."
+  },
+  {
+    "id": "S05",
+    "question": "What is OrionVault's free cash flow for FY2025?",
+    "expected_type": "SIMPLE",
+    "expected_topics": ["financial performance"],
+    "minimum_expected_tasks": 1,
+    "maximum_expected_tasks": 1,
+    "notes": "FCF is a single figure. SIMPLE."
+  },
+  {
+    "id": "S06",
+    "question": "What is Sentinel Copilot?",
+    "expected_type": "SIMPLE",
+    "expected_topics": ["product portfolio"],
+    "minimum_expected_tasks": 1,
+    "maximum_expected_tasks": 1,
+    "notes": "Product definition. One retrieval sufficient."
+  },
+  {
+    "id": "S07",
+    "question": "What does OrionVault's VaultGuard product do?",
+    "expected_type": "SIMPLE",
+    "expected_topics": ["product portfolio"],
+    "minimum_expected_tasks": 1,
+    "maximum_expected_tasks": 1,
+    "notes": "Product capability description. SIMPLE."
+  },
+  {
+    "id": "S08",
+    "question": "How many full-time employees does OrionVault have?",
+    "expected_type": "SIMPLE",
+    "expected_topics": ["workforce"],
+    "minimum_expected_tasks": 1,
+    "maximum_expected_tasks": 1,
+    "notes": "Headcount is a single figure. SIMPLE."
+  },
+  {
+    "id": "S09",
+    "question": "What is OrionVault's operating margin for FY2025?",
+    "expected_type": "SIMPLE",
+    "expected_topics": ["financial performance"],
+    "minimum_expected_tasks": 1,
+    "maximum_expected_tasks": 1,
+    "notes": "Single financial metric."
+  },
+  {
+    "id": "S10",
+    "question": "What is OrionVault's NRR (net revenue retention)?",
+    "expected_type": "SIMPLE",
+    "expected_topics": ["financial performance", "customer relationships"],
+    "minimum_expected_tasks": 1,
+    "maximum_expected_tasks": 1,
+    "notes": "Single KPI. SIMPLE."
+  },
+
+  {
+    "_comment": "==== MULTI_HOP QUERIES (10) ==== Answer depends on chained facts."
+  },
+  {
+    "id": "MH01",
+    "question": "What factors caused OrionVault's operating margin improvement from FY2023 to FY2025, and what risks could reverse this improvement?",
+    "expected_type": "MULTI_HOP",
+    "expected_topics": ["financial performance", "operating margin drivers", "risk factors"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Step 1: margin improvement facts. Step 2: root causes. Step 3: reversal risks. Multi-hop."
+  },
+  {
+    "id": "MH02",
+    "question": "How did OrionVault achieve positive free cash flow, and what factors threaten its sustainability?",
+    "expected_type": "MULTI_HOP",
+    "expected_topics": ["financial performance", "cash flow drivers", "sustainability risks"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Needs both: FCF achievement evidence + future risk factors."
+  },
+  {
+    "id": "MH03",
+    "question": "What drove OrionVault's customer concentration risk and what steps has the company taken to reduce it?",
+    "expected_type": "MULTI_HOP",
+    "expected_topics": ["customer relationships", "concentration risk", "mitigation strategy"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Two-hop: understand the risk, then understand the response."
+  },
+  {
+    "id": "MH04",
+    "question": "How did OrionVault's Sentinel Copilot product drive revenue growth, and what competitive threats could undermine this?",
+    "expected_type": "MULTI_HOP",
+    "expected_topics": ["product portfolio", "revenue growth", "competitive threats"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Product → revenue link → competitive risk. Multi-hop chain."
+  },
+  {
+    "id": "MH05",
+    "question": "What factors led to OrionVault's high NRR and what customer satisfaction issues might put it at risk?",
+    "expected_type": "MULTI_HOP",
+    "expected_topics": ["customer relationships", "NRR drivers", "churn risk"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Root cause of NRR → threats to NRR."
+  },
+  {
+    "id": "MH06",
+    "question": "How has OrionVault's geographic expansion created regulatory exposure and what compliance obligations does this create?",
+    "expected_type": "MULTI_HOP",
+    "expected_topics": ["growth strategy", "regulatory compliance"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Expansion decision → regulatory consequence chain."
+  },
+  {
+    "id": "MH07",
+    "question": "What is the relationship between OrionVault's R&D spend and its product roadmap success?",
+    "expected_type": "MULTI_HOP",
+    "expected_topics": ["financial performance", "product portfolio"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "R&D spend data + product outcomes — two-hop."
+  },
+  {
+    "id": "MH08",
+    "question": "How has OrionVault's enterprise customer focus changed its sales cycle and what implications does this have for cash flow?",
+    "expected_type": "MULTI_HOP",
+    "expected_topics": ["growth strategy", "customer relationships", "financial performance"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Enterprise focus → sales cycle change → cash flow implications."
+  },
+  {
+    "id": "MH09",
+    "question": "What caused OrionVault's personnel costs to grow and how does this affect its path to profitability?",
+    "expected_type": "MULTI_HOP",
+    "expected_topics": ["workforce", "financial performance"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Headcount growth causes → profitability impact. Multi-hop."
+  },
+  {
+    "id": "MH10",
+    "question": "How did OrionVault's partnership strategy contribute to revenue, and what execution risks exist?",
+    "expected_type": "MULTI_HOP",
+    "expected_topics": ["growth strategy", "financial performance", "execution risks"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Partnership strategy → revenue contribution → risks. Multi-hop chain."
+  },
+
+  {
+    "_comment": "==== COMPARISON QUERIES (10) ==== Requires comparing two subjects."
+  },
+  {
+    "id": "C01",
+    "question": "Compare OrionVault's US and European expansion strategies and explain the key risks of each.",
+    "expected_type": "COMPARISON",
+    "expected_topics": ["US expansion strategy", "European expansion strategy", "US execution risks", "European execution risks"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 5,
+    "notes": "Canonical COMPARISON. Must retrieve both US and Europe strategy separately."
+  },
+  {
+    "id": "C02",
+    "question": "Compare OrionVault's Sentinel Copilot and VaultGuard products in terms of market positioning and growth potential.",
+    "expected_type": "COMPARISON",
+    "expected_topics": ["Sentinel Copilot", "VaultGuard"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Product comparison. Should retrieve evidence about each product separately."
+  },
+  {
+    "id": "C03",
+    "question": "How does OrionVault's gross margin compare to its operating margin and what explains the difference?",
+    "expected_type": "COMPARISON",
+    "expected_topics": ["gross margin", "operating margin"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Margin comparison. May be borderline SIMPLE — depends on whether both are on same page."
+  },
+  {
+    "id": "C04",
+    "question": "Compare OrionVault's financial performance in FY2023 versus FY2025.",
+    "expected_type": "COMPARISON",
+    "expected_topics": ["FY2023 financial performance", "FY2025 financial performance"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Year-over-year comparison. May also classify as TEMPORAL."
+  },
+  {
+    "id": "C05",
+    "question": "Compare the enterprise and SMB customer segments for OrionVault in terms of retention and revenue contribution.",
+    "expected_type": "COMPARISON",
+    "expected_topics": ["enterprise customer segment", "SMB customer segment"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Customer segment comparison."
+  },
+  {
+    "id": "C06",
+    "question": "Compare OrionVault's short-term growth prospects versus its long-term competitive risks.",
+    "expected_type": "COMPARISON",
+    "expected_topics": ["growth prospects", "competitive risks"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Growth vs risk framing."
+  },
+  {
+    "id": "C07",
+    "question": "Compare the regulatory compliance burden of OrionVault's US operations versus its European operations.",
+    "expected_type": "COMPARISON",
+    "expected_topics": ["US regulatory compliance", "European regulatory compliance"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Cross-geographic regulatory comparison."
+  },
+  {
+    "id": "C08",
+    "question": "Compare management's forward-looking statements about revenue growth with the actual risk factors disclosed.",
+    "expected_type": "COMPARISON",
+    "expected_topics": ["management revenue growth narrative", "disclosed risk factors"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Management commentary vs formal disclosures. Also classifiable as CROSS_DOCUMENT."
+  },
+  {
+    "id": "C09",
+    "question": "Compare OrionVault's channel partner strategy to its direct enterprise sales approach.",
+    "expected_type": "COMPARISON",
+    "expected_topics": ["channel partner strategy", "direct enterprise sales"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Go-to-market channel comparison."
+  },
+  {
+    "id": "C10",
+    "question": "Compare OrionVault's current product capabilities with the competitive threats from established players.",
+    "expected_type": "COMPARISON",
+    "expected_topics": ["product capabilities", "competitive threats"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Product vs competition comparison."
+  },
+
+  {
+    "_comment": "==== TEMPORAL QUERIES (10) ==== Requires two time periods."
+  },
+  {
+    "id": "T01",
+    "question": "How did OrionVault's risk profile change from the 2024 dossier to the 2026 annual review?",
+    "expected_type": "TEMPORAL",
+    "expected_topics": ["2024 risk profile", "2026 risk profile", "risk changes"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Canonical TEMPORAL. Must create separate tasks for 2024 and 2026 evidence."
+  },
+  {
+    "id": "T02",
+    "question": "How did OrionVault's revenue growth rate change from FY2023 to FY2025?",
+    "expected_type": "TEMPORAL",
+    "expected_topics": ["FY2023 revenue", "FY2025 revenue"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Financial trend over time."
+  },
+  {
+    "id": "T03",
+    "question": "What regulatory requirements applied to OrionVault in 2024 and how have they changed by 2026?",
+    "expected_type": "TEMPORAL",
+    "expected_topics": ["2024 regulatory requirements", "2026 regulatory requirements"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Temporal regulatory comparison. Should use version-aware retrieval."
+  },
+  {
+    "id": "T04",
+    "question": "How did OrionVault's product strategy evolve between 2024 and 2026?",
+    "expected_type": "TEMPORAL",
+    "expected_topics": ["2024 product strategy", "2026 product strategy"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Product evolution over two periods."
+  },
+  {
+    "id": "T05",
+    "question": "How did the competitive landscape facing OrionVault change from 2024 to 2026?",
+    "expected_type": "TEMPORAL",
+    "expected_topics": ["2024 competitive landscape", "2026 competitive landscape"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Temporal competitive analysis."
+  },
+  {
+    "id": "T06",
+    "question": "How did OrionVault's headcount and organizational structure change between 2024 and 2026?",
+    "expected_type": "TEMPORAL",
+    "expected_topics": ["2024 workforce", "2026 workforce"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Organizational temporal change."
+  },
+  {
+    "id": "T07",
+    "question": "How did OrionVault's customer concentration risk change from FY2023 to FY2025?",
+    "expected_type": "TEMPORAL",
+    "expected_topics": ["FY2023 customer concentration", "FY2025 customer concentration"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Temporal customer risk change."
+  },
+  {
+    "id": "T08",
+    "question": "What changed about OrionVault's enterprise strategy from early 2024 to 2026?",
+    "expected_type": "TEMPORAL",
+    "expected_topics": ["2024 enterprise strategy", "2026 enterprise strategy"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Strategy evolution over time."
+  },
+  {
+    "id": "T09",
+    "question": "How did OrionVault's gross margin improve from FY2023 to FY2025 and what drove this?",
+    "expected_type": "TEMPORAL",
+    "expected_topics": ["FY2023 gross margin", "FY2025 gross margin", "margin improvement drivers"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Temporal financial trend with causal analysis."
+  },
+  {
+    "id": "T10",
+    "question": "What risks were disclosed in 2024 that were resolved or updated by 2026?",
+    "expected_type": "TEMPORAL",
+    "expected_topics": ["2024 risk disclosures", "2026 risk disclosures", "risk resolution"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 4,
+    "notes": "Requires evidence from both periods and cross-comparison."
+  },
+
+  {
+    "_comment": "==== CROSS_DOCUMENT QUERIES (10) ==== Requires evidence from structurally distinct sources."
+  },
+  {
+    "id": "CD01",
+    "question": "Compare management's commentary on Sentinel Copilot with the formal risk disclosures related to the product.",
+    "expected_type": "CROSS_DOCUMENT",
+    "expected_topics": ["management commentary Sentinel Copilot", "formal risk disclosures Sentinel Copilot"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Canonical CROSS_DOCUMENT. Management optimism vs formal risk caution."
+  },
+  {
+    "id": "CD02",
+    "question": "Compare the growth strategy described in the annual review with the risk factors that could prevent that strategy from succeeding.",
+    "expected_type": "CROSS_DOCUMENT",
+    "expected_topics": ["annual review growth strategy", "growth strategy risk factors"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Strategy document vs risk section."
+  },
+  {
+    "id": "CD03",
+    "question": "What does the company say about European expansion in management commentary versus the risk disclosures?",
+    "expected_type": "CROSS_DOCUMENT",
+    "expected_topics": ["management European expansion commentary", "European expansion risk factors"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Cross-document European expansion perspective."
+  },
+  {
+    "id": "CD04",
+    "question": "How does the product roadmap presented in the annual review align with the technical risks disclosed?",
+    "expected_type": "CROSS_DOCUMENT",
+    "expected_topics": ["product roadmap", "technical risks"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Roadmap promises vs technical risk disclosures."
+  },
+  {
+    "id": "CD05",
+    "question": "Compare the financial projections in the management section with the risk factors that could cause them to miss.",
+    "expected_type": "CROSS_DOCUMENT",
+    "expected_topics": ["financial projections", "projection risk factors"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Forward guidance vs downside risks."
+  },
+  {
+    "id": "CD06",
+    "question": "How does OrionVault describe its competitive position in the overview versus the formal competitive risk disclosures?",
+    "expected_type": "CROSS_DOCUMENT",
+    "expected_topics": ["competitive position overview", "competitive risk disclosures"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Self-positioning vs formal competitive risk."
+  },
+  {
+    "id": "CD07",
+    "question": "Compare the regulatory compliance approach described in management commentary with the regulatory risk factors.",
+    "expected_type": "CROSS_DOCUMENT",
+    "expected_topics": ["regulatory compliance management view", "regulatory risk factors"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Cross-document regulatory analysis."
+  },
+  {
+    "id": "CD08",
+    "question": "Compare the 2024 dossier's description of customer concentration risk with the 2026 annual review's treatment of the same topic.",
+    "expected_type": "CROSS_DOCUMENT",
+    "expected_topics": ["2024 customer concentration risk", "2026 customer concentration risk"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "Cross-document AND temporal. Focus is on document source differences."
+  },
+  {
+    "id": "CD09",
+    "question": "How does the company characterize its talent acquisition capabilities in management commentary compared to the risk disclosures about talent shortage?",
+    "expected_type": "CROSS_DOCUMENT",
+    "expected_topics": ["talent acquisition management view", "talent risk disclosures"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "HR cross-document analysis."
+  },
+  {
+    "id": "CD10",
+    "question": "What does the annual review say about product-market fit and how do the risk disclosures qualify that confidence?",
+    "expected_type": "CROSS_DOCUMENT",
+    "expected_topics": ["product-market fit claims", "product-market fit risks"],
+    "minimum_expected_tasks": 2,
+    "maximum_expected_tasks": 3,
+    "notes": "PMF confidence vs risk qualifiers."
+  }
+]

@@ -125,16 +125,13 @@ def main() -> None:
     t_all = time.perf_counter()
 
     print_section("STREAMING NODE EXECUTION")
-    final_state = None
+    state = initial_state(query)
     for event in rg.stream(query):
         for node_name, node_output in event.items():
+            if isinstance(node_output, dict):
+                state.update(node_output)
             keys = list(node_output.keys()) if isinstance(node_output, dict) else []
             print(f"  [node: {node_name}]  updated keys: {keys}")
-        final_state = event
-
-    # Get final merged state
-    state = initial_state(query)
-    state.update(rg.run(query))  # re-run to get merged final state
 
     total_ms = (time.perf_counter() - t_all) * 1000
 
@@ -188,7 +185,9 @@ def main() -> None:
             t_meta = tasks_meta.get(tid, {})
             status = t_meta.get("status", "DONE")
             lat    = t_meta.get("latency_ms", 0)
-            print(f"\n  Task: {tid}  status={status}  chunks={len(records)}  latency={lat:.0f}ms")
+            err    = t_meta.get("error")
+            err_str = f"  error={err}" if err else ""
+            print(f"\n  Task: {tid}  status={status}  chunks={len(records)}  latency={lat:.0f}ms{err_str}")
             print(f"  Sub-query: {t_meta.get('query', '—')}")
             for j, rec in enumerate(records[:2], start=1):
                 if isinstance(rec, dict):

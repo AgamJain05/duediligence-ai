@@ -71,6 +71,17 @@ except Exception:
     POSTGRES_HYBRID = "POSTGRES_HYBRID"
     POSTGRES_MODES = {POSTGRES_EXACT, POSTGRES_HNSW, POSTGRES_FILTERED, POSTGRES_FTS, POSTGRES_HYBRID}
 
+# ── Phase 5 imports (conditional — LangGraph may not be installed) ────────────
+_GRAPH_AVAILABLE = False
+try:
+    from src.orchestration.graph import ResearchGraph
+    from src.planning.models import PlanningConfig
+    _GRAPH_AVAILABLE = True
+except Exception:
+    pass
+
+RESEARCH_AGENT = "RESEARCH_AGENT"
+
 # ── All mode labels for the UI ────────────────────────────────────────────────
 FAISS_MODES = {VECTOR_ONLY, KEYWORD_ONLY, HYBRID, HYBRID_RERANKED}
 
@@ -84,6 +95,7 @@ MODE_LABELS: Dict[str, str] = {
     POSTGRES_FILTERED: "PostgreSQL — HNSW + relational filters",
     POSTGRES_FTS:     "PostgreSQL — Full-text search",
     POSTGRES_HYBRID:  "PostgreSQL — Vector + BM25 (RRF)",
+    RESEARCH_AGENT:   "Research Agent (Phase 5 — LangGraph)",
 }
 
 INDEX_DIR = str(PROJECT_ROOT / "data" / "index")
@@ -139,6 +151,8 @@ def get_available_modes(faiss_ok: bool, db_ok: bool) -> List[str]:
         modes += [VECTOR_ONLY, KEYWORD_ONLY, HYBRID, HYBRID_RERANKED]
     if db_ok:
         modes += [POSTGRES_HNSW, POSTGRES_FILTERED, POSTGRES_FTS, POSTGRES_EXACT]
+    if _GRAPH_AVAILABLE and (faiss_ok or db_ok):
+        modes.append(RESEARCH_AGENT)
     return modes
 
 
@@ -192,6 +206,10 @@ def run_query(
 
     # Normalise filters
     filters = {k: v for k, v in (filters or {}).items() if v not in (None, "", "All")}
+
+    # ── Phase 5 Research Agent path ───────────────────────────────────────────
+    if mode == RESEARCH_AGENT:
+        return _run_graph_query(query, top_k, filters, t_total)
 
     # ── Phase 4 PostgreSQL path ───────────────────────────────────────────────
     if mode in POSTGRES_MODES:
@@ -310,6 +328,145 @@ def _run_pg_query(
         "latency": {"embedding_ms": embedding_ms, "search_ms": search_ms,
                     "total_ms": (time.perf_counter() - t_total) * 1000},
         "error": None,
+    }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Phase 5: Research Agent (LangGraph)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _run_graph_query(
+    query: str,
+    top_k: int,
+    filters: Optional[Dict],
+    t_total: float,
+) -> Dict[str, Any]:
+    """
+    Run the Phase 5 LangGraph research graph for one query.
+
+    Uses PostgreSQL as the retrieval backend if available, otherwise
+    falls back to FAISS (db_session=None triggers FAISS inside the graph).
+    """
+    if not _GRAPH_AVAILABLE:
+        return _error_result(
+            query, RESEARCH_AGENT,
+            "Phase 5 (LangGraph) dependencies are not installed. "
+            "Run: pip install langgraph",
+        )
+
+    # Attempt to open a DB session for Phase 4-backed retrieval inside the graph.
+    # Falls back to FAISS automatically when db_session=None.
+    db_session = None
+    if _PG_AVAILABLE:
+        try:
+            from src.db.connection import SessionLocal
+            db_session = SessionLocal()
+        except Exception:
+            db_session = None
+
+    try:
+        config = PlanningConfig.default()
+        # Respect the user's top_k slider for per-task retrieval depth
+        if top_k > config.max_task_retrieval:
+            config = config.model_copy(update={"max_task_retrieval": top_k})
+
+        graph = ResearchGraph(config=config, db_session=db_session)
+        state = graph.run(query)
+    except Exception as exc:
+        return _error_result(query, RESEARCH_AGENT, f"Research graph execution error: {exc}")
+    finally:
+        if db_session is not None:
+            try:
+                db_session.close()
+            except Exception:
+                pass
+
+    return _state_to_result(query, state, t_total)
+
+
+def _state_to_result(query: str, state: Dict[str, Any], t_total: float) -> Dict[str, Any]:
+    """Map a completed ResearchState dict to the standard UI result dict."""
+    if state.get("fatal_error"):
+        return _error_result(query, RESEARCH_AGENT, state["fatal_error"])
+
+    analysis = state.get("analysis") or {}
+
+    # ── Flatten evidence list → retrieved_chunks (same format as FAISS/PG paths) ──
+    retrieved_chunks: List[Dict] = []
+    for ev in state.get("evidence") or []:
+        if not isinstance(ev, dict):
+            continue
+        retrieved_chunks.append({
+            # Fields the generator and source display expect
+            "chunk_id":       ev.get("chunk_id", ""),
+            "text":           ev.get("text", ""),
+            "source":         ev.get("source", ""),
+            "page_num":       ev.get("page_start", 0),
+            "page_end":       ev.get("page_end", 0),
+            "section":        ev.get("section", ""),
+            "section_path":   ev.get("section_path", []),
+            "content_type":   ev.get("content_type", "text"),
+            "score":          ev.get("rerank_score") or ev.get("semantic_score") or 0.0,
+            # Phase 4 provenance (populated when DB backend used)
+            "document":       ev.get("document", ""),
+            "document_type":  ev.get("document_type", ""),
+            "version_label":  ev.get("version_label", ""),
+            "effective_date": ev.get("effective_date"),
+            "is_current":     ev.get("is_current", False),
+            "company":        ev.get("company", ""),
+            # Score breakdown (rerank + semantic only; no keyword/fusion in Phase 5)
+            "semantic_score": ev.get("semantic_score"),
+            "rerank_score":   ev.get("rerank_score"),
+            "keyword_score":  None,
+            "fusion_score":   None,
+            # Phase 5 provenance
+            "task_id":        ev.get("task_id", ""),
+        })
+
+    # ── Evidence grouped by task (for the task-panel display) ─────────────────
+    evidence_by_task: Dict[str, List[Dict]] = {}
+    for task_id, records in (state.get("evidence_by_task") or {}).items():
+        evidence_by_task[task_id] = [
+            {
+                "chunk_id":      ev.get("chunk_id", ""),
+                "text":          ev.get("text", ""),
+                "source":        ev.get("source", ""),
+                "page_num":      ev.get("page_start", 0),
+                "document":      ev.get("document", ""),
+                "section":       ev.get("section", ""),
+                "content_type":  ev.get("content_type", "text"),
+                "semantic_score": ev.get("semantic_score"),
+                "rerank_score":   ev.get("rerank_score"),
+                "score":          ev.get("rerank_score") or ev.get("semantic_score") or 0.0,
+            }
+            for ev in records
+            if isinstance(ev, dict)
+        ]
+
+    latency = dict(state.get("latency") or {})
+    latency["total_ms"] = round((time.perf_counter() - t_total) * 1000, 2)
+
+    return {
+        "query":                  query,
+        "mode":                   RESEARCH_AGENT,
+        "answer":                 state.get("answer") or "_No answer generated._",
+        "model_used":             os.getenv("OPENROUTER_MODEL", "google/gemma-4-31b-it"),
+        "retrieved_chunks":       retrieved_chunks,
+        "hybrid_result":          None,
+        "latency":                latency,
+        "error":                  state.get("fatal_error"),
+        # ── Phase 5 extras ────────────────────────────────────────────────────
+        "query_type":             analysis.get("query_type", "SIMPLE"),
+        "route":                  state.get("route", "simple"),
+        "requires_decomposition": analysis.get("requires_decomposition", False),
+        "research_plan":          state.get("research_plan"),
+        "evidence_by_task":       evidence_by_task,
+        "plan_warnings":          state.get("errors") or [],
+        "classifier_method":      analysis.get("classifier_method", "rules"),
+        "classifier_confidence":  analysis.get("confidence", 1.0),
+        "classifier_reasoning":   analysis.get("classifier_reasoning", ""),
+        "entities":               analysis.get("entities") or [],
+        "topics":                 analysis.get("topics") or [],
     }
 
 

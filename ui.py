@@ -27,6 +27,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from src.ui_backend import (
     VECTOR_ONLY, KEYWORD_ONLY, HYBRID, HYBRID_RERANKED,
     POSTGRES_HNSW, POSTGRES_FILTERED, POSTGRES_FTS, POSTGRES_EXACT, POSTGRES_HYBRID,
+    RESEARCH_AGENT,
     MODE_LABELS,
     check_faiss_index, check_database, check_llm,
     get_available_modes, build_faiss_retriever, run_query,
@@ -271,13 +272,150 @@ if doc_type_filter.strip():
     active_filters["document_type"] = doc_type_filter.strip()
 
 
+# ── Phase 5 helpers ───────────────────────────────────────────────────────────
+
+_QUERY_TYPE_META = {
+    "SIMPLE":         ("green",  "Direct lookup"),
+    "TEMPORAL":       ("blue",   "Time-range comparison"),
+    "COMPARISON":     ("violet", "Side-by-side comparison"),
+    "MULTI_HOP":      ("orange", "Multi-step reasoning"),
+    "CROSS_DOCUMENT": ("cyan",   "Cross-document synthesis"),
+    "MULTI_TOPIC":    ("red",    "Multi-topic parallel"),
+}
+
+_TASK_STATUS_COLOR = {
+    "DONE":    "green",
+    "RUNNING": "blue",
+    "PENDING": "gray",
+    "FAILED":  "red",
+    "SKIPPED": "orange",
+}
+
+
+def _render_phase5_header(result: dict) -> None:
+    """Query classification banner shown above the metrics row."""
+    qtype  = result.get("query_type", "SIMPLE")
+    route  = result.get("route", "simple")
+    method = result.get("classifier_method", "rules")
+    conf   = result.get("classifier_confidence", 1.0)
+    reason = result.get("classifier_reasoning", "")
+    entities = result.get("entities") or []
+    topics   = result.get("topics") or []
+
+    color, label = _QUERY_TYPE_META.get(qtype, ("gray", qtype))
+    route_color  = "orange" if route == "complex" else "green"
+
+    cols = st.columns([2, 1, 1, 3])
+    cols[0].markdown(f"**Query type:** :{color}[**{qtype}**] — {label}")
+    cols[1].markdown(f"**Path:** :{route_color}[{route.upper()}]")
+    cols[2].markdown(f"**Classifier:** `{method}` ({conf:.0%})")
+
+    if entities or topics:
+        tags = "  ".join(
+            [f"`{e}`" for e in entities[:5]] + [f"_{t}_" for t in topics[:4]]
+        )
+        cols[3].markdown(f"**Extracted:** {tags}")
+
+    if reason:
+        st.caption(f"Classifier reasoning: {reason}")
+
+    if result.get("plan_warnings"):
+        for w in result["plan_warnings"]:
+            st.warning(w, icon="⚠️")
+
+
+def _render_research_plan(plan: dict) -> None:
+    """Collapsible research plan showing all tasks."""
+    tasks     = plan.get("tasks") or []
+    objective = plan.get("objective", "")
+    notes     = plan.get("notes", "")
+
+    with st.expander(f"Research plan — {len(tasks)} task(s)", expanded=True):
+        if objective:
+            st.caption(f"Objective: {objective}")
+        if notes:
+            st.caption(f"Planner notes: {notes}")
+
+        rows = []
+        for t in tasks:
+            status = t.get("status", "PENDING")
+            color  = _TASK_STATUS_COLOR.get(status, "gray")
+            rows.append({
+                "ID":          t.get("task_id", ""),
+                "Status":      f":{color}[{status}]",
+                "Description": t.get("description", ""),
+                "Sub-query":   t.get("query", "")[:80] + ("…" if len(t.get("query","")) > 80 else ""),
+                "Chunks":      t.get("result_count", 0),
+                "ms":          f"{t.get('latency_ms', 0):.0f}",
+                "Depends on":  ", ".join(t.get("depends_on") or []) or "—",
+            })
+
+        if rows:
+            st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+
+
+def _render_evidence_by_task(evidence_by_task: dict, plan: dict | None) -> None:
+    """Sources grouped by research task."""
+    if not evidence_by_task:
+        st.info("No evidence retrieved.")
+        return
+
+    task_lookup: dict = {}
+    if plan:
+        for t in (plan.get("tasks") or []):
+            task_lookup[t.get("task_id", "")] = t
+
+    global_idx = 1
+    st.subheader("Sources by task")
+
+    for task_id, chunks in evidence_by_task.items():
+        if not chunks:
+            continue
+        task_meta  = task_lookup.get(task_id, {})
+        task_label = task_meta.get("description") or task_id
+        status     = task_meta.get("status", "DONE")
+        color      = _TASK_STATUS_COLOR.get(status, "gray")
+
+        with st.expander(
+            f":{color}[{task_id.upper()}] {task_label} — {len(chunks)} passage(s)",
+            expanded=True,
+        ):
+            if task_meta.get("query"):
+                st.caption(f"Sub-query: *{task_meta['query']}*")
+
+            for c in chunks:
+                doc_label = c.get("document") or c.get("source", "Unknown source")
+                section   = f", {c['section']}" if c.get("section") else ""
+                score_txt = ""
+                if c.get("rerank_score") is not None:
+                    score_txt = f"rerank {c['rerank_score']:.3f}"
+                elif c.get("semantic_score") is not None:
+                    score_txt = f"sim {c['semantic_score']:.3f}"
+
+                with st.expander(
+                    f"[{global_idx}] {doc_label} (p.{c.get('page_num','?')}{section})"
+                    + (f"  —  {score_txt}" if score_txt else ""),
+                    expanded=(global_idx == 1),
+                ):
+                    st.markdown(
+                        f'<div class="passage">{html.escape(c.get("text",""))}</div>',
+                        unsafe_allow_html=True,
+                    )
+                global_idx += 1
+
+
 # ── Rendering ────────────────────────────────────────────────────────────────
 def render_result(result: dict) -> None:
-    chunks = result.get("retrieved_chunks", []) or []
-    latency = result.get("latency", {}) or {}
+    chunks   = result.get("retrieved_chunks", []) or []
+    latency  = result.get("latency", {}) or {}
+    is_p5    = result.get("mode") == RESEARCH_AGENT
 
     if result.get("error"):
         st.error(f"The pipeline returned an error: {result['error']}")
+
+    # ── Phase 5: query classification banner ──────────────────────────────────
+    if is_p5:
+        _render_phase5_header(result)
 
     docs = {c.get("document") or c.get("source") for c in chunks}
     m1, m2, m3, m4 = st.columns(4)
@@ -285,6 +423,10 @@ def render_result(result: dict) -> None:
     m2.metric("Passages used", len(chunks))
     m3.metric("Documents cited", len(docs))
     m4.metric("Total latency", f"{sum(latency.values()) / 1000:.1f} s" if latency else "n/a")
+
+    # ── Phase 5: research plan (complex path only) ────────────────────────────
+    if is_p5 and result.get("route") == "complex" and result.get("research_plan"):
+        _render_research_plan(result["research_plan"])
 
     st.subheader("Answer")
     with st.container(border=True):
@@ -296,7 +438,14 @@ def render_result(result: dict) -> None:
         mime="text/markdown",
     )
 
-    if chunks:
+    # ── Sources ───────────────────────────────────────────────────────────────
+    if is_p5 and result.get("route") == "complex":
+        # Group evidence by task for the complex (planning) path
+        _render_evidence_by_task(
+            result.get("evidence_by_task") or {},
+            result.get("research_plan"),
+        )
+    elif chunks:
         st.subheader("Sources")
         st.caption(f"{len(chunks)} passages from {len(docs)} documents. Numbers match the citations in the answer.")
         for i, c in enumerate(chunks, start=1):
@@ -323,6 +472,8 @@ def render_result(result: dict) -> None:
                     meta.append(":orange[Historical]")
                 if c.get("content_type"):
                     meta.append(f"Content `{c['content_type']}`")
+                if is_p5 and c.get("task_id"):
+                    meta.append(f"Task `{c['task_id']}`")
                 if meta:
                     st.caption("   ·   ".join(meta))
 
@@ -344,27 +495,43 @@ def render_result(result: dict) -> None:
     if show_diagnostics:
         with st.expander("Retrieval diagnostics", expanded=True):
             st.markdown(f"**Mode:** `{MODE_LABELS.get(result['mode'], result['mode'])}`")
-            if latency:
+
+            if is_p5:
+                # Phase 5 latency: each node gets its own stage column
+                p5_stages = ["analyze_ms", "plan_ms", "execute_ms",
+                             "aggregate_ms", "context_ms", "generate_ms", "total_ms"]
+                p5_lat = {k: v for k, v in latency.items() if k in p5_stages}
+                if p5_lat:
+                    st.caption("LangGraph node latency")
+                    cols = st.columns(len(p5_lat))
+                    for col, (k, v) in zip(cols, p5_lat.items()):
+                        col.metric(k.replace("_ms", "").capitalize(), f"{v:.0f} ms")
+            elif latency:
                 cols = st.columns(len(latency))
                 for col, (k, v) in zip(cols, latency.items()):
                     col.metric(k.replace("_", " ").capitalize(), f"{v:.0f} ms")
+
             if chunks:
                 rows = [{
-                    "chunk": (c.get("chunk_id") or "")[:16],
-                    "source": c.get("source"),
-                    "page": c.get("page_num"),
-                    "section": (c.get("section") or "")[:30],
+                    "chunk":    (c.get("chunk_id") or "")[:16],
+                    "source":   c.get("source"),
+                    "page":     c.get("page_num"),
+                    "section":  (c.get("section") or "")[:30],
+                    "task":     c.get("task_id", "-") if is_p5 else "-",
                     "semantic": _fmt(c.get("semantic_score"), ".3f") or "-",
-                    "bm25": _fmt(c.get("keyword_score"), ".3f") or "-",
-                    "rrf": _fmt(c.get("fusion_score"), ".4f") or "-",
-                    "rerank": _fmt(c.get("rerank_score"), ".3f") or "-",
+                    "bm25":     _fmt(c.get("keyword_score"), ".3f") or "-",
+                    "rrf":      _fmt(c.get("fusion_score"), ".4f") or "-",
+                    "rerank":   _fmt(c.get("rerank_score"), ".3f") or "-",
                 } for c in chunks]
                 st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
-            hr = result.get("hybrid_result")
-            if hr and hasattr(hr, "debug"):
-                for stage, stage_results in hr.debug.items():
-                    if stage_results:
-                        st.caption(f"{stage.replace('_', ' ').capitalize()}: {len(stage_results)} candidates")
+
+            if not is_p5:
+                hr = result.get("hybrid_result")
+                if hr and hasattr(hr, "debug"):
+                    for stage, stage_results in hr.debug.items():
+                        if stage_results:
+                            st.caption(f"{stage.replace('_', ' ').capitalize()}: {len(stage_results)} candidates")
+
             if active_filters:
                 st.json(active_filters)
 

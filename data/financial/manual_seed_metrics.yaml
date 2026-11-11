@@ -1,0 +1,939 @@
+# DueDiligenceAI Phase 6 — Manual Seed Metrics
+# Source: NexaCore Technologies and QuantumEdge Corp fictional corpus
+# document_version_id: null until linked to actual DB records after ingestion
+
+metrics:
+  # ══════════════════════════════════════════════════
+  # NEXACORE TECHNOLOGIES — FY2023
+  # ══════════════════════════════════════════════════
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: revenue
+    value_raw: "$14.2B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Revenue $14.2B, +38% YoY"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: gross_profit
+    value_raw: "$9.7B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Gross Profit $9.7B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: gross_margin
+    value_raw: "68.3%"
+    unit: PERCENT
+    scale: UNITS
+    source_text: "Gross Margin 68.3%"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: rd_expense
+    value_raw: "$2.8B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "R&D Expense $2.8B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: operating_income
+    value_raw: "$4.4B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Operating Income $4.4B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: operating_margin
+    value_raw: "31.0%"
+    unit: PERCENT
+    scale: UNITS
+    source_text: "Operating Margin 31.0%"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: net_income
+    value_raw: "$4.1B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Net Income $4.1B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: eps_diluted
+    value_raw: "$1.64"
+    unit: USD_PER_SHARE
+    scale: UNITS
+    source_text: "EPS (diluted) $1.64"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: capex
+    value_raw: "$0.8B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "CapEx $0.8B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: free_cash_flow
+    value_raw: "$3.3B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Free Cash Flow $3.3B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: cash_and_equivalents
+    value_raw: "$7.2B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Cash & Equivalents $7.2B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: total_debt
+    value_raw: "$4.0B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Total Debt $4.0B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: employees
+    value_raw: "12400"
+    unit: COUNT
+    scale: UNITS
+    source_text: "12,400 employees"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: regional_revenue
+    value_raw: "$5.7B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: REGION
+    dimension_value: Americas
+    source_text: "Americas 40% ($5.7B)"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: regional_revenue_share
+    value_raw: "40%"
+    unit: PERCENT
+    scale: UNITS
+    dimension_type: REGION
+    dimension_value: Americas
+    source_text: "Americas 40%"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: regional_revenue
+    value_raw: "$2.6B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: REGION
+    dimension_value: China
+    source_text: "China 18% ($2.6B)"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2023
+    fiscal_period: FY
+    metric: regional_revenue_share
+    value_raw: "18%"
+    unit: PERCENT
+    scale: UNITS
+    dimension_type: REGION
+    dimension_value: China
+    source_text: "China 18% of FY2023 revenue"
+    extraction_method: MANUAL_SEED
+
+  # ══════════════════════════════════════════════════
+  # NEXACORE TECHNOLOGIES — FY2024
+  # ══════════════════════════════════════════════════
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: revenue
+    value_raw: "$29.5B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Revenue $29.5B, +108% YoY"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: gross_profit
+    value_raw: "$21.2B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Gross Profit $21.2B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: gross_margin
+    value_raw: "71.9%"
+    unit: PERCENT
+    scale: UNITS
+    source_text: "Gross Margin 71.9%"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: rd_expense
+    value_raw: "$4.9B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "R&D Expense $4.9B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: operating_income
+    value_raw: "$11.1B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Operating Income $11.1B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: operating_margin
+    value_raw: "37.6%"
+    unit: PERCENT
+    scale: UNITS
+    source_text: "Operating Margin 37.6%"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: net_income
+    value_raw: "$9.8B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Net Income $9.8B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: eps_diluted
+    value_raw: "$3.91"
+    unit: USD_PER_SHARE
+    scale: UNITS
+    source_text: "EPS (diluted) $3.91"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: free_cash_flow
+    value_raw: "$8.4B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Free Cash Flow $8.4B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: cash_and_equivalents
+    value_raw: "$14.5B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Cash $14.5B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: employees
+    value_raw: "15800"
+    unit: COUNT
+    scale: UNITS
+    source_text: "15,800 employees"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: regional_revenue_share
+    value_raw: "20%"
+    unit: PERCENT
+    scale: UNITS
+    dimension_type: REGION
+    dimension_value: China
+    source_text: "China 20% ($5.9B) FY2024 Annual Report"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: regional_revenue
+    value_raw: "$5.9B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: REGION
+    dimension_value: China
+    source_text: "China 20% ($5.9B)"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: segment_revenue
+    value_raw: "$21.4B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: SEGMENT
+    dimension_value: Data Center
+    source_text: "Data Center $21.4B, +118% YoY"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: segment_revenue
+    value_raw: "$3.6B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: SEGMENT
+    dimension_value: Automotive AI
+    source_text: "Automotive AI $3.6B"
+    extraction_method: MANUAL_SEED
+
+  # ══════════════════════════════════════════════════
+  # NEXACORE TECHNOLOGIES — FY2025
+  # ══════════════════════════════════════════════════
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: revenue
+    value_raw: "$61.2B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Revenue $61.2B, +107% YoY"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: gross_profit
+    value_raw: "$46.5B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Gross Profit $46.5B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: gross_margin
+    value_raw: "76.0%"
+    unit: PERCENT
+    scale: UNITS
+    source_text: "Gross Margin 76.0% — NexaCore FY2025 Annual Report (audited)"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: rd_expense
+    value_raw: "$9.4B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "R&D Expense $9.4B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: operating_income
+    value_raw: "$24.8B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Operating Income $24.8B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: operating_margin
+    value_raw: "40.5%"
+    unit: PERCENT
+    scale: UNITS
+    source_text: "Operating Margin 40.5%"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: net_income
+    value_raw: "$22.1B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Net Income $22.1B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: eps_diluted
+    value_raw: "$8.84"
+    unit: USD_PER_SHARE
+    scale: UNITS
+    source_text: "EPS (diluted) $8.84"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: capex
+    value_raw: "$3.1B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "CapEx $3.1B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: free_cash_flow
+    value_raw: "$19.0B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Free Cash Flow $19.0B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: cash_and_equivalents
+    value_raw: "$26.3B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Cash $26.3B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: total_debt
+    value_raw: "$3.5B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Total Debt $3.5B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: employees
+    value_raw: "18500"
+    unit: COUNT
+    scale: UNITS
+    source_text: "18,500 employees globally"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: market_share
+    value_raw: "72%"
+    unit: PERCENT
+    scale: UNITS
+    source_text: "NexaCore holds approximately 72% market share in AI training accelerators"
+    extraction_method: MANUAL_SEED
+
+  # Regional FY2025
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: regional_revenue_share
+    value_raw: "45%"
+    unit: PERCENT
+    scale: UNITS
+    dimension_type: REGION
+    dimension_value: Americas
+    source_text: "Americas 45% ($27.5B)"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: regional_revenue
+    value_raw: "$27.5B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: REGION
+    dimension_value: Americas
+    source_text: "Americas 45% ($27.5B)"
+    extraction_method: MANUAL_SEED
+
+  # CONFLICT ROW A: China 8% — Annual Report (authoritative)
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: regional_revenue_share
+    value_raw: "8%"
+    unit: PERCENT
+    scale: UNITS
+    dimension_type: REGION
+    dimension_value: China
+    source_text: "China 8% ($4.9B) — NexaCore FY2025 Annual Report, Geographic Revenue section"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: regional_revenue
+    value_raw: "$4.9B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: REGION
+    dimension_value: China
+    source_text: "China 8% ($4.9B)"
+    extraction_method: MANUAL_SEED
+
+  # Segments FY2025
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: segment_revenue
+    value_raw: "$48.1B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: SEGMENT
+    dimension_value: Data Center
+    source_text: "Data Center $48.1B (+125% YoY)"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: segment_revenue
+    value_raw: "$5.8B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: SEGMENT
+    dimension_value: Automotive AI
+    source_text: "Automotive AI $5.8B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: segment_revenue
+    value_raw: "$4.9B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: SEGMENT
+    dimension_value: Edge Computing
+    source_text: "Edge Computing $4.9B"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: segment_revenue
+    value_raw: "$2.4B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: SEGMENT
+    dimension_value: Other
+    source_text: "Other (incl. software) $2.4B"
+    extraction_method: MANUAL_SEED
+
+  # ══════════════════════════════════════════════════
+  # NEXACORE Q4 FY2025
+  # CONFLICT ROW B: China 9% — Earnings Call (conflicts with 8% above)
+  # Both rows must coexist. Uniqueness is NOT violated because source_text differs
+  # and in production document_version_id will differ.
+  # ══════════════════════════════════════════════════
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: Q4
+    metric: revenue
+    value_raw: "$17.8B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Q4 FY2025 Revenue $17.8B (+115% YoY)"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: Q4
+    metric: gross_margin
+    value_raw: "77.2%"
+    unit: PERCENT
+    scale: UNITS
+    source_text: "Q4 FY2025 Gross Margin 77.2%"
+    extraction_method: MANUAL_SEED
+
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: Q4
+    metric: eps_diluted
+    value_raw: "$2.52"
+    unit: USD_PER_SHARE
+    scale: UNITS
+    source_text: "Q4 FY2025 EPS $2.52 diluted"
+    extraction_method: MANUAL_SEED
+
+  # NOTE: This row uses fiscal_period=FY (full year) but comes from the earnings call.
+  # It will get a different document_version_id than the annual report row,
+  # allowing both to coexist and enabling conflict detection.
+  - company: NexaCore Technologies
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: regional_revenue_share
+    value_raw: "9%"
+    unit: PERCENT
+    scale: UNITS
+    dimension_type: REGION
+    dimension_value: China
+    source_text: "China = 9% of full-year revenue — Q4 FY2025 Earnings Call, CEO Sarah Chen opening remarks"
+    extraction_method: MANUAL_SEED
+
+  # ══════════════════════════════════════════════════
+  # QUANTUMEDGE CORP — FY2024
+  # ══════════════════════════════════════════════════
+  - company: QuantumEdge Corp
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: revenue
+    value_raw: "$18.7B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Revenue $18.7B, +62% YoY"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: gross_profit
+    value_raw: "$11.4B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Gross Profit $11.4B"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: gross_margin
+    value_raw: "61.1%"
+    unit: PERCENT
+    scale: UNITS
+    source_text: "Gross Margin 61.1%"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: rd_expense
+    value_raw: "$3.1B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "R&D Expense $3.1B"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: operating_income
+    value_raw: "$2.8B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Operating Income $2.8B"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: operating_margin
+    value_raw: "15.0%"
+    unit: PERCENT
+    scale: UNITS
+    source_text: "Operating Margin 15.0%"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: net_income
+    value_raw: "$2.4B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Net Income $2.4B"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: eps_diluted
+    value_raw: "$2.12"
+    unit: USD_PER_SHARE
+    scale: UNITS
+    source_text: "EPS (diluted) $2.12"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: free_cash_flow
+    value_raw: "$1.9B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Free Cash Flow $1.9B"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: employees
+    value_raw: "9200"
+    unit: COUNT
+    scale: UNITS
+    source_text: "9,200 employees"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: segment_revenue
+    value_raw: "$9.8B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: SEGMENT
+    dimension_value: AI Training GPUs
+    source_text: "AI Training GPUs $9.8B"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: segment_revenue
+    value_raw: "$5.4B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: SEGMENT
+    dimension_value: AI Inference
+    source_text: "AI Inference $5.4B"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2024
+    fiscal_period: FY
+    metric: segment_revenue
+    value_raw: "$2.1B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: SEGMENT
+    dimension_value: EdgeNet Software
+    source_text: "EdgeNet Software $2.1B"
+    extraction_method: MANUAL_SEED
+
+  # ══════════════════════════════════════════════════
+  # QUANTUMEDGE CORP — FY2025
+  # ══════════════════════════════════════════════════
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: revenue
+    value_raw: "$28.3B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Revenue $28.3B, +51% YoY"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: gross_profit
+    value_raw: "$18.4B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Gross Profit $18.4B"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: gross_margin
+    value_raw: "65.0%"
+    unit: PERCENT
+    scale: UNITS
+    source_text: "Gross Margin 65.0%"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: rd_expense
+    value_raw: "$4.8B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "R&D Expense $4.8B"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: operating_income
+    value_raw: "$5.9B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Operating Income $5.9B"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: operating_margin
+    value_raw: "20.8%"
+    unit: PERCENT
+    scale: UNITS
+    source_text: "Operating Margin 20.8%"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: net_income
+    value_raw: "$4.8B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Net Income $4.8B"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: eps_diluted
+    value_raw: "$4.24"
+    unit: USD_PER_SHARE
+    scale: UNITS
+    source_text: "EPS (diluted) $4.24"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: free_cash_flow
+    value_raw: "$4.1B"
+    unit: USD
+    scale: BILLIONS
+    source_text: "Free Cash Flow $4.1B"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: employees
+    value_raw: "11400"
+    unit: COUNT
+    scale: UNITS
+    source_text: "11,400 employees"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: market_share
+    value_raw: "18%"
+    unit: PERCENT
+    scale: UNITS
+    source_text: "QuantumEdge holds approximately 18% share"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: segment_revenue
+    value_raw: "$16.8B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: SEGMENT
+    dimension_value: AI Training GPUs
+    source_text: "AI Training GPUs (QE-Pro) $16.8B, +71% YoY"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: segment_revenue
+    value_raw: "$5.1B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: SEGMENT
+    dimension_value: AI Inference
+    source_text: "AI Inference (QE-Nano) $5.1B"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: segment_revenue
+    value_raw: "$4.0B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: SEGMENT
+    dimension_value: EdgeNet Software
+    source_text: "EdgeNet Software $4.0B, +90% YoY"
+    extraction_method: MANUAL_SEED
+
+  - company: QuantumEdge Corp
+    fiscal_year: 2025
+    fiscal_period: FY
+    metric: segment_revenue
+    value_raw: "$1.4B"
+    unit: USD
+    scale: BILLIONS
+    dimension_type: SEGMENT
+    dimension_value: QuantumCloud
+    source_text: "QuantumCloud Service $1.4B (new)"
+    extraction_method: MANUAL_SEED

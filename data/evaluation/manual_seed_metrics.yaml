@@ -1,0 +1,227 @@
+# =============================================================================
+# manual_seed_metrics.yaml  (Phase 6)
+# Curated, version-controlled metric facts for the NexaCore / QuantumEdge corpus.
+# Extraction is deterministic: NO LLM is used to produce these rows.
+#
+# SEED IS AUTHORITATIVE FOR:
+#   (a) prose-only facts (letters, MD&A text, risk text, call remarks)
+#   (b) tables the generic TABLE_PARSE step must SKIP:
+#         - Outlook / guidance tables
+#         - quarterly (Q4) tables
+#         - market-share tables
+#         - multi-company comparison tables (QE FY2024 financial table, Meridian tables)
+#         - product spec / product notes tables
+# ALL OTHER TABLES (income-statement style, segment, region, balance sheet) are
+# handled by TABLE_PARSE and must NOT be duplicated here (uniqueness collisions).
+#
+# KEY LEGEND (per-entry):
+#   m=metric_name  fy=fiscal_year  p=fiscal_period (FY|Q1..Q4|CY)  v=value
+#   u=unit (USD|PERCENT|USD_PER_SHARE|COUNT|MULTIPLE|MONTHS)
+#   s=scale (UNITS|THOUSANDS|MILLIONS|BILLIONS)
+#   dt=dimension_type  dv=dimension_value  q=qualifier  co=company override
+#   sec=section path   txt=source_text (original wording, for traceability)
+#
+# QUALIFIER VALUES (see schema note in the chat reply):
+#   REPORTED | ANALYST_ADJUSTED | ESTIMATE | GUIDANCE_LOW | GUIDANCE_HIGH |
+#   FORECAST_LOW | FORECAST_HIGH | TARGET | UPPER_BOUND | LOWER_BOUND
+# AUTHORITY VALUES: PRIMARY_FILING | EARNINGS_CALL | THIRD_PARTY
+# Extra dimension_type values used here: ACQUISITION, CUSTOMER, CUSTOMER_GROUP,
+#   PRODUCT, SUPPLIER, MARKET, SCENARIO, PROJECT, LITIGATION
+# =============================================================================
+version: 1
+defaults: {p: FY, q: REPORTED, s: UNITS}
+
+documents:
+
+# ----------------------------------------------------------------------------
+- document: nexacore_annual_report_fy2023.md
+  company: NexaCore
+  authority: PRIMARY_FILING
+  metrics:
+  - {m: employees, fy: 2023, v: 12400, u: COUNT, sec: "Business Overview > Employees", txt: "NexaCore had 12,400 employees at the end of FY2023"}
+  - {m: engineering_headcount_pct, fy: 2023, v: 68, u: PERCENT, sec: "Business Overview > Employees", txt: "approximately 68% work in engineering roles"}
+  - {m: rd_pct_revenue, fy: 2023, v: 19.7, u: PERCENT, sec: "Financial Results > Profitability", txt: "R&D expense of $2.8B represented 19.7% of revenue"}
+  - {m: capex, fy: 2023, v: 0.8, u: USD, s: BILLIONS, sec: "Financial Results > Cash Flow", txt: "Capital expenditures were $0.8B"}
+  - {m: free_cash_flow, fy: 2023, v: 3.3, u: USD, s: BILLIONS, sec: "Financial Results > Cash Flow", txt: "Free cash flow was $3.3B"}
+  - {m: customer_concentration_pct, fy: 2023, v: 15, u: PERCENT, q: UPPER_BOUND, dt: CUSTOMER, dv: "Largest single customer", sec: "Business Overview > Customers", txt: "No single customer accounted for more than 15% of total revenue in FY2023"}
+
+# ----------------------------------------------------------------------------
+- document: nexacore_annual_report_fy2024.md
+  company: NexaCore
+  authority: PRIMARY_FILING
+  metrics:
+  - {m: revenue, fy: 2024, v: 29.5, u: USD, s: BILLIONS, sec: "Financial Results > Revenue", txt: "Total revenue for FY2024 was $29.5B, up 108%"}
+  - {m: revenue_growth_yoy, fy: 2024, v: 108, u: PERCENT, sec: "Financial Results > Revenue", txt: "up 108% from $14.2B in FY2023"}
+  - {m: gross_profit, fy: 2024, v: 21.2, u: USD, s: BILLIONS, sec: "Financial Results > Gross Margin Expansion", txt: "Gross profit was $21.2B, a gross margin of 71.9%"}
+  - {m: gross_margin, fy: 2024, v: 71.9, u: PERCENT, sec: "Financial Results > Gross Margin Expansion", txt: "a gross margin of 71.9% versus 68.3% in FY2023"}
+  - {m: cash_and_equivalents, fy: 2024, v: 14.5, u: USD, s: BILLIONS, sec: "Financial Results > Balance Sheet", txt: "Cash and equivalents rose to $14.5B (from $7.2B)"}
+  - {m: total_debt, fy: 2024, v: 3.8, u: USD, s: BILLIONS, sec: "Financial Results > Balance Sheet", txt: "Total debt was reduced to $3.8B (from $4.0B)"}
+  - {m: diluted_shares, fy: 2024, v: 2.51, u: COUNT, s: BILLIONS, sec: "Financial Results > Balance Sheet", txt: "Diluted shares were 2.51B"}
+  - {m: employees, fy: 2024, v: 15800, u: COUNT, sec: "Business Overview > Employees", txt: "NexaCore had 15,800 employees at the end of FY2024"}
+  - {m: acquisition_price, fy: 2024, v: 2.3, u: USD, s: BILLIONS, dt: ACQUISITION, dv: "DataSync Inc", sec: "Business Overview > Acquisitions", txt: "acquired DataSync Inc in Q2 FY2024 for $2.3B in cash"}
+  - {m: acquired_employees, fy: 2024, v: 420, u: COUNT, dt: ACQUISITION, dv: "DataSync Inc", sec: "Business Overview > Acquisitions", txt: "DataSync ... with 420 employees"}
+  - {m: acquired_revenue_contribution, fy: 2024, v: 0.4, u: USD, s: BILLIONS, dt: ACQUISITION, dv: "DataSync Inc", sec: "Financial Results > DataSync Integration", txt: "DataSync contributed $0.4B of revenue in FY2024"}
+  - {m: acquisition_one_time_costs, fy: 2024, v: 180, u: USD, s: MILLIONS, dt: ACQUISITION, dv: "DataSync Inc", sec: "Financial Results > DataSync Integration", txt: "$180M in one-time acquisition expenses"}
+  - {m: customer_concentration_pct, fy: 2024, v: 52, u: PERCENT, dt: CUSTOMER_GROUP, dv: "Top 3 customers (share of Data Center revenue)", sec: "Risk Factors > Customer Concentration Risk", txt: "top 3 cloud customers represented 52% of Data Center revenue in FY2024"}
+  - {m: customer_concentration_value, fy: 2024, v: 11.1, u: USD, s: BILLIONS, dt: CUSTOMER_GROUP, dv: "Top 3 customers (share of Data Center revenue)", sec: "Risk Factors > Customer Concentration Risk", txt: "approximately $11.1B"}
+  - {m: revenue, fy: 2025, v: 58, u: USD, s: BILLIONS, q: GUIDANCE_LOW, sec: "Outlook", txt: "FY2025 guidance Revenue $58-64B"}
+  - {m: revenue, fy: 2025, v: 64, u: USD, s: BILLIONS, q: GUIDANCE_HIGH, sec: "Outlook", txt: "FY2025 guidance Revenue $58-64B"}
+  - {m: gross_margin, fy: 2025, v: 75, u: PERCENT, q: GUIDANCE_LOW, sec: "Outlook", txt: "Gross Margin 75-77%"}
+  - {m: gross_margin, fy: 2025, v: 77, u: PERCENT, q: GUIDANCE_HIGH, sec: "Outlook", txt: "Gross Margin 75-77%"}
+
+# ----------------------------------------------------------------------------
+- document: nexacore_annual_report_fy2025.md
+  company: NexaCore
+  authority: PRIMARY_FILING
+  metrics:
+  - {m: revenue, fy: 2025, v: 61.2, u: USD, s: BILLIONS, sec: "Financial Results > Revenue", txt: "Total revenue was $61.2B, up 107% from $29.5B"}
+  - {m: revenue_growth_yoy, fy: 2025, v: 107, u: PERCENT, sec: "Financial Results > Revenue", txt: "up 107% from $29.5B"}
+  - {m: gross_profit, fy: 2025, v: 46.5, u: USD, s: BILLIONS, sec: "Financial Results > Gross Margin", txt: "Gross profit was $46.5B, a gross margin of 76.0%"}
+  - {m: gross_margin, fy: 2025, v: 76.0, u: PERCENT, sec: "Financial Results > Gross Margin", txt: "a gross margin of 76.0% (71.9% in FY2024; 68.3% in FY2023)"}
+  - {m: cash_and_equivalents, fy: 2025, v: 26.3, u: USD, s: BILLIONS, sec: "Financial Results > Capital Allocation", txt: "$26.3B cash, $3.5B debt, net cash $22.8B"}
+  - {m: total_debt, fy: 2025, v: 3.5, u: USD, s: BILLIONS, sec: "Financial Results > Capital Allocation", txt: "$26.3B cash, $3.5B debt, net cash $22.8B"}
+  - {m: net_cash, fy: 2025, v: 22.8, u: USD, s: BILLIONS, sec: "Financial Results > Capital Allocation", txt: "net cash $22.8B"}
+  - {m: diluted_shares, fy: 2025, v: 2.50, u: COUNT, s: BILLIONS, sec: "Financial Results > EPS Bridge", txt: "diluted shares were 2.50B versus 2.51B"}
+  - {m: share_repurchase_authorization, fy: 2025, v: 12.0, u: USD, s: BILLIONS, sec: "Financial Results > Capital Allocation", txt: "$12.0B share buyback program (initiated FY2025)"}
+  - {m: dividends_paid, fy: 2025, v: 0.4, u: USD, s: BILLIONS, sec: "Financial Results > Capital Allocation", txt: "$0.4B dividends: the first quarterly dividend of $0.16/share was paid in Q4 FY2025"}
+  - {m: dividend_per_share, fy: 2025, p: Q4, v: 0.16, u: USD_PER_SHARE, sec: "Financial Results > Capital Allocation", txt: "first quarterly dividend of $0.16/share"}
+  - {m: employees, fy: 2025, v: 18500, u: COUNT, sec: "Business Overview > Employees", txt: "NexaCore had 18,500 employees at the end of FY2025"}
+  - {m: rd_engineers, fy: 2025, v: 11200, u: COUNT, sec: "Business Overview > Employees", txt: "R&D workforce grew 28% to 11,200 engineers"}
+  - {m: rd_workforce_growth, fy: 2025, v: 28, u: PERCENT, sec: "Business Overview > Employees", txt: "R&D workforce grew 28% to 11,200 engineers"}
+  - {m: attrition_rate, fy: 2025, v: 11, u: PERCENT, sec: "Business Overview > Employees", txt: "Attrition was 11%, above our 8% target"}
+  - {m: attrition_rate, fy: 2025, v: 8, u: PERCENT, q: TARGET, sec: "Business Overview > Employees", txt: "above our 8% target"}
+  - {m: capacity_reservation_fees, fy: 2025, v: 4.8, u: USD, s: BILLIONS, dt: SUPPLIER, dv: "SilicaFab", sec: "Business Overview > Manufacturing and Supply Chain", txt: "paid SilicaFab $4.8B in capacity reservation fees in FY2025"}
+  - {m: capacity_reservation_fees, fy: 2024, v: 1.9, u: USD, s: BILLIONS, dt: SUPPLIER, dv: "SilicaFab", sec: "Business Overview > Manufacturing and Supply Chain", txt: "up from $1.9B in FY2024"}
+  - {m: segment_revenue_share, fy: 2025, v: 78.6, u: PERCENT, dt: SEGMENT, dv: "Data Center", sec: "Financial Results > Segment Revenue", txt: "Data Center is 78.6% of total revenue"}
+  - {m: customer_concentration_pct, fy: 2025, v: 58, u: PERCENT, dt: CUSTOMER_GROUP, dv: "Top 3 customers (share of Data Center revenue)", sec: "Risk Factors > Customer Concentration Risk", txt: "58% of Data Center revenue ($27.9B) in FY2025"}
+  - {m: customer_concentration_value, fy: 2025, v: 27.9, u: USD, s: BILLIONS, dt: CUSTOMER_GROUP, dv: "Top 3 customers (share of Data Center revenue)", sec: "Risk Factors > Customer Concentration Risk", txt: "58% of Data Center revenue ($27.9B)"}
+  - {m: market_share, fy: 2025, v: 72, u: PERCENT, dt: MARKET, dv: "AI_TRAINING_ACCELERATORS", sec: "Business Overview > Market Position", txt: "NexaCore ~72%"}
+  - {m: market_share, fy: 2025, v: 18, u: PERCENT, co: QuantumEdge, dt: MARKET, dv: "AI_TRAINING_ACCELERATORS", sec: "Business Overview > Market Position", txt: "QuantumEdge ~18%"}
+  - {m: customer_count, fy: 2025, v: 850, u: COUNT, q: LOWER_BOUND, dt: PRODUCT, dv: "NexaOS DataBridge", sec: "Business Overview > Products and Technology", txt: "adopted by 850+ enterprise customers"}
+  - {m: gross_margin, fy: 2025, v: 89, u: PERCENT, dt: PRODUCT, dv: "NexaOS DataBridge", sec: "Financial Results > Gross Margin", txt: "NexaOS DataBridge software margin of 89%"}
+  - {m: hbm4_allocation_pct, fy: 2025, v: 60, u: PERCENT, dt: SUPPLIER, dv: "HB Memory Corp", sec: "Business Overview > Manufacturing and Supply Chain", txt: "HB Memory Corp ... 60% of our HBM4 allocation"}
+  - {m: hbm4_allocation_pct, fy: 2025, v: 40, u: PERCENT, dt: SUPPLIER, dv: "ShinKwang Electronics", sec: "Business Overview > Manufacturing and Supply Chain", txt: "ShinKwang Electronics 40%"}
+  - {m: disruption_revenue_at_risk, fy: 2025, v: 10, u: USD, s: BILLIONS, q: ESTIMATE, dt: SCENARIO, dv: "60-day SilicaFab disruption (per quarter)", sec: "Risk Factors > Manufacturing Concentration Risk > Taiwan Concentration", txt: "A disruption lasting 60 days would eliminate approximately $10B of quarterly revenue"}
+  - {m: mitigation_lead_time, fy: 2025, v: 24, u: MONTHS, q: ESTIMATE, dt: PROJECT, dv: "Project Diversify", sec: "Risk Factors > Manufacturing Concentration Risk > Mitigation: Project Diversify", txt: "estimated 24-month lead time"}
+  - {m: revenue, fy: 2026, v: 85, u: USD, s: BILLIONS, q: GUIDANCE_LOW, sec: "Outlook", txt: "FY2026 guidance Revenue $85-95B"}
+  - {m: revenue, fy: 2026, v: 95, u: USD, s: BILLIONS, q: GUIDANCE_HIGH, sec: "Outlook", txt: "FY2026 guidance Revenue $85-95B"}
+  - {m: gross_margin, fy: 2026, v: 76, u: PERCENT, q: GUIDANCE_LOW, sec: "Outlook", txt: "Gross Margin 76-78%"}
+  - {m: gross_margin, fy: 2026, v: 78, u: PERCENT, q: GUIDANCE_HIGH, sec: "Outlook", txt: "Gross Margin 76-78%"}
+  - {m: revenue, fy: 2026, v: 4.0, u: USD, s: BILLIONS, q: GUIDANCE_LOW, dt: PRODUCT, dv: "NexaOS DataBridge", sec: "Outlook", txt: "NexaOS DataBridge (standalone) $4B+"}
+
+# ----------------------------------------------------------------------------
+- document: nexacore_q4_fy2025_earnings_call.md
+  company: NexaCore
+  authority: EARNINGS_CALL
+  metrics:
+  - {m: revenue, fy: 2025, p: Q4, v: 17.8, u: USD, s: BILLIONS, sec: "Opening Remarks > Sarah Chen", txt: "Q4 FY2025 revenue was $17.8B, up 115% year over year"}
+  - {m: revenue_growth_yoy, fy: 2025, p: Q4, v: 115, u: PERCENT, sec: "Opening Remarks > Sarah Chen", txt: "up 115% year over year"}
+  - {m: gross_margin, fy: 2025, p: Q4, v: 77.2, u: PERCENT, sec: "Opening Remarks > Sarah Chen", txt: "Q4 gross margin was 77.2%"}
+  - {m: eps_diluted, fy: 2025, p: Q4, v: 2.52, u: USD_PER_SHARE, sec: "Opening Remarks > David Okafor > Q4 Profitability and Cash", txt: "Q4 diluted EPS: $2.52"}
+  - {m: segment_revenue, fy: 2025, p: Q4, v: 14.1, u: USD, s: BILLIONS, dt: SEGMENT, dv: "Data Center", sec: "Opening Remarks > David Okafor > Q4 Segment Revenue", txt: "Data Center $14.1B"}
+  - {m: segment_revenue, fy: 2025, p: Q4, v: 1.6, u: USD, s: BILLIONS, dt: SEGMENT, dv: "Automotive AI", sec: "Opening Remarks > David Okafor > Q4 Segment Revenue", txt: "Automotive AI $1.6B"}
+  - {m: segment_revenue, fy: 2025, p: Q4, v: 1.4, u: USD, s: BILLIONS, dt: SEGMENT, dv: "Edge Computing", sec: "Opening Remarks > David Okafor > Q4 Segment Revenue", txt: "Edge Computing $1.4B"}
+  - {m: segment_revenue, fy: 2025, p: Q4, v: 0.7, u: USD, s: BILLIONS, dt: SEGMENT, dv: "Other", sec: "Opening Remarks > David Okafor > Q4 Segment Revenue", txt: "Other $0.7B"}
+  - {m: revenue, fy: 2025, v: 61.2, u: USD, s: BILLIONS, sec: "Opening Remarks > Sarah Chen", txt: "For the full year, revenue was $61.2B and net income was $22.1B"}
+  - {m: net_income, fy: 2025, v: 22.1, u: USD, s: BILLIONS, sec: "Opening Remarks > Sarah Chen", txt: "net income was $22.1B"}
+  - {m: free_cash_flow, fy: 2025, v: 19.0, u: USD, s: BILLIONS, sec: "Opening Remarks > David Okafor > Q4 Profitability and Cash", txt: "Full-year free cash flow: $19.0B"}
+  - {m: share_repurchases, fy: 2025, p: Q4, v: 3.8, u: USD, s: BILLIONS, sec: "Opening Remarks > David Okafor > Q4 Profitability and Cash", txt: "Share repurchases: $3.8B in Q4 alone"}
+  - {m: cash_and_equivalents, fy: 2025, v: 26.3, u: USD, s: BILLIONS, sec: "Opening Remarks > David Okafor > Q4 Profitability and Cash", txt: "exited the year with $26.3B in cash and $3.5B in debt"}
+  - {m: total_debt, fy: 2025, v: 3.5, u: USD, s: BILLIONS, sec: "Opening Remarks > David Okafor > Q4 Profitability and Cash", txt: "exited the year with $26.3B in cash and $3.5B in debt"}
+  # DELIBERATE CONFLICT: annual report (table-parsed) says 8%; the call says 9%.
+  - {m: regional_revenue_share, fy: 2025, v: 9, u: PERCENT, dt: REGION, dv: "China", sec: "Opening Remarks > Sarah Chen", txt: "China was 9% of full-year revenue"}
+  - {m: revenue, fy: 2026, v: 85, u: USD, s: BILLIONS, q: GUIDANCE_LOW, sec: "Closing Remarks", txt: "we reconfirm FY2026 guidance of $85-95B in revenue"}
+  - {m: revenue, fy: 2026, v: 95, u: USD, s: BILLIONS, q: GUIDANCE_HIGH, sec: "Closing Remarks", txt: "we reconfirm FY2026 guidance of $85-95B in revenue"}
+  - {m: regional_revenue_share, fy: 2026, v: 5, u: PERCENT, q: FORECAST_LOW, dt: REGION, dv: "China", sec: "Analyst Q&A > Alex Torres (JPMorgan): China Outlook", txt: "We expect China to be 5-6% of FY2026 revenue"}
+  - {m: regional_revenue_share, fy: 2026, v: 6, u: PERCENT, q: FORECAST_HIGH, dt: REGION, dv: "China", sec: "Analyst Q&A > Alex Torres (JPMorgan): China Outlook", txt: "We expect China to be 5-6% of FY2026 revenue"}
+  - {m: mitigation_lead_time, fy: 2025, v: 18, u: MONTHS, q: FORECAST_LOW, dt: PROJECT, dv: "Project Diversify", sec: "Analyst Q&A > Robert Kim (Goldman Sachs)", txt: "We expect 18-24 months to meaningful production capacity"}
+  - {m: mitigation_lead_time, fy: 2025, v: 24, u: MONTHS, q: FORECAST_HIGH, dt: PROJECT, dv: "Project Diversify", sec: "Analyst Q&A > Robert Kim (Goldman Sachs)", txt: "We expect 18-24 months to meaningful production capacity"}
+
+# ----------------------------------------------------------------------------
+# QE FY2024 financial table compares QuantumEdge against NexaCore. Only the
+# QuantumEdge column is seeded. The NexaCore reference column is intentionally
+# NOT ingested (its provenance would be the wrong document).
+- document: quantumedge_annual_report_fy2024.md
+  company: QuantumEdge
+  authority: PRIMARY_FILING
+  metrics:
+  - {m: revenue, fy: 2024, v: 18.7, u: USD, s: BILLIONS, sec: "Financial Results FY2024", txt: "Revenue $18.7B"}
+  - {m: revenue_growth_yoy, fy: 2024, v: 62, u: PERCENT, sec: "Financial Results FY2024", txt: "Revenue growth +62%"}
+  - {m: gross_profit, fy: 2024, v: 11.4, u: USD, s: BILLIONS, sec: "Financial Results FY2024", txt: "Gross Profit $11.4B"}
+  - {m: gross_margin, fy: 2024, v: 61.1, u: PERCENT, sec: "Financial Results FY2024", txt: "Gross Margin 61.1%"}
+  - {m: rd_expense, fy: 2024, v: 3.1, u: USD, s: BILLIONS, sec: "Financial Results FY2024", txt: "R&D Expense $3.1B"}
+  - {m: operating_income, fy: 2024, v: 2.8, u: USD, s: BILLIONS, sec: "Financial Results FY2024", txt: "Operating Income $2.8B"}
+  - {m: operating_margin, fy: 2024, v: 15.0, u: PERCENT, sec: "Financial Results FY2024", txt: "Operating Margin 15.0%"}
+  - {m: net_income, fy: 2024, v: 2.4, u: USD, s: BILLIONS, sec: "Financial Results FY2024", txt: "Net Income $2.4B"}
+  - {m: eps_diluted, fy: 2024, v: 2.12, u: USD_PER_SHARE, sec: "Financial Results FY2024", txt: "EPS (diluted) $2.12"}
+  - {m: free_cash_flow, fy: 2024, v: 1.9, u: USD, s: BILLIONS, sec: "Financial Results FY2024", txt: "Free Cash Flow $1.9B"}
+  - {m: employees, fy: 2024, v: 9200, u: COUNT, sec: "Business Overview > Customers", txt: "We had 9,200 employees at year-end"}
+  - {m: customer_count, fy: 2024, v: 1800, u: COUNT, dt: CUSTOMER, dv: "Enterprise customers", sec: "Business Overview > Customers", txt: "QuantumEdge serves 1,800 enterprise customers"}
+  - {m: customer_concentration_pct, fy: 2024, v: 8, u: PERCENT, q: UPPER_BOUND, dt: CUSTOMER, dv: "Largest single customer", sec: "Business Overview > Customers", txt: "No single customer accounted for more than 8% of revenue"}
+  - {m: integration_count, fy: 2024, v: 2100, u: COUNT, dt: PRODUCT, dv: "EdgeNet", sec: "Business Overview > Products", txt: "2,100 third-party integrations"}
+  - {m: revenue, fy: 2025, v: 26, u: USD, s: BILLIONS, q: GUIDANCE_LOW, sec: "FY2025 Outlook", txt: "Revenue $26-30B"}
+  - {m: revenue, fy: 2025, v: 30, u: USD, s: BILLIONS, q: GUIDANCE_HIGH, sec: "FY2025 Outlook", txt: "Revenue $26-30B"}
+  - {m: gross_margin, fy: 2025, v: 64, u: PERCENT, q: GUIDANCE_LOW, sec: "FY2025 Outlook", txt: "Gross Margin 64-66%"}
+  - {m: gross_margin, fy: 2025, v: 66, u: PERCENT, q: GUIDANCE_HIGH, sec: "FY2025 Outlook", txt: "Gross Margin 64-66%"}
+  - {m: revenue, fy: 2025, v: 0.8, u: USD, s: BILLIONS, q: GUIDANCE_LOW, dt: PRODUCT, dv: "QuantumCloud", sec: "FY2025 Outlook", txt: "QuantumCloud contribution $0.8-1.2B"}
+  - {m: revenue, fy: 2025, v: 1.2, u: USD, s: BILLIONS, q: GUIDANCE_HIGH, dt: PRODUCT, dv: "QuantumCloud", sec: "FY2025 Outlook", txt: "QuantumCloud contribution $0.8-1.2B"}
+
+# ----------------------------------------------------------------------------
+# QE FY2025: headline financial and segment tables are TABLE_PARSE'd.
+# The products table duplicates the segment table and is SKIPPED; only facts
+# not present in any parsed table are seeded here.
+- document: quantumedge_annual_report_fy2025.md
+  company: QuantumEdge
+  authority: PRIMARY_FILING
+  metrics:
+  - {m: customer_count, fy: 2025, v: 180000, u: COUNT, dt: PRODUCT, dv: "QuantumCloud", sec: "Letter to Shareholders", txt: "$1.4B in revenue from 180,000 customers"}
+  - {m: gross_margin, fy: 2025, v: 94, u: PERCENT, dt: PRODUCT, dv: "QuantumCloud", sec: "Business Overview > Products", txt: "QuantumCloud ... 94% gross margin"}
+  - {m: gross_margin, fy: 2025, v: 89, u: PERCENT, dt: PRODUCT, dv: "Software (EdgeNet, QuantumCloud)", sec: "Financial Results FY2025 > Gross Margin Analysis", txt: "software gross margins are approximately 89%"}
+  - {m: employees, fy: 2025, v: 11400, u: COUNT, sec: "Business Overview > Employees", txt: "11,400 employees (up from 9,200)"}
+  - {m: engineering_headcount, fy: 2025, v: 6800, u: COUNT, sec: "Business Overview > Employees", txt: "including 6,800 in engineering"}
+  - {m: capacity_reservation_fees, fy: 2025, v: 2.1, u: USD, s: BILLIONS, dt: SUPPLIER, dv: "GlobalChip", sec: "Business Overview > Manufacturing", txt: "paid GlobalChip $2.1B in capacity reservations"}
+  - {m: hbm4_allocation_secured_pct, fy: 2026, v: 35, u: PERCENT, q: ESTIMATE, sec: "Risk Factors > HBM Memory Allocation Risk > HBM4 Supply", txt: "secured 35% of its estimated FY2026 HBM4 need"}
+  - {m: monthly_churn, fy: 2025, v: 2.1, u: PERCENT, dt: PRODUCT, dv: "QuantumCloud", sec: "Risk Factors > QuantumCloud Churn Risk", txt: "monthly churn is 2.1%"}
+  - {m: market_share, fy: 2025, v: 18, u: PERCENT, dt: MARKET, dv: "AI_TRAINING_ACCELERATORS", sec: "Business Overview > Market Position", txt: "QuantumEdge holds roughly 18%"}
+  - {m: market_share, fy: 2025, v: 72, u: PERCENT, co: NexaCore, dt: MARKET, dv: "AI_TRAINING_ACCELERATORS", sec: "Business Overview > Market Position", txt: "NexaCore holds roughly 72% of the AI training market"}
+  - {m: patent_claims_count, fy: 2025, v: 7, u: COUNT, dt: LITIGATION, dv: "Patent claims vs NexaCore", sec: "Litigation > Patent Claims vs NexaCore", txt: "The claims cover 7 patents"}
+  - {m: revenue, fy: 2026, v: 38, u: USD, s: BILLIONS, q: GUIDANCE_LOW, sec: "FY2026 Outlook", txt: "Revenue $38-42B"}
+  - {m: revenue, fy: 2026, v: 42, u: USD, s: BILLIONS, q: GUIDANCE_HIGH, sec: "FY2026 Outlook", txt: "Revenue $38-42B"}
+  - {m: gross_margin, fy: 2026, v: 67, u: PERCENT, q: GUIDANCE_LOW, sec: "FY2026 Outlook", txt: "Gross Margin Target 67-69%"}
+  - {m: gross_margin, fy: 2026, v: 69, u: PERCENT, q: GUIDANCE_HIGH, sec: "FY2026 Outlook", txt: "Gross Margin Target 67-69%"}
+  - {m: customer_count, fy: 2026, v: 400000, u: COUNT, q: TARGET, dt: PRODUCT, dv: "QuantumCloud", sec: "FY2026 Outlook", txt: "QuantumCloud customers 400,000 target"}
+
+# ----------------------------------------------------------------------------
+# Meridian is third-party commentary, NOT a company filing. Rows are seeded
+# partially by design (market structure + comparison highlights + planted claim).
+- document: ai_semiconductor_industry_report_2025.md
+  company: MARKET_AI_SEMICONDUCTOR
+  authority: THIRD_PARTY
+  metrics:
+  - {m: market_size, fy: 2025, p: CY, v: 142, u: USD, s: BILLIONS, q: ESTIMATE, sec: "Executive Summary", txt: "reached $142B in calendar year 2025"}
+  - {m: market_size, fy: 2024, p: CY, v: 68, u: USD, s: BILLIONS, q: ESTIMATE, sec: "Executive Summary", txt: "up from $68B in 2024"}
+  - {m: market_size_growth, fy: 2025, p: CY, v: 109, u: PERCENT, q: ESTIMATE, sec: "Executive Summary", txt: "(+109%)"}
+  - {m: market_size, fy: 2026, p: CY, v: 220, u: USD, s: BILLIONS, q: FORECAST_LOW, sec: "Executive Summary", txt: "forecast at $220-240B in 2026"}
+  - {m: market_size, fy: 2026, p: CY, v: 240, u: USD, s: BILLIONS, q: FORECAST_HIGH, sec: "Executive Summary", txt: "forecast at $220-240B in 2026"}
+  - {m: revenue, co: NexaCore, fy: 2025, p: CY, v: 61.2, u: USD, s: BILLIONS, q: ESTIMATE, sec: "Market Structure and Share", txt: "NexaCore Technologies CY2025 Revenue (est.) $61.2B"}
+  - {m: revenue, co: QuantumEdge, fy: 2025, p: CY, v: 28.3, u: USD, s: BILLIONS, q: ESTIMATE, sec: "Market Structure and Share", txt: "QuantumEdge Corp CY2025 Revenue (est.) $28.3B"}
+  - {m: market_share, co: NexaCore, fy: 2025, p: CY, v: 43, u: PERCENT, q: ESTIMATE, dt: MARKET, dv: "TOTAL_AI_SEMICONDUCTOR", sec: "Market Structure and Share", txt: "NexaCore Technologies ... 43%"}
+  - {m: market_share, co: QuantumEdge, fy: 2025, p: CY, v: 20, u: PERCENT, q: ESTIMATE, dt: MARKET, dv: "TOTAL_AI_SEMICONDUCTOR", sec: "Market Structure and Share", txt: "QuantumEdge Corp ... 20%"}
+  - {m: market_share, co: NexaCore, fy: 2025, v: 72, u: PERCENT, q: ESTIMATE, dt: MARKET, dv: "AI_TRAINING_ACCELERATORS", sec: "Comparative Analysis", txt: "Market Share (Training) 72%"}
+  - {m: market_share, co: QuantumEdge, fy: 2025, v: 18, u: PERCENT, q: ESTIMATE, dt: MARKET, dv: "AI_TRAINING_ACCELERATORS", sec: "Comparative Analysis", txt: "Market Share (Training) 18%"}
+  - {m: revenue, co: NexaCore, fy: 2025, v: 61.2, u: USD, s: BILLIONS, sec: "Comparative Analysis", txt: "Revenue $61.2B"}
+  - {m: revenue, co: QuantumEdge, fy: 2025, v: 28.3, u: USD, s: BILLIONS, sec: "Comparative Analysis", txt: "Revenue $28.3B"}
+  - {m: net_income, co: NexaCore, fy: 2025, v: 22.1, u: USD, s: BILLIONS, sec: "Comparative Analysis", txt: "Net Income $22.1B"}
+  - {m: net_income, co: QuantumEdge, fy: 2025, v: 4.8, u: USD, s: BILLIONS, sec: "Comparative Analysis", txt: "Net Income $4.8B"}
+  - {m: gross_margin, co: NexaCore, fy: 2025, v: 76.0, u: PERCENT, sec: "Comparative Analysis", txt: "Gross Margin 76.0%"}
+  - {m: gross_margin, co: QuantumEdge, fy: 2025, v: 65.0, u: PERCENT, sec: "Comparative Analysis", txt: "Gross Margin 65.0%"}
+  # PLANTED MISLEADING CLAIM: analyst-adjusted, unsupported by any NexaCore filing.
+  - {m: gross_margin, co: NexaCore, fy: 2025, v: 71, u: PERCENT, q: ANALYST_ADJUSTED, sec: "NexaCore Analysis > Financial Commentary", txt: "true adjusted gross margin, excluding one-time capacity reservation fee amortization, may be closer to 71%"}
+  - {m: revenue_impact_china_industry, fy: 2025, p: CY, v: 14.2, u: USD, s: BILLIONS, q: ESTIMATE, dt: REGION, dv: "China", sec: "China Export Controls", txt: "reduced combined industry China revenue by an estimated $14.2B in CY2025"}
+  - {m: hbm4_industry_capacity, fy: 2025, p: CY, v: 2.4, u: COUNT, s: BILLIONS, q: ESTIMATE, sec: "HBM Memory Bottleneck", txt: "approximately 2.4B units per year"}
+  - {m: hbm4_industry_demand, fy: 2025, p: CY, v: 4.2, u: COUNT, s: BILLIONS, q: ESTIMATE, sec: "HBM Memory Bottleneck", txt: "estimated demand of 4.2B units"}
+  - {m: capacity_additions_reduction, fy: 2026, p: CY, v: 65, u: PERCENT, q: FORECAST_LOW, dt: SCENARIO, dv: "Taiwan Strait crisis (12-18 months)", sec: "Geopolitical Risk", txt: "reduce AI training capacity additions by 65-75%"}
+  - {m: capacity_additions_reduction, fy: 2026, p: CY, v: 75, u: PERCENT, q: FORECAST_HIGH, dt: SCENARIO, dv: "Taiwan Strait crisis (12-18 months)", sec: "Geopolitical Risk", txt: "reduce AI training capacity additions by 65-75%"}
+  - {m: market_share, co: QuantumEdge, fy: 2026, v: 22, u: PERCENT, q: FORECAST_LOW, dt: MARKET, dv: "AI_TRAINING_ACCELERATORS", sec: "Outlook 2026", txt: "could recover training share to 22-25%"}
+  - {m: market_share, co: QuantumEdge, fy: 2026, v: 25, u: PERCENT, q: FORECAST_HIGH, dt: MARKET, dv: "AI_TRAINING_ACCELERATORS", sec: "Outlook 2026", txt: "could recover training share to 22-25%"}
+  - {m: revenue, co: QuantumEdge, fy: 2026, v: 39, u: USD, s: BILLIONS, q: TARGET, sec: "QuantumEdge Analysis", txt: "FY2026 revenue target of $39B"}

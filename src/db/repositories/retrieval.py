@@ -273,7 +273,7 @@ _FTS_SQL = """
         c.page_start,
         c.page_end,
         c.token_count,
-        ts_rank_cd(to_tsvector('english', c.text), plainto_tsquery('english', :query_text)) AS ts_rank,
+        ts_rank_cd(c.text_tsv, websearch_to_tsquery('english', :query_text)) AS ts_rank,
         dv.id                               AS document_version_id,
         dv.version_label,
         dv.effective_date,
@@ -292,7 +292,7 @@ _FTS_SQL = """
     JOIN documents         d  ON dv.document_id = d.id
     JOIN companies         co ON d.company_id = co.id
     LEFT JOIN sections     s  ON c.section_id = s.id
-    WHERE to_tsvector('english', c.text) @@ plainto_tsquery('english', :query_text)
+    WHERE c.text_tsv @@ websearch_to_tsquery('english', :query_text)
     {extra_filters}
     ORDER BY ts_rank DESC
     LIMIT :top_k

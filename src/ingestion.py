@@ -89,109 +89,129 @@ def load_pdf(file_path: str | Path) -> List[PageDict]:
     return pages
 
 
-def load_md(file_path: str | Path) -> List[PageDict]:
+def load_markdown(file_path: str | Path) -> List[PageDict]:
     """
-    Receives : path to a Markdown (.md) file
-    Returns  : list of page dicts [{source, page_num, text}, ...]
+    Load a Markdown (.md) or plain-text (.txt) file as page-like sections.
 
-    Markdown files have no page boundaries.  We split them into virtual
-    pages of _MD_LINES_PER_PAGE non-blank lines so that the rest of the
-    Phase 1 pipeline (chunker, retriever, citation) works unchanged.
+    Primary splitting: H2 headings (## ...) — each section becomes one "page".
+    This preserves document structure (Risk Factors, Financial Results, etc.)
+    and gives the downstream chunker meaningful semantic boundaries.
 
-    Inline Markdown syntax (**, *, ``, []()) is stripped for cleaner text,
-    but structural markers (#, |, -) are kept so the downstream chunker
-    has signal for structure-aware splitting.
+    Fallback: if the file has no H2 headings, split into virtual pages of
+    _MD_LINES_PER_PAGE non-blank lines (robust for flat / unstructured docs).
+
+    In both cases, inline Markdown syntax (**, *, ``, []()) is stripped for
+    cleaner chunk text; structural markers (#, |, -) are kept.
+
+    page_num is the 1-indexed section/page number for citation display.
     """
     file_path = Path(file_path)
-
     if not file_path.exists():
-        raise FileNotFoundError(f"Markdown file not found: {file_path}")
-    if file_path.suffix.lower() not in (".md", ".markdown"):
-        raise ValueError(f"Expected a .md file, got: {file_path.suffix}")
+        raise FileNotFoundError(f"File not found: {file_path}")
 
     source_name = file_path.name
-    raw_content = file_path.read_text(encoding="utf-8", errors="replace")
+    raw = file_path.read_text(encoding="utf-8", errors="replace")
 
-    # Strip inline formatting for cleaner chunk text
-    text = re.sub(r"\*\*(.+?)\*\*", r"\1", raw_content)   # **bold**
-    text = re.sub(r"\*(.+?)\*",     r"\1", text)            # *italic*
-    text = re.sub(r"`(.+?)`",        r"\1", text)            # `code`
-    text = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", text)         # [link](url)
+    # ── Strip inline Markdown formatting for cleaner chunk text ──────────────
+    text_clean = re.sub(r"\*\*(.+?)\*\*", r"\1", raw)        # **bold**
+    text_clean = re.sub(r"\*(.+?)\*",     r"\1", text_clean)  # *italic*
+    text_clean = re.sub(r"`(.+?)`",        r"\1", text_clean)  # `code`
+    text_clean = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", text_clean)  # [link](url)
+    text_clean = re.sub(r"<!--.*?-->", "", text_clean, flags=re.DOTALL)  # HTML comments
 
-    lines = text.splitlines()
+    # ── Determine whether H2 splitting applies ───────────────────────────────
+    has_h2 = bool(re.search(r"^## ", text_clean, re.MULTILINE))
 
-    # Group into virtual pages of _MD_LINES_PER_PAGE non-blank lines each
-    pages: List[PageDict] = []
-    current_lines: List[str] = []
-    non_blank = 0
-    page_num = 1
+    if has_h2:
+        # --- H2-based splitting (primary path for structured NexaCore docs) ---
+        # Extract H1 title for citation context prefix
+        h1_title = ""
+        for line in text_clean.splitlines():
+            if line.startswith("# ") and not line.startswith("## "):
+                h1_title = line.lstrip("# ").strip()
+                break
 
-    for line in lines:
-        current_lines.append(line)
-        if line.strip():
-            non_blank += 1
-        if non_blank >= _MD_LINES_PER_PAGE:
+        parts = re.split(r"(?=^## )", text_clean, flags=re.MULTILINE)
+        pages: List[PageDict] = []
+        section_num = 0
+
+        for part in parts:
+            text = part.strip()
+            if not text:
+                continue
+            if h1_title and not text.startswith(f"# {h1_title}"):
+                text = f"[Document: {h1_title}]\n\n{text}"
+            section_num += 1
+            pages.append({"source": source_name, "page_num": section_num, "text": text})
+
+        print(f"  [ingestion] {source_name}: {len(pages)} H2 sections extracted")
+
+    else:
+        # --- Line-based splitting (fallback for flat / unstructured docs) ---
+        lines = text_clean.splitlines()
+        pages = []
+        current_lines: List[str] = []
+        non_blank = 0
+        page_num = 1
+
+        for line in lines:
+            current_lines.append(line)
+            if line.strip():
+                non_blank += 1
+            if non_blank >= _MD_LINES_PER_PAGE:
+                page_text = "\n".join(current_lines).strip()
+                if page_text:
+                    pages.append({"source": source_name, "page_num": page_num, "text": page_text})
+                    page_num += 1
+                current_lines = []
+                non_blank = 0
+
+        if current_lines:
             page_text = "\n".join(current_lines).strip()
             if page_text:
-                pages.append({
-                    "source": source_name,
-                    "page_num": page_num,
-                    "text": page_text,
-                })
-                page_num += 1
-            current_lines = []
-            non_blank = 0
+                pages.append({"source": source_name, "page_num": page_num, "text": page_text})
 
-    # Flush any remaining lines
-    if current_lines:
-        page_text = "\n".join(current_lines).strip()
-        if page_text:
-            pages.append({
-                "source": source_name,
-                "page_num": page_num,
-                "text": page_text,
-            })
+        print(f"  [ingestion] {source_name}: {len(pages)} virtual pages extracted from Markdown")
 
-    print(
-        f"  [ingestion] {source_name}: "
-        f"{len(pages)} virtual pages extracted from Markdown"
-    )
     return pages
 
 
 def load_documents_from_directory(directory: str | Path) -> List[PageDict]:
     """
-    Receives : path to a directory containing PDF and/or Markdown files
-    Returns  : combined list of page dicts from ALL supported files
+    Load all PDF, Markdown (.md), and plain-text (.txt) files from a directory.
 
-    Supported: .pdf (text-based), .md / .markdown
-    Image-only PDF pages and empty Markdown files are silently skipped.
+    PDFs  → extracted page-by-page via pypdf (load_pdf)
+    .md   → split on H2 headings, fallback to line-based (load_markdown)
+    .txt  → same as .md via load_markdown
+
+    Files are sorted alphabetically for deterministic ordering across runs.
     """
     directory = Path(directory)
 
     if not directory.exists():
         raise FileNotFoundError(f"Directory not found: {directory}")
 
-    pdf_files = sorted(directory.glob("*.pdf"))
-    md_files  = sorted(list(directory.glob("*.md")) + list(directory.glob("*.markdown")))
-    all_files = pdf_files + md_files
+    supported = {".pdf", ".md", ".markdown", ".txt"}
+    doc_files = sorted(
+        f for f in directory.iterdir()
+        if f.is_file() and f.suffix.lower() in supported
+    )
 
-    if not all_files:
-        print(f"[WARNING] No PDF or Markdown files found in {directory}")
+    if not doc_files:
+        print(f"[WARNING] No supported documents (.pdf / .md / .txt) found in {directory}")
         return []
 
-    print(f"[ingestion] Found {len(pdf_files)} PDF(s) and {len(md_files)} Markdown file(s) in {directory}")
+    print(f"[ingestion] Found {len(doc_files)} document(s) in {directory}")
 
     all_pages: List[PageDict] = []
-    for path in sorted(all_files):
-        if path.suffix.lower() == ".pdf":
-            pages = load_pdf(path)
+    for doc_path in doc_files:
+        if doc_path.suffix.lower() == ".pdf":
+            all_pages.extend(load_pdf(doc_path))
         else:
-            pages = load_md(path)
-        all_pages.extend(pages)
+            all_pages.extend(load_markdown(doc_path))
 
     print(
-        f"[ingestion] Total pages loaded: {len(all_pages)} "
-        f"from {len(all_files)} document(s)"
+        f"[ingestion] Total sections/pages loaded: {len(all_pages)} "
+        f"from {len(doc_files)} document(s)"
     )
     return all_pages

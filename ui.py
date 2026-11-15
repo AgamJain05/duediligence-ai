@@ -28,6 +28,7 @@ from src.ui_backend import (
     VECTOR_ONLY, KEYWORD_ONLY, HYBRID, HYBRID_RERANKED,
     POSTGRES_HNSW, POSTGRES_FILTERED, POSTGRES_FTS, POSTGRES_EXACT, POSTGRES_HYBRID,
     RESEARCH_AGENT,
+    P6_METRICS, P6_SMART, P6_MODES,
     MODE_LABELS,
     check_faiss_index, check_database, check_llm,
     get_available_modes, build_faiss_retriever, run_query,
@@ -404,14 +405,100 @@ def _render_evidence_by_task(evidence_by_task: dict, plan: dict | None) -> None:
                 global_idx += 1
 
 
+# ── Phase 6 helpers ───────────────────────────────────────────────────────────
+
+_P6_PATH_META = {
+    "METRICS_ONLY":      ("green",  "Metrics lookup"),
+    "METRICS_PLUS_CALC": ("blue",   "Metrics + calculation"),
+    "HYBRID":            ("violet", "Metrics + documents"),
+    "DOCS_ONLY":         ("gray",   "Documents only"),
+}
+
+
+def _render_p6_header(result: dict) -> None:
+    """Answer-path badge + conflict warning for Phase 6 results."""
+    path  = result.get("answer_path", "")
+    color, label = _P6_PATH_META.get(path, ("gray", path))
+    analysis = result.get("analysis_p6") or {}
+
+    cols = st.columns([2, 2, 3])
+    cols[0].markdown(f"**Phase 6 path:** :{color}[**{path}**] — {label}")
+    if analysis.get("metrics_mentioned"):
+        cols[1].markdown(f"**Metrics:** `{'`, `'.join(analysis['metrics_mentioned'][:4])}`")
+    if analysis.get("fiscal_periods"):
+        cols[2].markdown(f"**Periods:** {', '.join(analysis['fiscal_periods'][:4])}")
+
+    if result.get("conflict_detected"):
+        st.warning(
+            "⚠ **Data conflict detected.** Multiple sources report different values for "
+            "the same metric. Both are shown below — the system does NOT resolve conflicts.",
+            icon="⚠️",
+        )
+
+
+def _render_conflict_box(conflict_details: list) -> None:
+    """Expandable conflict detail panel showing all conflicting values side-by-side."""
+    if not conflict_details:
+        return
+    with st.expander("⚠ Conflict details — click to see all source values", expanded=True):
+        for cd in conflict_details:
+            st.markdown(f"**{cd.get('metric','')}** · {cd.get('company','')} · {cd.get('period','')}")
+            vals = cd.get("values", [])
+            if vals:
+                cols = st.columns(len(vals))
+                for col, v in zip(cols, vals):
+                    col.metric(
+                        label=v.get("source", "Source")[:40],
+                        value=f"{v.get('value','')} {v.get('unit','')}",
+                    )
+            st.divider()
+
+
+def _render_metric_table(metric_rows: list) -> None:
+    """Structured data table from financial_metrics_p6."""
+    if not metric_rows:
+        return
+    with st.expander("Structured data (from financial database)", expanded=True):
+        rows = []
+        for r in metric_rows:
+            dim = f" [{r.get('dimension_value')}]" if r.get("dimension_value") else ""
+            rows.append({
+                "Metric":    f"{r.get('metric_name','')}{dim}",
+                "Period":    f"FY{r.get('fiscal_year','?')} / {r.get('fiscal_period','FY')}",
+                "Value":     f"{r.get('value','')} {r.get('unit','')}",
+                "Scale":     r.get("scale", ""),
+                "Source":    str(r.get("source_text", ""))[:60],
+            })
+        st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+
+
+def _render_formula_card(calc_summary: dict) -> None:
+    """Computation card showing formula + result from the calculator tool."""
+    if not calc_summary:
+        return
+    with st.container(border=True):
+        st.markdown("**Computation** *(deterministic calculator — not LLM arithmetic)*")
+        c1, c2 = st.columns([3, 1])
+        c1.code(calc_summary.get("formula", ""), language="")
+        c2.metric(
+            label=calc_summary.get("operation", "Result"),
+            value=f"{calc_summary.get('result','')} {calc_summary.get('unit','')}",
+        )
+
+
 # ── Rendering ────────────────────────────────────────────────────────────────
 def render_result(result: dict) -> None:
     chunks   = result.get("retrieved_chunks", []) or []
     latency  = result.get("latency", {}) or {}
     is_p5    = result.get("mode") == RESEARCH_AGENT
+    is_p6    = result.get("mode") in P6_MODES
 
     if result.get("error"):
         st.error(f"The pipeline returned an error: {result['error']}")
+
+    # ── Phase 6: answer-path banner + conflict warning ────────────────────────
+    if is_p6:
+        _render_p6_header(result)
 
     # ── Phase 5: query classification banner ──────────────────────────────────
     if is_p5:
@@ -427,6 +514,13 @@ def render_result(result: dict) -> None:
     # ── Phase 5: research plan (complex path only) ────────────────────────────
     if is_p5 and result.get("route") == "complex" and result.get("research_plan"):
         _render_research_plan(result["research_plan"])
+
+    # ── Phase 6: structured data + computation + conflict ────────────────────
+    if is_p6:
+        _render_metric_table(result.get("metric_rows") or [])
+        _render_formula_card(result.get("calc_summary") or {})
+        if result.get("conflict_detected"):
+            _render_conflict_box(result.get("conflict_details") or [])
 
     st.subheader("Answer")
     with st.container(border=True):
@@ -507,9 +601,21 @@ def render_result(result: dict) -> None:
                     for col, (k, v) in zip(cols, p5_lat.items()):
                         col.metric(k.replace("_ms", "").capitalize(), f"{v:.0f} ms")
             elif latency:
-                cols = st.columns(len(latency))
-                for col, (k, v) in zip(cols, latency.items()):
-                    col.metric(k.replace("_", " ").capitalize(), f"{v:.0f} ms")
+                # Split into rows of 4 — 7 columns in one row is unreadably narrow.
+                # total_ms is shown separately at the bottom as the summary figure.
+                stage_items = [
+                    (k.replace("_ms", "").replace("_", " ").title(), v)
+                    for k, v in latency.items()
+                    if k != "total_ms"
+                ]
+                for row_start in range(0, len(stage_items), 4):
+                    row = stage_items[row_start:row_start + 4]
+                    r_cols = st.columns(len(row))
+                    for col, (label, v) in zip(r_cols, row):
+                        col.metric(label, f"{v:.0f} ms")
+                if "total_ms" in latency:
+                    st.caption(f"**Total:** {latency['total_ms']:.0f} ms  "
+                               f"(retrieval + generation + overhead)")
 
             if chunks:
                 rows = [{

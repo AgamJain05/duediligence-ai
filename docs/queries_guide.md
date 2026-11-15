@@ -1,4 +1,4 @@
-# DueDiligenceAI — Queries Guide (Phase 1 to Phase 5)
+# DueDiligenceAI — Queries Guide (Phase 1 to Phase 6)
 
 This file lists all queries you can run against the DueDiligenceAI RAG system, organized by phase.
 Each section explains what the phase enables, which mode to select, and the exact questions to ask.
@@ -566,6 +566,248 @@ Use the oldest annual report to find NexaCore's employee count.
 
 ---
 
+---
+
+## Phase 6 — Tools + Structured Financial Data + Deterministic Calculator
+
+Phase 6 adds a structured financial metrics table and a whitelist calculator. The LLM plans; deterministic code looks up and computes. Numbers in the final answer trace to specific database rows, not to text passages.
+
+**Prerequisites — run once before Phase 6 queries:**
+```bash
+# Apply migration
+alembic upgrade head
+
+# Seed metrics (dry-run first)
+python scripts/ingest_metrics.py --dry-run
+python scripts/ingest_metrics.py
+
+# Verify data loaded
+python scripts/inspect_metrics.py --list-companies
+```
+
+---
+
+### Path: `METRICS_ONLY` — Single metric lookup (skips planner)
+
+**What it does:** Alias-resolves the metric name, queries `financial_metrics_p6` directly, returns all matching rows with provenance. If multiple sources report different values → `conflict_detected=True`, both values shown. No LLM planner overhead.
+**Latency:** <50ms for a single lookup.
+**How to invoke:** Via `scripts/inspect_tools.py` or as part of a full pipeline query.
+
+```bash
+# Direct tool invocation
+python scripts/inspect_tools.py --tool search_financial_data \
+  --args '{"company":"NexaCore Technologies","metric":"revenue","fiscal_year":2025}'
+
+python scripts/inspect_tools.py --tool search_financial_data \
+  --args '{"company":"NexaCore Technologies","metric":"eps_diluted","fiscal_year":2025}'
+
+python scripts/inspect_tools.py --tool search_financial_data \
+  --args '{"company":"QuantumEdge Corp","metric":"gross_margin","fiscal_year":2025}'
+
+# CONFLICT: returns 2 rows (8% annual report, 9% earnings call)
+python scripts/inspect_tools.py --tool search_financial_data \
+  --args '{"company":"NexaCore Technologies","metric":"regional_revenue_share","fiscal_year":2025,"dimension_value":"China"}'
+```
+
+**Natural-language questions routed to METRICS_ONLY:**
+```
+What was NexaCore's FY2025 revenue?
+What was NexaCore's FY2025 gross margin?
+What was NexaCore's diluted EPS for FY2025?
+What was NexaCore's free cash flow in FY2025?
+How many employees does NexaCore have?
+What was NexaCore's Data Center segment revenue in FY2025?
+What was NexaCore's market share in AI training accelerators?
+What was QuantumEdge's FY2025 operating margin?
+What was QuantumEdge's FY2025 net income?
+What was NexaCore's Q4 FY2025 EPS?
+What was NexaCore's FY2024 net income?
+What is NexaCore's total debt in FY2025?
+```
+
+---
+
+### Path: `METRICS_PLUS_CALC` — Metric lookup + deterministic calculator
+
+**What it does:** Fetches metrics from the DB, passes them to `calculate_metric` or `compare_periods`. Returns the formula string, both inputs with provenance, and the exact Decimal result. No LLM arithmetic.
+**Operations:** `percent_change`, `difference`, `ratio`, `margin`, `share_of_total`, `cagr`, `sum`, `multiple`, `basis_point_change`.
+
+```bash
+# Percent change: NexaCore revenue FY2024→FY2025
+python scripts/inspect_tools.py --tool calculate_metric \
+  --args '{"operation":"percent_change","inputs":[{"label":"FY2024","value":"29.5","unit":"USD"},{"label":"FY2025","value":"61.2","unit":"USD"}]}'
+# Expected: (61.2 - 29.5) / 29.5 * 100 = 107.46%
+
+# Basis points: QuantumEdge gross margin FY2024→FY2025
+python scripts/inspect_tools.py --tool calculate_metric \
+  --args '{"operation":"basis_point_change","inputs":[{"label":"FY2024","value":"61.1","unit":"PERCENT"},{"label":"FY2025","value":"65.0","unit":"PERCENT"}]}'
+# Expected: (65.0 - 61.1) * 100 = 390 bps
+
+# Data Center share of total FY2025
+python scripts/inspect_tools.py --tool calculate_metric \
+  --args '{"operation":"share_of_total","inputs":[{"label":"DataCenter","value":"48.1","unit":"USD"},{"label":"Total","value":"61.2","unit":"USD"}]}'
+# Expected: 48.1 / 61.2 * 100 = 78.59%
+
+# Net cash position
+python scripts/inspect_tools.py --tool calculate_metric \
+  --args '{"operation":"difference","inputs":[{"label":"cash","value":"26.3","unit":"USD"},{"label":"debt","value":"3.5","unit":"USD"}]}'
+# Expected: 26.3 - 3.5 = 22.8B
+
+# Period compare (composed tool: 2 lookups + percent_change in one call)
+python scripts/inspect_tools.py --tool compare_periods \
+  --args '{"company":"NexaCore Technologies","metric":"gross_margin","period_a":"2023","period_b":"2025"}'
+
+python scripts/inspect_tools.py --tool compare_periods \
+  --args '{"company":"QuantumEdge Corp","metric":"revenue","period_a":"2024","period_b":"2025"}'
+```
+
+**Natural-language questions routed to METRICS_PLUS_CALC:**
+```
+By how much did NexaCore's revenue grow from FY2024 to FY2025?
+By how much did NexaCore's R&D expense grow from FY2023 to FY2025?
+What percentage of NexaCore's FY2025 revenue came from the Data Center segment?
+What was NexaCore's net cash position at end of FY2025?
+How many times larger was NexaCore's revenue compared to QuantumEdge in FY2025?
+By how many basis points did QuantumEdge's gross margin improve from FY2024 to FY2025?
+What was the CAGR of NexaCore's revenue from FY2023 to FY2025?
+What was NexaCore's R&D as a percentage of revenue in FY2025?
+Compare NexaCore and QuantumEdge gross margins FY2023 vs FY2025.
+Compare NexaCore and QuantumEdge operating margins in FY2025.
+```
+
+---
+
+### Path: `HYBRID` — Documents + metrics + calculation
+
+**What it does:** Combines document retrieval (for narrative/context) with metric lookup (for exact numbers) and optional calculation. The LLM context has separated sections: STRUCTURED DATA, COMPUTATIONS, DOCUMENT EVIDENCE. The LLM explains using retrieved context; every number comes from a tool.
+
+**Natural-language questions routed to HYBRID:**
+```
+Why did NexaCore's gross margin expand from FY2023 to FY2025 and by how much?
+Analyze NexaCore's R&D spending trend and explain the strategic rationale.
+Compare NexaCore and QuantumEdge's profitability in FY2025 and explain the difference.
+How did NexaCore's China revenue exposure change from FY2024 to FY2025 and why?
+What are NexaCore's main manufacturing risks and what is their financial exposure?
+How much did NexaCore's revenue grow from FY2023 to FY2025 and what drove the growth?
+Explain NexaCore's competitive position using both market share data and document evidence.
+Assess QuantumEdge's competitive strategy and financial performance trajectory.
+Compare NexaCore and QuantumEdge R&D spending as a percentage of revenue in FY2025.
+Explain the significance of the QuantumEdge patent claim against NexaCore.
+Describe NexaCore's capital allocation strategy in FY2025 with specific amounts.
+```
+
+---
+
+### Conflict Detection Queries (Phase 6 specific)
+
+These queries MUST return `conflict_detected=True` with both values and their sources. The system must NOT resolve the conflict — it surfaces it.
+
+```bash
+# Should return BOTH 8% (annual report) and 9% (earnings call)
+python scripts/inspect_tools.py --tool search_financial_data \
+  --args '{"company":"NexaCore Technologies","metric":"regional_revenue_share","fiscal_year":2025,"dimension_value":"China"}'
+```
+
+**Natural-language conflict questions:**
+```
+What percentage of NexaCore's FY2025 revenue came from China?
+What are both values reported for NexaCore's China revenue share in FY2025?
+Does the earnings call confirm the annual report's China revenue figure?
+Compare all available sources for NexaCore's FY2025 China revenue share.
+```
+*Expected behavior: "NexaCore FY2025 Annual Report states China revenue share = 8%. Q4 FY2025 Earnings Call states 9%. These sources conflict. The annual report is audited; the earnings call figure may reflect rounding or a different calculation basis."*
+
+**Meridian Research analyst opinion vs audited filing:**
+```
+What was NexaCore's true gross margin in FY2025 — the annual report says 76% but Meridian Research suggests 71%?
+What gross margin did Meridian Research report for NexaCore vs the official annual report?
+```
+*Expected behavior: System surfaces both values, notes 76% is audited (annual report) vs 71% analyst estimate (Meridian), and explicitly states these are from different source types with different authority.*
+
+---
+
+### Reconciliation Queries (reported vs derived)
+
+These test whether the calculator's computed value is within tolerance of the reported figure, and whether both are shown.
+
+```bash
+# QuantumEdge gross profit / revenue = 18.4/28.3 = 65.02% vs reported 65.0%
+python scripts/inspect_tools.py --tool calculate_metric \
+  --args '{"operation":"margin","inputs":[{"label":"gross_profit","value":"18.4","unit":"USD"},{"label":"revenue","value":"28.3","unit":"USD"}],"reported_value":"65.0","tolerance":"0.15"}'
+# Expected: classification=WITHIN_TOLERANCE, computed=65.02%, reported=65.0%
+
+# NexaCore regional revenues sum vs total (27.5+21.4+4.9+7.3 = 61.1 vs 61.2)
+python scripts/inspect_tools.py --tool calculate_metric \
+  --args '{"operation":"sum","inputs":[{"label":"Americas","value":"27.5","unit":"USD"},{"label":"APAC","value":"21.4","unit":"USD"},{"label":"China","value":"4.9","unit":"USD"},{"label":"Europe","value":"7.3","unit":"USD"}],"reported_value":"61.2","tolerance":"0.2"}'
+# Expected: WITHIN_TOLERANCE (rounding difference of 0.1B)
+```
+
+---
+
+### Negative and Edge Case Queries
+
+These test graceful failure — the system must return a clear empty/error, never hallucinate.
+
+```bash
+# Unknown metric — should return EMPTY with suggestions
+python scripts/inspect_tools.py --tool search_financial_data \
+  --args '{"company":"NexaCore Technologies","metric":"ebitda","fiscal_year":2025}'
+# Expected: status=EMPTY, suggestions=[operating_income, net_income]
+
+# Unknown company — should return ERROR with known companies
+python scripts/inspect_tools.py --tool search_financial_data \
+  --args '{"company":"IntelliChip Corp","metric":"revenue","fiscal_year":2025}'
+# Expected: status=ERROR, known_companies=[NexaCore Technologies, QuantumEdge Corp]
+
+# Division by zero — must not crash
+python scripts/inspect_tools.py --tool calculate_metric \
+  --args '{"operation":"ratio","inputs":[{"label":"a","value":"100","unit":"USD"},{"label":"b","value":"0","unit":"USD"}]}'
+# Expected: status=ERROR, code=DIVISION_BY_ZERO
+
+# Unit mismatch — adding USD to PERCENT
+python scripts/inspect_tools.py --tool calculate_metric \
+  --args '{"operation":"sum","inputs":[{"label":"revenue","value":"61.2","unit":"USD"},{"label":"gross_margin","value":"76.0","unit":"PERCENT"}]}'
+# Expected: status=ERROR (units incompatible)
+
+# Period not in corpus
+python scripts/inspect_tools.py --tool search_financial_data \
+  --args '{"company":"NexaCore Technologies","metric":"revenue","fiscal_year":2020}'
+# Expected: status=EMPTY (FY2020 not in seed data)
+```
+
+**Natural-language negative queries:**
+```
+What was NexaCore's FY2025 EBITDA?
+What will NexaCore's revenue be in FY2030?
+What was NexaCore's FY2020 revenue?
+What was IntelliChip Corp's revenue in FY2025?
+What was NexaCore's 2025 revenue?
+```
+*The last query is ambiguous (FY2025 ended Jan 2026, not Dec 2025). The system should return FY2025 with a note about fiscal vs calendar year difference, or flag the ambiguity.*
+
+---
+
+### Full Phase 6 Evaluation
+
+```bash
+# Run all 75 questions
+python scripts/evaluate_tools.py
+
+# Run by category
+python scripts/evaluate_tools.py --category METRICS_ONLY
+python scripts/evaluate_tools.py --category METRICS_PLUS_CALC
+python scripts/evaluate_tools.py --category HYBRID
+python scripts/evaluate_tools.py --category conflict
+
+# Run single question
+python scripts/evaluate_tools.py --question c01
+
+# Check all tools are registered (no DB needed)
+python scripts/evaluate_tools.py --dry-run
+```
+
+---
+
 ## Quick Reference — Mode Selection Guide
 
 | Your Query Type | Recommended Mode | Why |
@@ -580,6 +822,10 @@ Use the oldest annual report to find NexaCore's employee count.
 | Multi-step reasoning | Phase 5 `MULTI_HOP` | Chains dependent retrievals |
 | Multi-document synthesis | Phase 5 `CROSS_DOCUMENT` | Retrieves from each document type |
 | Multi-topic in one query | Phase 5 `MULTI_TOPIC` | Parallel independent tasks |
+| Exact numeric fact (revenue, EPS, margin) | Phase 6 `METRICS_ONLY` | DB row lookup, <50ms, exact provenance |
+| Growth / change calculation | Phase 6 `METRICS_PLUS_CALC` | Decimal calculator, formula shown |
+| Narrative + numbers combined | Phase 6 `HYBRID` | Documents for context, DB for numbers |
+| Conflict between sources | Phase 6 tool | Returns all values + `conflict_detected` flag |
 
 ---
 
@@ -613,6 +859,22 @@ What is QuantumEdge's FY2025 revenue?
 ```bash
 python scripts/evaluate_planning.py
 ```
+
+### Tool Benchmark (75 questions — `data/evaluation/tool_questions.json`)
+
+Covers all Phase 6 answer paths. Each entry includes expected tools, expected numeric result, tolerance, and conflict flag. Used by:
+```bash
+python scripts/evaluate_tools.py
+```
+
+| Category | Count | Tests |
+|----------|-------|-------|
+| `METRICS_ONLY` | 15 | Alias resolution, single row lookup, correct value |
+| `METRICS_PLUS_CALC` | 15 | Decimal accuracy, formula string, reconciliation |
+| `HYBRID` | 15 | Tool selection, doc + metric combination |
+| `DOCS_ONLY` | 10 | No metric tools triggered for doc-only queries |
+| Conflict | 10 | `conflict_detected=True` when expected, False when not |
+| Negative/edge | 10 | EMPTY/ERROR for unknown metric, company, period, unit mismatch |
 
 ---
 

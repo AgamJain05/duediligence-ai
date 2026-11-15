@@ -27,6 +27,8 @@ without any extra computation.  Score range: [-1.0, +1.0].
 from __future__ import annotations
 
 import os
+import sys
+from pathlib import Path
 from typing import List
 
 import numpy as np
@@ -53,6 +55,29 @@ BGE_QUERY_INSTRUCTION = (
 _model = None
 
 
+def _find_broken_dist_infos() -> List[Path]:
+    """Return *.dist-info directories on sys.path that lack a METADATA file."""
+    broken: List[Path] = []
+    seen: set[Path] = set()
+    for entry in sys.path:
+        root = Path(entry or ".")
+        try:
+            if not root.is_dir():
+                continue
+            for dist_dir in root.glob("*.dist-info"):
+                if not dist_dir.is_dir():
+                    continue
+                resolved = dist_dir.resolve()
+                if resolved in seen:
+                    continue
+                seen.add(resolved)
+                if not (dist_dir / "METADATA").exists():
+                    broken.append(dist_dir)
+        except OSError:
+            continue
+    return broken
+
+
 def _get_model():
     """
     Receives : nothing  (reads EMBEDDING_MODEL env var or uses default)
@@ -68,7 +93,19 @@ def _get_model():
     """
     global _model
     if _model is None:
-        from sentence_transformers import SentenceTransformer  # lazy import
+        try:
+            from sentence_transformers import SentenceTransformer  # lazy import
+        except TypeError as exc:
+            if "not subscriptable" in str(exc):
+                broken = _find_broken_dist_infos()
+                if broken:
+                    paths = ", ".join(str(p) for p in broken)
+                    raise RuntimeError(
+                        "Failed to import sentence_transformers due to incomplete "
+                        f"package metadata directory missing METADATA: {paths}. "
+                        "Remove the orphaned .dist-info directory to fix this."
+                    ) from exc
+            raise
         model_name = os.getenv("EMBEDDING_MODEL", DEFAULT_EMBEDDING_MODEL)
         print(f"[embeddings] Loading model '{model_name}' (first use)...")
         _model = SentenceTransformer(model_name)

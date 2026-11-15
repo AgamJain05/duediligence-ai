@@ -1,6 +1,6 @@
 """
-src/ingestion/pdf_parser.py  ─  Phase 2 PDF parsing
-════════════════════════════════════════════════════
+src/ingestion/pdf_parser.py  ─  Phase 2 PDF + Markdown parsing
+═══════════════════════════════════════════════════════════════
 Produces a ParsedDocument tree with structure-detected blocks.
 
 WHY pdfplumber INSTEAD OF pypdf?
@@ -14,6 +14,17 @@ pdfplumber gives us:
 We use pdfplumber for extraction and pass font-size metadata to
 structure.py so heading detection can use the "larger font = heading"
 signal.
+
+MARKDOWN SUPPORT
+────────────────
+parse_md() handles .md files directly, mapping Markdown syntax to the
+same ParsedDocument / TextBlock model that PDF parsing produces.
+  • # / ## / ### headings → BLOCK_TYPE_HEADING (confidence from level)
+  • | table | rows |      → BLOCK_TYPE_TABLE
+  • - / * / 1. bullets   → BLOCK_TYPE_LIST
+  • Everything else       → BLOCK_TYPE_PARAGRAPH
+Markdown files don't have page boundaries, so the text is split into
+logical "pages" of ~MARKDOWN_LINES_PER_PAGE lines each.
 
 FALLBACK SAFETY
 ───────────────
@@ -30,12 +41,14 @@ KNOWN LIMITATIONS (documented, not hidden)
 
 Pipeline position:
     [PDF file] → parse_pdf() → ParsedDocument → normalization → chunking
+    [.md file] → parse_md()  → ParsedDocument → normalization → chunking
 """
 
 from __future__ import annotations
 
 import hashlib
 import os
+import re
 from pathlib import Path
 from typing import List, Optional, Tuple
 
@@ -57,8 +70,10 @@ from src.ingestion.models import (
     ParsedDocument,
     ParsedPage,
     TextBlock,
+    BLOCK_TYPE_HEADING,
     BLOCK_TYPE_PARAGRAPH,
     BLOCK_TYPE_TABLE,
+    BLOCK_TYPE_LIST,
     BLOCK_TYPE_UNKNOWN,
 )
 from src.ingestion.normalization import normalize_pages
@@ -353,3 +368,285 @@ def _infer_title(filename: str) -> str:
     """Best-effort title from filename: remove extension, replace underscores/hyphens."""
     name = Path(filename).stem
     return name.replace("_", " ").replace("-", " ")
+
+
+# ── Markdown parser ───────────────────────────────────────────────────────────
+
+# How many non-blank lines to group into one logical "page".
+# Markdown has no page breaks; we simulate them so the rest of the pipeline
+# (which expects page-numbered chunks) works unchanged.
+MARKDOWN_LINES_PER_PAGE = 60
+
+
+def parse_md(
+    file_path: str | Path,
+    strip_headers_footers: bool = True,
+) -> ParsedDocument:
+    """
+    Parse a Markdown (.md) file into the same ParsedDocument structure as parse_pdf().
+
+    WHY parse markdown natively instead of converting to PDF first?
+    ───────────────────────────────────────────────────────────────
+    Markdown carries its structure explicitly in the syntax:
+      • '# Heading'  → heading (depth 1)   — high confidence
+      • '## Sub'     → heading (depth 2)   — high confidence
+      • '| col |'    → table row           — high confidence
+      • '- item'     → list item           — high confidence
+    Converting to PDF and back would LOSE this information.
+    Parsing the .md directly gives us near-perfect structure detection.
+
+    Page simulation:
+    ───────────────
+    Markdown has no physical pages.  We group MARKDOWN_LINES_PER_PAGE
+    non-blank lines into one virtual "page" so page_start/page_end
+    metadata on chunks remains meaningful for citation.
+    """
+    file_path = Path(file_path)
+    if not file_path.exists():
+        raise FileNotFoundError(f"[md_parser] File not found: {file_path}")
+    if file_path.suffix.lower() not in (".md", ".markdown"):
+        raise ValueError(f"[md_parser] Expected .md file, got: {file_path.suffix}")
+
+    doc_id   = _make_document_id(file_path)
+    filename = file_path.name
+    print(f"[md_parser] Parsing: {filename}")
+
+    raw_content = file_path.read_text(encoding="utf-8", errors="replace")
+    lines = raw_content.splitlines()
+
+    # ── Split into virtual pages ──────────────────────────────────────────────
+    # Group lines into page-sized buckets by counting non-blank lines.
+    pages_lines: List[List[str]] = []
+    current_page: List[str] = []
+    non_blank_count = 0
+
+    for line in lines:
+        current_page.append(line)
+        if line.strip():
+            non_blank_count += 1
+        if non_blank_count >= MARKDOWN_LINES_PER_PAGE:
+            pages_lines.append(current_page)
+            current_page = []
+            non_blank_count = 0
+
+    if current_page:
+        pages_lines.append(current_page)
+
+    if not pages_lines:
+        print(f"  [md_parser] WARNING: empty file {filename}")
+        return ParsedDocument(
+            document_id=doc_id,
+            source_filename=filename,
+            title=_infer_title(filename),
+        )
+
+    print(f"  [md_parser] Total virtual pages: {len(pages_lines)}")
+
+    # ── Build ParsedPage objects from each page bucket ────────────────────────
+    parsed_pages: List[ParsedPage] = []
+    doc_title = ""
+
+    for page_idx, page_lines in enumerate(pages_lines):
+        page_num  = page_idx + 1
+        page_text = "\n".join(page_lines)
+
+        blocks = _detect_md_blocks(page_lines, page_num)
+
+        # Infer document title from the first H1 heading in the document
+        if not doc_title and page_idx == 0:
+            for block in blocks:
+                if block.block_type == BLOCK_TYPE_HEADING and block.confidence >= 0.90:
+                    doc_title = block.text.strip()
+                    break
+
+        parsed_pages.append(ParsedPage(
+            page_number=page_num,
+            document_id=doc_id,
+            source_filename=filename,
+            raw_text=page_text,
+            normalized_text=page_text,   # MD needs no de-hyphenation normalization
+            blocks=blocks,
+        ))
+
+    title = doc_title or _infer_title(filename)
+    print(f"  [md_parser] Parsed: {len(parsed_pages)} virtual pages, title='{title}'")
+
+    return ParsedDocument(
+        document_id=doc_id,
+        source_filename=filename,
+        pages=parsed_pages,
+        title=title,
+    )
+
+
+def _detect_md_blocks(lines: List[str], page_num: int) -> List[TextBlock]:
+    """
+    Convert Markdown lines into TextBlock objects using syntax-driven rules.
+
+    Accuracy note: Markdown headings (#), tables (|), and lists (- / * / 1.)
+    are unambiguous — confidence scores are high.  Plain paragraphs default
+    to PARAGRAPH with confidence 0.80.
+    """
+    blocks: List[TextBlock] = []
+
+    # We collect consecutive lines into the same block when they form a
+    # coherent unit (e.g. a paragraph or a table).
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        stripped = line.strip()
+
+        # ── Skip blank lines ──────────────────────────────────────────────────
+        if not stripped:
+            i += 1
+            continue
+
+        # ── Markdown heading: starts with one or more '#' ─────────────────────
+        heading_match = re.match(r"^(#{1,6})\s+(.*)", stripped)
+        if heading_match:
+            level    = len(heading_match.group(1))   # 1=H1, 2=H2, …
+            text     = heading_match.group(2).strip()
+            # H1 → 0.98, H2 → 0.95, H3 → 0.90, deeper → 0.85
+            confidence = max(0.85, 0.98 - (level - 1) * 0.03)
+            blocks.append(TextBlock(
+                block_type=BLOCK_TYPE_HEADING,
+                text=text,
+                raw_text=stripped,
+                page_number=page_num,
+                confidence=confidence,
+            ))
+            i += 1
+            continue
+
+        # ── Markdown table: line contains '|' and at least 2 cells ───────────
+        if stripped.startswith("|") or (stripped.count("|") >= 2):
+            # Collect all consecutive table lines
+            table_lines = []
+            while i < len(lines):
+                tline = lines[i].strip()
+                if tline.startswith("|") or (tline.count("|") >= 2):
+                    # Skip the separator row (---) but keep others
+                    if not re.match(r"^\|[\s\-\|:]+\|$", tline):
+                        table_lines.append(tline)
+                    i += 1
+                elif not tline:
+                    i += 1
+                    break
+                else:
+                    break
+
+            if table_lines:
+                table_text = "\n".join(table_lines)
+                blocks.append(TextBlock(
+                    block_type=BLOCK_TYPE_TABLE,
+                    text=table_text,
+                    raw_text=table_text,
+                    page_number=page_num,
+                    confidence=0.95,
+                ))
+            continue
+
+        # ── Markdown list: starts with -, *, +, or numbered (1.) ─────────────
+        list_match = re.match(r"^([-*+]|\d+[.\)])\s+", stripped)
+        if list_match:
+            list_lines = []
+            while i < len(lines):
+                lline = lines[i].strip()
+                # Continuation: same bullet style, indented, or blank between items
+                if re.match(r"^([-*+]|\d+[.\)])\s+", lline) or \
+                   (lline and lline[0] in (" ", "\t")):
+                    list_lines.append(lline)
+                    i += 1
+                elif not lline:
+                    # One blank line is allowed inside a list
+                    if i + 1 < len(lines) and re.match(
+                        r"^([-*+]|\d+[.\)])\s+", lines[i + 1].strip()
+                    ):
+                        list_lines.append("")
+                        i += 1
+                    else:
+                        break
+                else:
+                    break
+
+            if list_lines:
+                list_text = "\n".join(list_lines)
+                blocks.append(TextBlock(
+                    block_type=BLOCK_TYPE_LIST,
+                    text=list_text,
+                    raw_text=list_text,
+                    page_number=page_num,
+                    confidence=0.92,
+                ))
+            continue
+
+        # ── Fenced code block: ``` or ~~~ ─────────────────────────────────────
+        if stripped.startswith("```") or stripped.startswith("~~~"):
+            fence = stripped[:3]
+            code_lines = [stripped]
+            i += 1
+            while i < len(lines):
+                code_lines.append(lines[i].strip())
+                if lines[i].strip().startswith(fence):
+                    i += 1
+                    break
+                i += 1
+            code_text = "\n".join(code_lines)
+            blocks.append(TextBlock(
+                block_type=BLOCK_TYPE_PARAGRAPH,
+                text=code_text,
+                raw_text=code_text,
+                page_number=page_num,
+                confidence=0.80,
+            ))
+            continue
+
+        # ── Plain paragraph: collect until blank line or structural marker ────
+        para_lines = []
+        while i < len(lines):
+            pline = lines[i]
+            pstripped = pline.strip()
+            if not pstripped:
+                i += 1
+                break
+            # Stop if we hit a structural marker on a new line
+            if re.match(r"^#{1,6}\s+", pstripped) or \
+               pstripped.startswith("|") or \
+               re.match(r"^([-*+]|\d+[.\)])\s+", pstripped) or \
+               pstripped.startswith("```") or pstripped.startswith("~~~"):
+                break
+            # Strip inline Markdown formatting for cleaner chunk text
+            clean = re.sub(r"\*\*(.+?)\*\*", r"\1", pstripped)   # **bold**
+            clean = re.sub(r"\*(.+?)\*",     r"\1", clean)        # *italic*
+            clean = re.sub(r"`(.+?)`",        r"\1", clean)        # `code`
+            clean = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", clean)     # [link](url)
+            para_lines.append(clean)
+            i += 1
+
+        if para_lines:
+            para_text = " ".join(para_lines)
+            blocks.append(TextBlock(
+                block_type=BLOCK_TYPE_PARAGRAPH,
+                text=para_text,
+                raw_text="\n".join(para_lines),
+                page_number=page_num,
+                confidence=0.80,
+            ))
+
+    return blocks
+
+
+def parse_document(
+    file_path: str | Path,
+    strip_headers_footers: bool = True,
+) -> ParsedDocument:
+    """
+    Dispatcher: routes to parse_pdf() or parse_md() based on file extension.
+
+    Use this in scripts instead of calling parse_pdf() directly so that
+    both PDF and Markdown files are handled transparently.
+    """
+    path = Path(file_path)
+    if path.suffix.lower() in (".md", ".markdown"):
+        return parse_md(path, strip_headers_footers=strip_headers_footers)
+    return parse_pdf(path, strip_headers_footers=strip_headers_footers)

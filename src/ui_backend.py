@@ -37,6 +37,7 @@ from __future__ import annotations
 
 import os
 import time
+import traceback
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -238,6 +239,7 @@ def _run_faiss_query(
 
         hybrid_result: HybridSearchResult = retriever.search(query, filters=filters)
     except Exception as exc:
+        traceback.print_exc()
         return _error_result(query, mode, f"Retrieval error: {exc}")
 
     # Map RetrievalResult objects to generator dict format
@@ -259,6 +261,7 @@ def _run_faiss_query(
     try:
         generation = answer_query(query, retrieved_chunks)
     except Exception as exc:
+        traceback.print_exc()
         return _error_result(query, mode, f"Generation error: {exc}")
 
     return {
@@ -293,6 +296,7 @@ def _run_pg_query(
             embedding_ms = pg_retriever.last_embedding_ms
             search_ms = pg_retriever.last_search_ms
     except Exception as exc:
+        traceback.print_exc()
         return _error_result(query, mode, f"PostgreSQL retrieval error: {exc}")
 
     retrieved_chunks = _map_results_to_chunks(results)
@@ -315,6 +319,7 @@ def _run_pg_query(
     try:
         generation = answer_query(query, retrieved_chunks)
     except Exception as exc:
+        traceback.print_exc()
         return _error_result(query, mode, f"Generation error: {exc}")
 
     return {
@@ -373,6 +378,7 @@ def _run_graph_query(
         graph = ResearchGraph(config=config, db_session=db_session)
         state = graph.run(query)
     except Exception as exc:
+        traceback.print_exc()
         return _error_result(query, RESEARCH_AGENT, f"Research graph execution error: {exc}")
     finally:
         if db_session is not None:

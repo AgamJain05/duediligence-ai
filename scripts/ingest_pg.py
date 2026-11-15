@@ -1,12 +1,12 @@
 """
 scripts/ingest_pg.py  ─  Phase 4 PostgreSQL ingestion pipeline
 ═══════════════════════════════════════════════════════════════════
-Ingests a PDF document into the PostgreSQL + pgvector knowledge base.
+Ingests a PDF or Markdown (.md) document into the PostgreSQL + pgvector knowledge base.
 
 PIPELINE FLOW
 ──────────────
-PDF file
-  ↓ Phase 2 parse (pdfplumber + structure detection)
+PDF / Markdown (.md) file
+  ↓ Phase 2 parse (pdfplumber / Markdown parser + structure detection)
   ↓ identify/create company
   ↓ identify/create document (title + type)
   ↓ compute file checksum (SHA-256)
@@ -50,18 +50,17 @@ Usage:
         --effective-date 2024-01-01 \\
         --published-date 2024-03-15
 
-    # Ingest Phase3+ corpus as v2 (current)
+    # Ingest a Markdown document (--file, --md, or --pdf all accepted)
     python scripts/ingest_pg.py \\
-        --pdf data/raw/OrionVault_RAG_Phase3plus_Benchmark_Corpus.pdf \\
-        --company "OrionVault Systems" \\
+        --file data/raw/nexacore_annual_report_fy2025.md \\
+        --company "NexaCore Technologies" \\
         --document-type annual_review \\
-        --version-label v2 \\
-        --effective-date 2026-01-01 \\
-        --published-date 2026-03-01 \\
+        --version-label FY2025 \\
+        --effective-date 2026-01-25 \\
         --is-current
 
     # Dry run (no DB writes)
-    python scripts/ingest_pg.py --pdf data/raw/... --dry-run
+    python scripts/ingest_pg.py --file data/raw/... --dry-run
 """
 
 from __future__ import annotations
@@ -87,7 +86,7 @@ from dotenv import load_dotenv
 load_dotenv(PROJECT_ROOT / ".env")
 
 # ── Phase 2 imports ───────────────────────────────────────────────────────────
-from src.ingestion.pdf_parser  import parse_pdf
+from src.ingestion.pdf_parser  import parse_document
 from src.ingestion.chunking    import build_structured_chunks
 from src.ingestion.validation  import validate_chunks, print_validation_summary
 
@@ -114,18 +113,18 @@ import numpy as np
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Phase 4: Ingest a PDF into PostgreSQL + pgvector knowledge base.",
+        description="Phase 4: Ingest a PDF or Markdown (.md) document into PostgreSQL + pgvector knowledge base.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__.split("Usage:")[1] if "Usage:" in __doc__ else "",
     )
-    parser.add_argument("--pdf", type=Path, required=True,
-                        help="Path to the PDF file to ingest")
+    parser.add_argument("--file", "--pdf", "--md", dest="file_path", type=Path, required=True,
+                        help="Path to the PDF or Markdown (.md) file to ingest")
     parser.add_argument("--company", type=str, default="OrionVault Systems",
                         help="Company name (default: OrionVault Systems)")
     parser.add_argument("--document-type", type=str, default="annual_review",
                         choices=["annual_review", "risk_memo", "earnings_call",
                                  "technical_brief", "policy", "incident_report",
-                                 "case_study", "benchmark_corpus"],
+                                 "case_study", "benchmark_corpus", "industry_report"],
                         help="Document type (default: annual_review)")
     parser.add_argument("--title", type=str, default=None,
                         help="Document title (default: derived from filename)")
@@ -154,7 +153,7 @@ def main() -> None:
 
     print(f"\n{bar}")
     print("  DueDiligence-AI  |  Phase 4 — PostgreSQL Ingestion Pipeline")
-    print(f"  PDF     : {args.pdf.name}")
+    print(f"  File    : {args.file_path.name}")
     print(f"  Company : {args.company}")
     print(f"  Type    : {args.document_type}")
     print(f"  Version : {args.version_label}")
@@ -164,9 +163,16 @@ def main() -> None:
 
     t_start = time.perf_counter()
 
-    # ── Step 0: Validate PDF exists ───────────────────────────────────────────
-    if not args.pdf.exists():
-        print(f"\n[ERROR] PDF not found: {args.pdf}")
+    # ── Step 0: Validate input file exists & has supported extension ──────────
+    supported_exts = {".pdf", ".md", ".markdown"}
+    if not args.file_path.exists():
+        print(f"\n[ERROR] File not found: {args.file_path}")
+        sys.exit(1)
+    if args.file_path.suffix.lower() not in supported_exts:
+        print(
+            f"\n[ERROR] Unsupported file type '{args.file_path.suffix}'. "
+            "Expected .pdf, .md, or .markdown"
+        )
         sys.exit(1)
 
     # ── Step 1: Database connectivity check ───────────────────────────────────
@@ -184,16 +190,16 @@ def main() -> None:
 
     # ── Step 2: Compute checksum ──────────────────────────────────────────────
     print(f"\n[STEP 2/8]  Computing file checksum...")
-    checksum = compute_file_checksum(args.pdf)
+    checksum = compute_file_checksum(args.file_path)
     print(f"  [OK] SHA-256: {checksum[:16]}...{checksum[-8:]}")
 
-    # ── Step 3: Parse PDF ─────────────────────────────────────────────────────
-    print(f"\n[STEP 3/8]  Parsing PDF with Phase 2 structure-aware parser...")
-    doc = parse_pdf(args.pdf)
+    # ── Step 3: Parse document (PDF or Markdown) ──────────────────────────────
+    print(f"\n[STEP 3/8]  Parsing {args.file_path.suffix.lower()} with Phase 2 structure-aware parser...")
+    doc = parse_document(args.file_path)
     print(f"  [OK] {doc.total_pages} pages parsed. Title: '{doc.title}'")
 
     # Determine document title
-    title = args.title or doc.title or args.pdf.stem
+    title = args.title or doc.title or args.file_path.stem
 
     # ── Step 4: Build structured chunks ──────────────────────────────────────
     print(f"\n[STEP 4/8]  Building structure-aware chunks (target={args.chunk_size} tokens)...")
@@ -258,7 +264,7 @@ def main() -> None:
             # Record the skipped run
             _record_ingestion_run(
                 db=db,
-                pdf_file=str(args.pdf),
+                pdf_file=str(args.file_path),
                 strategy="structure_aware_pg",
                 chunks_created=0,
                 chunks_skipped=len(chunk_dicts),
@@ -272,8 +278,8 @@ def main() -> None:
         # 6d. Create source record
         source = get_or_create_source(
             db,
-            source_name=args.pdf.name,
-            source_uri=str(args.pdf.resolve()),
+            source_name=args.file_path.name,
+            source_uri=str(args.file_path.resolve()),
             source_type="local_file",
             checksum=checksum,
         )
@@ -287,11 +293,11 @@ def main() -> None:
             db=db,
             document_id=document.id,
             version_label=args.version_label,
-            source_filename=args.pdf.name,
+            source_filename=args.file_path.name,
             checksum=checksum,
             effective_date=eff_date,
             published_date=pub_date,
-            source_uri=str(args.pdf.resolve()),
+            source_uri=str(args.file_path.resolve()),
             is_current=args.is_current,
             source_id=source.id,
         )
@@ -330,7 +336,7 @@ def main() -> None:
         status = "new_version" if args.version_label != "v1" else "success"
         _record_ingestion_run(
             db=db,
-            pdf_file=str(args.pdf),
+            pdf_file=str(args.file_path),
             strategy="structure_aware_pg",
             chunks_created=created,
             chunks_skipped=skipped,
@@ -343,7 +349,7 @@ def main() -> None:
     duration = time.perf_counter() - t_start
     print(f"\n{bar}")
     print("  Ingestion complete!")
-    print(f"  PDF           : {args.pdf.name}")
+    print(f"  File          : {args.file_path.name}")
     print(f"  Company       : {args.company}")
     print(f"  Document type : {args.document_type}")
     print(f"  Version       : {args.version_label} (is_current={args.is_current})")

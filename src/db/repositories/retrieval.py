@@ -393,7 +393,10 @@ class PostgresRetriever:
             rows = self._db.execute(text(sql_str), params).fetchall()
         finally:
             if mode == POSTGRES_EXACT:
-                self._db.execute(text("SET LOCAL enable_indexscan = on"))
+                try:
+                    self._db.execute(text("SET LOCAL enable_indexscan = on"))
+                except Exception:
+                    pass
 
         self.last_search_ms = (time.perf_counter() - t1) * 1000
 
@@ -496,13 +499,17 @@ class PostgresRetriever:
 
         params = {"query_vec": vec_str, "top_k": top_k, **filter_params}
 
-        if mode == POSTGRES_EXACT:
-            self._db.execute(text("SET LOCAL enable_indexscan = off"))
+        try:
+            if mode == POSTGRES_EXACT:
+                self._db.execute(text("SET LOCAL enable_indexscan = off"))
 
-        rows = self._db.execute(text(explain_sql), params).fetchall()
-
-        if mode == POSTGRES_EXACT:
-            self._db.execute(text("SET LOCAL enable_indexscan = on"))
+            rows = self._db.execute(text(explain_sql), params).fetchall()
+        finally:
+            if mode == POSTGRES_EXACT:
+                try:
+                    self._db.execute(text("SET LOCAL enable_indexscan = on"))
+                except Exception:
+                    pass
 
         return "\n".join(str(r[0]) for r in rows)
 

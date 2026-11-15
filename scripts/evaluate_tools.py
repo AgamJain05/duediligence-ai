@@ -19,6 +19,9 @@ import json
 import sys
 from decimal import Decimal
 from pathlib import Path
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 from typing import Any, Dict, List, Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -39,7 +42,7 @@ def main():
     args = parser.parse_args()
 
     # Load questions
-    with open(QUESTIONS_FILE) as f:
+    with open(QUESTIONS_FILE, "r", encoding="utf-8") as f:
         questions = json.load(f)
 
     # Setup tools

@@ -96,7 +96,21 @@ def _get_reranker(model_name: str):
     global _reranker_model, _loaded_model_name
 
     if _reranker_model is None or _loaded_model_name != model_name:
-        from sentence_transformers import CrossEncoder  # lazy import
+        try:
+            from sentence_transformers import CrossEncoder  # lazy import
+        except TypeError as exc:
+            if "not subscriptable" in str(exc):
+                from src.embeddings import _find_broken_dist_infos
+
+                broken = _find_broken_dist_infos()
+                if broken:
+                    paths = ", ".join(str(p) for p in broken)
+                    raise RuntimeError(
+                        "Failed to import sentence_transformers due to incomplete "
+                        f"package metadata directory missing METADATA: {paths}. "
+                        "Remove the orphaned .dist-info directory to fix this."
+                    ) from exc
+            raise
         print(f"[Reranker] Loading cross-encoder model '{model_name}'...")
         _reranker_model   = CrossEncoder(model_name)
         _loaded_model_name = model_name

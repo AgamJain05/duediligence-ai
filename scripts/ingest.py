@@ -193,7 +193,7 @@ def _run_structure_aware_strategy(args: argparse.Namespace) -> None:
     """Phase 2 pipeline: parse → normalize → detect → chunk → validate → embed → index."""
 
     try:
-        from src.ingestion.pdf_parser  import parse_pdf
+        from src.ingestion.pdf_parser  import parse_document
         from src.ingestion.chunking    import build_structured_chunks
         from src.ingestion.validation  import validate_chunks, print_validation_summary
     except ImportError as exc:
@@ -204,20 +204,23 @@ def _run_structure_aware_strategy(args: argparse.Namespace) -> None:
         sys.exit(1)
 
     # ── Step 1: Parse PDFs ─────────────────────────────────────────────────────
-    print(f"\n[STEP 1/6]  Parsing PDFs from: {args.data_dir}")
+    print(f"\n[STEP 1/6]  Parsing documents from: {args.data_dir}")
 
     pdf_files = sorted(args.data_dir.glob("*.pdf"))
-    if not pdf_files:
-        print(f"[ERROR] No PDF files found in {args.data_dir}")
+    md_files  = sorted(list(args.data_dir.glob("*.md")) + list(args.data_dir.glob("*.markdown")))
+    all_doc_files = pdf_files + md_files
+
+    if not all_doc_files:
+        print(f"[ERROR] No PDF or Markdown files found in {args.data_dir}")
         sys.exit(1)
 
-    print(f"  Found {len(pdf_files)} PDF file(s).")
+    print(f"  Found {len(pdf_files)} PDF file(s) and {len(md_files)} Markdown file(s).")
 
     all_chunks_raw = []
     total_pages    = 0
 
-    for pdf_path in pdf_files:
-        doc = parse_pdf(pdf_path)
+    for doc_path in sorted(all_doc_files):
+        doc = parse_document(doc_path)
         total_pages += doc.total_pages
 
         # ── Step 2: Structure-aware chunking ──────────────────────────────────
@@ -262,7 +265,7 @@ def _run_structure_aware_strategy(args: argparse.Namespace) -> None:
         json.dump(chunk_dicts, fh, ensure_ascii=False, indent=2)
     print(f"  [OK] {len(chunk_dicts)} chunks saved to {chunks_path}")
 
-    _print_summary("structure_aware", len(pdf_files), total_pages, chunk_dicts, index)
+    _print_summary("structure_aware", len(all_doc_files), total_pages, chunk_dicts, index)
 
 
 def _print_summary(strategy, n_docs, n_pages, chunks, index) -> None:
@@ -279,7 +282,7 @@ def _print_summary(strategy, n_docs, n_pages, chunks, index) -> None:
         print("  To use Phase 2: python scripts/ingest.py --strategy structure_aware")
         print("  To compare    : python scripts/compare_chunking.py")
     else:
-        print("  Inspect structure : python scripts/inspect_document.py <pdf>")
+        print("  Inspect structure : python scripts/inspect_document.py <file.pdf|file.md>")
         print("  Inspect chunks    : python scripts/inspect_chunks.py --strategy structure_aware")
         print("  Compare strategies: python scripts/compare_chunking.py")
     print(bar + "\n")

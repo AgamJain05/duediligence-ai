@@ -24,7 +24,7 @@ SEED_FILE = Path(__file__).resolve().parent.parent.parent / "data" / "financial"
 def load_seed(path: Path = SEED_FILE) -> Dict:
     if not path.exists():
         raise FileNotFoundError(f"Seed file not found: {path}")
-    with open(path) as f:
+    with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f) or {}
 
 
